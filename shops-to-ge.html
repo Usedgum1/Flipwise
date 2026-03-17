@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preferences - Flipwise</title>
+    <title>Shops to GE - Flipwise</title>
     <script>
         (function() {
             try {
@@ -22,14 +22,9 @@
     <link rel="stylesheet" href="css/flipwise-pages.css">
 </head>
 <body>
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <div class="hamburger"><span></span><span></span><span></span></div>
     </button>
-
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="dashboard">
@@ -106,7 +101,7 @@
                     </svg>
                     Gem Cutting
                 </a>
-                <a href="shops-to-ge.html" class="nav-item">
+                <a href="shops-to-ge.html" class="nav-item active">
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M3 9l1-5h16l1 5"></path>
                         <path d="M5 9v11h14V9"></path>
@@ -153,65 +148,164 @@
         </aside>
 
         <main class="main-content">
-            <div class="page-header">
-                <h1>Preferences</h1>
-                <p>Customize how the app looks and behaves</p>
-            </div>
+            <p class="page-intro text-secondary">Buy items from shops at a fixed price, then sell on the GE. GE Value uses the higher of buy/sell, minus tax. Profit shown per item and per GE limit.</p>
 
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Display</h3>
-                    <p class="card-description">Theme palette and save options</p>
-                </div>
-
-                <div class="theme-palette-group">
-                    <div class="toggle-info">
-                        <div class="toggle-title">Theme Palette</div>
-                        <div class="toggle-description">Choose the visual identity for Flipwise. Applies across all pages.</div>
+            <div class="content-grid content-grid--full">
+                <div class="card decanting-card">
+                    <div class="decanting-table-scroll">
+                        <table class="market-table">
+                            <thead>
+                                <tr>
+                                    <th class="market-table__th-item">Shop</th>
+                                    <th class="market-table__th-item">Item</th>
+                                    <th class="market-table__th-num text-right">Shop Cost</th>
+                                    <th class="market-table__th-num text-right">GE Value</th>
+                                    <th class="market-table__th-num text-right">Profit</th>
+                                    <th class="market-table__th-num text-right">GE Limit</th>
+                                    <th class="market-table__th-num text-right">Limit Profit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="shopsToGeTableBody">
+                                <tr><td colspan="7" class="text-muted">Loading shops to GE…</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="theme-palette-grid">
-                        <button type="button" class="theme-option" data-theme-option="copper" aria-pressed="false">
-                            <span class="theme-option__swatch">
-                                <span class="theme-option__tone" style="background: linear-gradient(135deg, #1c1c1e, #2c2c2e);"></span>
-                                <span class="theme-option__tone" style="background: linear-gradient(135deg, #b87333, #d4945a);"></span>
-                            </span>
-                            <span class="theme-option__name">Copper</span>
-                            <span class="theme-option__meta">Classic Flipwise bronze</span>
-                        </button>
-                        <button type="button" class="theme-option" data-theme-option="forest" aria-pressed="false">
-                            <span class="theme-option__swatch">
-                                <span class="theme-option__tone" style="background: linear-gradient(135deg, #161d18, #243129);"></span>
-                                <span class="theme-option__tone" style="background: linear-gradient(135deg, #6d9368, #9dc498);"></span>
-                            </span>
-                            <span class="theme-option__name">Forest</span>
-                            <span class="theme-option__meta">Muted green trading desk</span>
-                        </button>
-                        <button type="button" class="theme-option" data-theme-option="ocean" aria-pressed="false">
-                            <span class="theme-option__swatch">
-                                <span class="theme-option__tone" style="background: linear-gradient(135deg, #131a22, #202c3a);"></span>
-                                <span class="theme-option__tone" style="background: linear-gradient(135deg, #3f79b8, #78addf);"></span>
-                            </span>
-                            <span class="theme-option__name">Ocean</span>
-                            <span class="theme-option__meta">Cool blue market terminal</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn primary" id="savePreferencesBtn" type="button">Save Preferences</button>
-                    <button class="btn" id="themeResetButton" type="button">Reset to Default</button>
                 </div>
             </div>
 
-            <footer class="copyright">
-                Copyright &copy; 2026 Flipwise by MinMax Technology
-            </footer>
+            <footer class="copyright">Copyright &copy; 2026 Flipwise by MinMax Technology</footer>
         </main>
     </div>
 
     <script src="js/flipwise-data.js"></script>
     <script src="js/flipwise-api.js"></script>
     <script src="js/sidebar-clock.js"></script>
+    <script src="js/flipwise-sounds.js"></script>
+    <script src="js/flipwise-alerts.js"></script>
+    <script>
+      (function() {
+        var REFRESH_RATE_MS = 15000;
+        var AUTO_REFRESH_KEY = 'flipwise-auto-refresh';
+        var refreshBtn = document.getElementById('refresh-btn');
+        var autoCheckbox = document.getElementById('auto-refresh-checkbox');
+        var autoRefreshInterval = null;
+
+        var WIKI_ICON_BASE = 'https://oldschool.runescape.wiki/images/';
+        function escapeHtml(s) {
+          if (s == null) return '';
+          var div = document.createElement('div');
+          div.textContent = s;
+          return div.innerHTML;
+        }
+        function itemIconHtml(icon, fallbackLetter) {
+          var letter = (fallbackLetter || '').charAt(0) || '?';
+          if (icon) {
+            var filename = String(icon).replace(/ /g, '_');
+            var url = WIKI_ICON_BASE + encodeURIComponent(filename);
+            return '<img src="' + escapeHtml(url) + '" alt="" class="item-icon" loading="lazy" referrerpolicy="no-referrer" data-fallback="' + escapeHtml(letter) + '" onerror="var f=this.getAttribute(\'data-fallback\')||\'?\'; var s=document.createElement(\'span\'); s.className=\'item-icon-fallback\'; s.textContent=f; this.parentNode.replaceChild(s,this);">';
+          }
+          return '<span class="item-icon-fallback">' + escapeHtml(letter) + '</span>';
+        }
+        function fmtGp(n) {
+          if (n == null || n !== n) return '—';
+          return Number(n).toLocaleString();
+        }
+        function fmtProfit(n) {
+          if (n == null || n !== n) return '—';
+          var sign = n >= 0 ? '+' : '';
+          return sign + Number(n).toLocaleString() + ' gp';
+        }
+
+        function fillTable(data) {
+          var tbody = document.getElementById('shopsToGeTableBody');
+          if (!tbody) return;
+          var dataset = (data && data.shopsToGeData) ? data.shopsToGeData : {};
+          var keys = Object.keys(dataset || {});
+          if (!keys.length) {
+            tbody.innerHTML = '<tr><td colspan="7" class="text-muted">No items configured yet.</td></tr>';
+            return;
+          }
+          keys.sort(function(a, b) {
+            var A = dataset[a] || {};
+            var B = dataset[b] || {};
+            var la = A.profitLimit != null ? Number(A.profitLimit) : -Infinity;
+            var lb = B.profitLimit != null ? Number(B.profitLimit) : -Infinity;
+            return lb - la;
+          });
+          tbody.innerHTML = '';
+          keys.forEach(function(k) {
+            var d = dataset[k] || {};
+            var name = d.itemName || k;
+            var profit = d.profitPer != null ? d.profitPer : null;
+            var profitClass = profit > 0 ? 'positive' : profit < 0 ? 'negative' : '';
+            var icon = d.icon || null;
+            var letter = (name || '').charAt(0) || '?';
+            var tr = document.createElement('tr');
+            tr.innerHTML =
+              '<td class="market-table__td-item"><span class="coin-name">' + escapeHtml(d.npc || '—') + '</span></td>' +
+              '<td class="market-table__td-item"><div class="coin-cell"><span class="coin-icon">' + itemIconHtml(icon, letter) + '</span><span class="coin-name">' + escapeHtml(name) + '</span></div></td>' +
+              '<td class="text-right market-table__td-num">' + escapeHtml(fmtGp(d.shopCost)) + '</td>' +
+              '<td class="text-right market-table__td-num">' + escapeHtml(fmtGp(d.geAfterTax)) + '</td>' +
+              '<td class="text-right market-table__td-num change-cell ' + profitClass + '">' + escapeHtml(fmtProfit(d.profitPer)) + '</td>' +
+              '<td class="text-right market-table__td-num">' + (d.geLimit != null ? escapeHtml(fmtGp(d.geLimit)) : '—') + '</td>' +
+              '<td class="text-right market-table__td-num change-cell ' + profitClass + '">' + escapeHtml(fmtProfit(d.profitLimit)) + '</td>';
+            tbody.appendChild(tr);
+          });
+        }
+
+        function doRefresh() {
+          if (refreshBtn) refreshBtn.disabled = true;
+          if (typeof FlipwiseAPI === 'undefined') {
+            var tbody = document.getElementById('shopsToGeTableBody');
+            if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="text-muted">API unavailable.</td></tr>';
+            if (refreshBtn) refreshBtn.disabled = false;
+            return;
+          }
+          FlipwiseAPI.refresh().then(function(data) {
+            var t = Date.now();
+            try {
+              localStorage.setItem('flipwise-last-refresh-ts', String(t));
+              sessionStorage.setItem('flipwise-last-refresh-ts', String(t));
+            } catch (e) {}
+            fillTable(data);
+          }).catch(function() {
+            var tbody = document.getElementById('shopsToGeTableBody');
+            if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="text-muted">Refresh failed.</td></tr>';
+          }).finally(function() {
+            if (refreshBtn) refreshBtn.disabled = false;
+          });
+        }
+
+        function startAutoRefresh() {
+          stopAutoRefresh();
+          if (!autoCheckbox || !autoCheckbox.checked) return;
+          autoRefreshInterval = setInterval(doRefresh, REFRESH_RATE_MS);
+        }
+        function stopAutoRefresh() {
+          if (autoRefreshInterval) {
+            clearInterval(autoRefreshInterval);
+            autoRefreshInterval = null;
+          }
+        }
+
+        if (autoCheckbox) {
+          try {
+            var saved = localStorage.getItem(AUTO_REFRESH_KEY);
+            if (saved !== null) autoCheckbox.checked = saved === 'true';
+          } catch (e) {}
+          autoCheckbox.addEventListener('change', function() {
+            try { localStorage.setItem(AUTO_REFRESH_KEY, autoCheckbox.checked); } catch (e) {}
+            if (autoCheckbox.checked) startAutoRefresh();
+            else stopAutoRefresh();
+          });
+        }
+        if (refreshBtn) refreshBtn.addEventListener('click', doRefresh);
+
+        doRefresh();
+        startAutoRefresh();
+      })();
+    </script>
     <script src="js/flipwise-ui.js"></script>
 </body>
 </html>
+

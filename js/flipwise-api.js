@@ -5,7 +5,8 @@
   'use strict';
 
   var API_BASE = 'https://prices.runescape.wiki/api/v1/osrs';
-  var API_HEADERS = { 'User-Agent': 'Flipwise/1.8 (OSRS flipping tracker; contact via project)' };
+  // Browsers block setting the `User-Agent` header. Keep headers minimal so fetch works everywhere.
+  var API_HEADERS = { 'Accept': 'application/json' };
   var TIMEOUT_MS = 10000;
 
   function get(url) {
@@ -216,10 +217,11 @@
     return out;
   }
 
-  function processMoneyMakers(prices, iconById) {
+  function processMoneyMakers(prices, iconById, buyLimits) {
     var F = window.Flipwise;
     if (!F) return { tiles: [], bestKey: null };
     iconById = iconById || {};
+    buyLimits = buyLimits || {};
     var maxTax = F.MAX_TAX || 5000000;
     var tooltips = F.MONEY_MAKER_TOOLTIPS || {};
     var tiles = [];
@@ -340,12 +342,33 @@
     var brewSell = brewSellRaw - brewTax;
     var brewPer = brewSellRaw ? Math.max(0, brewSell - (F.BANDIT_TRADER_GP || 750)) : null;
     var banditHourly = brewPer != null ? brewPer * banditRate : 0;
-    addTile('bandit', "Bandit's Brews", banditHourly, 'gp/hr', {
+    addTile('bandit', "Buying Bandit Brews", banditHourly, 'gp/hr', {
       ge_sell: brewSellRaw,
       profit_per: brewPer,
       profit_per_hour: brewPer != null ? brewPer * banditRate : null,
       hourly_rate: banditRate,
       ge_sell_icon: iconById[String(F.BANDITS_BREW_ID || 4627)]
+    });
+
+    // --- Lockpicks (fixed 20 gp, sell on GE at higher of buy/sell; profit after 2% sell tax; per GE buy limit) ---
+    var lockpickId = F.LOCKPICK_ID || 1523;
+    var lockpickFixed = F.LOCKPICK_FIXED_GP != null ? F.LOCKPICK_FIXED_GP : 20;
+    var lockpickRate = F.LOCKPICK_HOURLY_RATE != null ? F.LOCKPICK_HOURLY_RATE : 6000;
+    var lockpickD = get(lockpickId);
+    var lockpickGeRaw = Math.max(lockpickD.high || 0, lockpickD.low || 0);
+    var lockpickTax = lockpickGeRaw ? Math.min(Math.floor(lockpickGeRaw * 0.02), maxTax) : 0;
+    var lockpickGeAfterTax = lockpickGeRaw - lockpickTax;
+    var lockpickProfitPer = lockpickGeRaw ? (lockpickGeAfterTax - lockpickFixed) : null;
+    var lockpickHourly = (lockpickProfitPer != null) ? (lockpickProfitPer * lockpickRate) : 0;
+    addTile('lockpicks', 'Buying Lockpicks', lockpickHourly, 'gp/hr', {
+      fixed_gp: lockpickFixed,
+      ge_price: lockpickGeRaw,
+      ge_price_after_tax: lockpickGeAfterTax,
+      tax: lockpickTax,
+      profit_per: lockpickProfitPer,
+      hourly_rate: lockpickRate,
+      profit_per_hour: (lockpickProfitPer != null) ? lockpickProfitPer * lockpickRate : null,
+      ge_buy_icon: iconById[String(lockpickId)]
     });
 
     // --- Soul rune (buy from Wizard 315 gp, sell on GE; profit after 2% sell tax) ---
@@ -393,7 +416,7 @@
     var mithrilGeAfterTax = mithrilGeRaw - mithrilTax;
     var mithrilProfitPer = (mithrilGeRaw && mithrilFixed) ? mithrilGeAfterTax - mithrilFixed : null;
     var mithrilHourly = mithrilProfitPer != null ? mithrilProfitPer * mithrilRate : 0;
-    addTile('mithril_seeds', 'Mithril Seeds', mithrilHourly, 'gp/hr', {
+    addTile('mithril_seeds', 'Buying Mithril Seeds', mithrilHourly, 'gp/hr', {
       seed_icon: iconById[String(mithrilId)],
       fixed_gp: mithrilFixed,
       ge_price: mithrilGeRaw,
@@ -633,6 +656,103 @@
     return out;
   }
 
+  function processGemCutting(prices, iconById) {
+    var F = window.Flipwise;
+    if (!F || !F.GEM_CUTTING_ITEMS) return {};
+    prices = prices || {};
+    iconById = iconById || {};
+    function get(id) {
+      var d = prices[String(id)] || {};
+      return { high: d.high || 0, low: d.low || 0, highTime: d.highTime, lowTime: d.lowTime };
+    }
+    function cheapest(h, l) {
+      if (!h && !l) return null;
+      if (!h) return l;
+      if (!l) return h;
+      return Math.min(h, l);
+    }
+    function highest(h, l) {
+      if (!h && !l) return null;
+      if (!h) return l;
+      if (!l) return h;
+      return Math.max(h, l);
+    }
+    var out = {};
+    for (var i = 0; i < F.GEM_CUTTING_ITEMS.length; i++) {
+      var row = F.GEM_CUTTING_ITEMS[i];
+      if (!row || row.uncut_id == null || row.cut_id == null) continue;
+      var u = get(row.uncut_id);
+      var c = get(row.cut_id);
+      var uncutPrice = cheapest(u.high, u.low);
+      var cutValue = highest(c.high, c.low);
+      var profit = (uncutPrice != null && cutValue != null) ? (cutValue - uncutPrice) : null;
+      var limit = row.ge_limit != null ? Number(row.ge_limit) : null;
+      var limitProfit = (profit != null && limit != null && isFinite(limit)) ? profit * limit : null;
+      out[row.display_name || row.uncut_name || String(row.uncut_id)] = {
+        uncutPrice: uncutPrice,
+        cutValue: cutValue,
+        profit: profit,
+        geLimit: limit,
+        limitProfit: limitProfit,
+        uncut_icon: iconById[String(row.uncut_id)] || null,
+        cut_icon: iconById[String(row.cut_id)] || null,
+        uncut_name: row.uncut_name || null,
+        cut_name: row.cut_name || null,
+        uncut_id: row.uncut_id,
+        cut_id: row.cut_id
+      };
+    }
+    return out;
+  }
+
+  function processShopsToGe(prices, buyLimits, iconById) {
+    var F = window.Flipwise;
+    if (!F || !F.SHOPS_TO_GE_ITEMS) return {};
+    prices = prices || {};
+    buyLimits = buyLimits || {};
+    iconById = iconById || {};
+    var maxTax = F.MAX_TAX || 5000000;
+
+    function get(id) {
+      var d = prices[String(id)] || {};
+      return { high: d.high || 0, low: d.low || 0 };
+    }
+
+    var out = {};
+    for (var i = 0; i < F.SHOPS_TO_GE_ITEMS.length; i++) {
+      var row = F.SHOPS_TO_GE_ITEMS[i];
+      if (!row || row.item_id == null) continue;
+      var id = row.item_id;
+      var shopCost = row.shop_cost != null ? Number(row.shop_cost) : null;
+      var p = get(id);
+      var geRaw = Math.max(p.high || 0, p.low || 0);
+      var tax = geRaw ? Math.min(Math.floor(geRaw * 0.02), maxTax) : 0;
+      var geAfterTax = geRaw ? (geRaw - tax) : null;
+      var profitPer = (geAfterTax != null && shopCost != null) ? (geAfterTax - shopCost) : null;
+      var limit = row.ge_limit_override != null ? Number(row.ge_limit_override) : (buyLimits[id] || null);
+      var profitLimit = (profitPer != null && limit != null) ? profitPer * limit : null;
+
+      var itemName = row.display_name || String(id);
+      var shopName = row.npc || '—';
+      // Use a unique key so multiple shops selling same item don't overwrite each other.
+      var key = shopName + ' | ' + itemName;
+      out[key] = {
+        npc: row.npc || null,
+        itemName: itemName,
+        shopCost: shopCost,
+        gePrice: geRaw || null,
+        geAfterTax: geAfterTax,
+        tax: tax,
+        profitPer: profitPer,
+        geLimit: limit,
+        profitLimit: profitLimit,
+        icon: iconById[String(id)] || null,
+        item_id: id
+      };
+    }
+    return out;
+  }
+
   function refresh() {
     return fetchParallel().then(function(data) {
       var iconById = data.iconById || {};
@@ -641,11 +761,13 @@
       var runesData = processRunes(data.prices, data.buyLimits, iconById);
       var herbloreData = processHerblore(data.prices, data.buyLimits, iconById);
       var scannerData = processScanner(data.prices, data.mapping, iconById);
-      var mm = processMoneyMakers(data.prices, iconById);
+      var mm = processMoneyMakers(data.prices, iconById, data.buyLimits);
       var enc = processEnchanting(data.prices, iconById);
       var out = processOutfitSets(data.prices, iconById);
       var treeSaplingsData = processTreeSaplings(data.prices, data.buyLimits, iconById);
       var decantingData = processDecanting(data.prices, iconById);
+      var gemCuttingData = processGemCutting(data.prices, iconById);
+      var shopsToGeData = processShopsToGe(data.prices, data.buyLimits, iconById);
       return {
         prices: data.prices,
         volumes24h: data.volumes24h,
@@ -664,7 +786,9 @@
         outfitSetTiles: out.tiles,
         outfitSetBestKey: out.bestKey,
         treeSaplingsData: treeSaplingsData,
-        decantingData: decantingData
+        decantingData: decantingData,
+        gemCuttingData: gemCuttingData,
+        shopsToGeData: shopsToGeData
       };
     });
   }

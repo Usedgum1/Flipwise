@@ -50,6 +50,9 @@ Flipwise.MALEDICTION_BULK_PER_HOUR = 20;
 Flipwise.BANDITS_BREW_ID = 4627;
 Flipwise.BANDIT_TRADER_GP = 750;
 Flipwise.BANDIT_HOURLY_RATE = 929;
+Flipwise.LOCKPICK_ID = 1523;
+Flipwise.LOCKPICK_FIXED_GP = 20;
+Flipwise.LOCKPICK_HOURLY_RATE = 6000;
 Flipwise.SOUL_RUNE_ID = 566;
 Flipwise.WIZARD_AKUTHA_50_GP = 308;
 Flipwise.WIZARD_AKUTHA_100_GP = 315;
@@ -248,6 +251,18 @@ Flipwise.OUTFIT_SET_RECIPES = [
       { id: 30753, name: 'Oathplate chest', qty: 1 },
       { id: 30756, name: 'Oathplate legs', qty: 1 }
     ]
+  },
+  {
+    key: 'hueycoatl_hide',
+    title: 'Hueycoatl hide armour set',
+    output_id: 31169,
+    output_name: 'Hueycoatl hide armour set',
+    inputs: [
+      { id: 30076, name: 'Hueycoatl hide body', qty: 1 },
+      { id: 30079, name: 'Hueycoatl hide chaps', qty: 1 },
+      { id: 30073, name: 'Hueycoatl hide coif', qty: 1 },
+      { id: 30082, name: 'Hueycoatl hide vambraces', qty: 1 }
+    ]
   }
 ];
 
@@ -342,6 +357,7 @@ Flipwise.MONEY_MAKER_TOOLTIPS = {
   odium: "Buy 3 shards at low, assemble, sell Odium ward at high. ~20 per hour.",
   malediction: "Buy 3 shards at low, assemble, sell Malediction ward at high. ~20 per hour.",
   bandit: "Buy from Bandit Trader (750 gp), sell on GE. ~929 per hour.",
+  lockpicks: "Buy lockpicks for 20 gp each, sell on GE at the higher of buy/sell price (after tax). Uses GE buy limit.",
   soul_rune: "Buy from Wizard Akutha (50: 308, 100: 315, 150: 338 gp), sell on GE. Profit based on 100-tier. 67k per run.",
   dragonbreath: "10 dragonfruit → 1 bottled. ~450 per hour. Buy dragonfruit low, sell bottled high.",
   mithril_seeds: "Fixed cost 350 gp per seed, sell on GE. ~1945 per hour."
@@ -552,6 +568,74 @@ Flipwise.THIRD_AGE_ITEMS = [
   { id: 10344, name: "3rd age amulet" },
   { id: 12424, name: "3rd age bow" },
   { id: 23342, name: "3rd age druidic staff" }
+];
+
+// Gem Cutting: buy uncut gem, cut, sell cut gem.
+// Calculations:
+// - GE Price (uncut): cheapest of buy/sell = min(low, high)
+// - Cut Value (cut): highest of buy/sell = max(low, high)
+// - Profit/Loss: Cut Value - GE Price
+// - Limit Profit: Profit/Loss * ge_limit
+//
+// Notes:
+// - `display_name` is what we show in the UI (lets you add "(m)" labels).
+// - `uncut_name` / `cut_name` must match OSRS mapping names.
+// - Set `ge_limit` when you provide limits; `null` shows as "—".
+Flipwise.GEM_CUTTING_ITEMS = [
+  { display_name: 'Uncut sapphire', uncut_id: 1623, uncut_name: 'Uncut sapphire', cut_id: 1607, cut_name: 'Sapphire', ge_limit: 10000 },
+  { display_name: 'Uncut emerald', uncut_id: 1621, uncut_name: 'Uncut emerald', cut_id: 1605, cut_name: 'Emerald', ge_limit: 10000 },
+  { display_name: 'Uncut ruby', uncut_id: 1619, uncut_name: 'Uncut ruby', cut_id: 1603, cut_name: 'Ruby', ge_limit: 10000 },
+  { display_name: 'Uncut diamond', uncut_id: 1617, uncut_name: 'Uncut diamond', cut_id: 1601, cut_name: 'Diamond', ge_limit: 10000 },
+  { display_name: 'Uncut dragonstone', uncut_id: 1631, uncut_name: 'Uncut dragonstone', cut_id: 1615, cut_name: 'Dragonstone', ge_limit: 10000 },
+  { display_name: 'Uncut onyx', uncut_id: 6571, uncut_name: 'Uncut onyx', cut_id: 6573, cut_name: 'Onyx', ge_limit: 11000 },
+  { display_name: 'Uncut zenyte', uncut_id: 19496, uncut_name: 'Uncut zenyte', cut_id: 19493, cut_name: 'Zenyte', ge_limit: 10000 },
+  { display_name: 'Uncut opal', uncut_id: 1625, uncut_name: 'Uncut opal', cut_id: 1609, cut_name: 'Opal', ge_limit: 10000 },
+  { display_name: 'Uncut jade', uncut_id: 1627, uncut_name: 'Uncut jade', cut_id: 1611, cut_name: 'Jade', ge_limit: 10000 },
+  { display_name: 'Uncut red topaz', uncut_id: 1629, uncut_name: 'Uncut red topaz', cut_id: 1613, cut_name: 'Red topaz', ge_limit: 10000 }
+];
+
+// Shops → GE: buy at fixed shop cost, sell on GE.
+// - GE Value uses the higher of buy/sell (max(high, low)), minus tax.
+// - Profit per = (GE Value after tax) - shop_cost
+// - Profit (limit) = profit per * GE buy limit (from mapping) unless overridden.
+Flipwise.SHOPS_TO_GE_ITEMS = [
+  // Martin Thwait (shop stock)
+  { npc: 'Martin Thwait', display_name: 'Rope', item_id: 954, shop_cost: 18, ge_limit_override: null },
+  { npc: 'Martin Thwait', display_name: 'Lockpick', item_id: 1523, shop_cost: 20, ge_limit_override: null },
+  { npc: 'Martin Thwait', display_name: 'Chisel', item_id: 1755, shop_cost: 1, ge_limit_override: null },
+  { npc: 'Martin Thwait', display_name: 'Knife', item_id: 946, shop_cost: 6, ge_limit_override: null },
+  // Note: "Stethoscope" was not found in OSRS Wiki price mapping, so it can't be priced here until we have a valid GE-tracked item id/name.
+  { npc: 'Martin Thwait', display_name: 'Bronze knife', item_id: 864, shop_cost: 1, ge_limit_override: null },
+  { npc: 'Martin Thwait', display_name: 'Iron knife', item_id: 863, shop_cost: 3, ge_limit_override: null },
+  { npc: 'Martin Thwait', display_name: 'Steel knife', item_id: 865, shop_cost: 11, ge_limit_override: null },
+  { npc: 'Martin Thwait', display_name: 'Bronze claws', item_id: 3095, shop_cost: 15, ge_limit_override: null },
+  { npc: 'Martin Thwait', display_name: 'Iron claws', item_id: 3096, shop_cost: 50, ge_limit_override: null },
+  { npc: 'Martin Thwait', display_name: 'Steel claws', item_id: 3097, shop_cost: 175, ge_limit_override: null },
+
+  // Elgan's Exceptional Staffs (Prifddinas)
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Battlestaff', item_id: 1391, shop_cost: 7000, ge_limit_override: null },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff', item_id: 1379, shop_cost: 15, ge_limit_override: null },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, ge_limit_override: null },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, ge_limit_override: null },
+
+  // Filamina's Wares (Arceuus)
+  { npc: "Filamina's Wares", display_name: 'Staff', item_id: 1379, shop_cost: 15, ge_limit_override: null },
+  { npc: "Filamina's Wares", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, ge_limit_override: null },
+  { npc: "Filamina's Wares", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Filamina's Wares", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Filamina's Wares", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Filamina's Wares", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, ge_limit_override: null },
+
+  // Sebamo's Sublime Staffs (Auburnvale)
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff', item_id: 1379, shop_cost: 15, ge_limit_override: null },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, ge_limit_override: null },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, ge_limit_override: null }
 ];
 
 window.Flipwise = Flipwise;

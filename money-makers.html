@@ -90,6 +90,21 @@
                     </svg>
                     Decanting
                 </a>
+                <a href="gem-cutting.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l9 7-9 13L3 9l9-7z"/>
+                        <path d="M3 9h18"/>
+                    </svg>
+                    Gem Cutting
+                </a>
+                <a href="shops-to-ge.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l1-5h16l1 5"></path>
+                        <path d="M5 9v11h14V9"></path>
+                        <path d="M9 20v-6h6v6"></path>
+                    </svg>
+                    Shops to GE
+                </a>
             </nav>
             <div class="sidebar-footer">
                 <div class="theme-toggle">
@@ -224,6 +239,17 @@
       html.push('<div class="mm-row mm-winner"><span class="mm-label">Wizard Akutha (100): </span><span class="mm-val">315 gp</span></div>');
       html.push('<div class="mm-row"><span class="mm-label">Wizard Akutha (150): </span><span class="mm-val">338 gp</span></div>');
       html.push(rowWithIcon(b.ge_buy_icon, 'Approx. GE Price: ', fmtNum(b.ge_buy) + ' gp'));
+    } else if (key === 'lockpicks') {
+      html.push(rowWithIcon(b.ge_buy_icon, 'Lockpick Cost: ', fmtNum(b.fixed_gp) + ' gp'));
+      html.push(rowWithIcon(b.ge_buy_icon, 'GE Price: ', fmtNum(b.ge_price) + ' gp'));
+      if (b.ge_price_after_tax != null) {
+        html.push('<div class="mm-row"><span class="mm-label">After tax: </span><span class="mm-val">' + fmtNum(b.ge_price_after_tax) + ' gp</span></div>');
+      }
+      var profitPerStr = (b.profit_per != null) ? ((b.profit_per >= 0 ? '+' : '') + fmtNum(b.profit_per) + ' gp') : '—';
+      html.push('<div class="mm-row"><span class="mm-label">Profit per: </span><span class="mm-val">' + profitPerStr + '</span></div>');
+      var rate = b.hourly_rate != null ? b.hourly_rate : 6000;
+      var perHourStr = (b.profit_per_hour != null) ? ((b.profit_per_hour >= 0 ? '+' : '') + fmtNum(b.profit_per_hour) + ' gp') : '—';
+      html.push('<div class="mm-row' + (b.profit_per_hour != null && b.profit_per_hour >= 0 ? ' mm-winner' : (b.profit_per_hour != null && b.profit_per_hour < 0 ? ' mm-negative' : '')) + '"><span class="mm-label">Per Hour (~' + rate + '): </span><span class="mm-val">' + perHourStr + '</span></div>');
     } else if (key === 'dragonbreath') {
       html.push(rowWithIcon(b.dragonfruit_icon, 'Cost Per: ', fmtNum(b.cost_per) + ' gp'));
       html.push(rowWithIcon(b.dragonfruit_icon, 'Cost Per 10: ', fmtNum(b.cost_per_10) + ' gp'));
