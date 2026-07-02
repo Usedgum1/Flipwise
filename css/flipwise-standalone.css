@@ -1,0 +1,619 @@
+/*
+==========================================================================
+Flipwise - Standalone Site Theme
+Description: Nexus-inspired analytics dashboard treatment for standalone app
+==========================================================================
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg-primary: #0f051a;
+    --bg-secondary: rgba(18, 10, 36, 0.9);
+    --bg-card: rgba(229, 231, 235, 0.04);
+    --bg-card-hover: rgba(229, 231, 235, 0.08);
+    --accent-copper: #00ffff;
+    --accent-copper-light: #ff00ff;
+    --accent-gradient: linear-gradient(135deg, #00ffff 0%, #7c3aed 48%, #f97316 100%);
+    --accent-gradient-hover: linear-gradient(135deg, #67ffff 0%, #9f67ff 48%, #fbbf24 100%);
+    --accent-contrast: #0f051a;
+    --accent-contrast-soft: rgba(15, 5, 26, 0.88);
+    --accent-contrast-muted: rgba(15, 5, 26, 0.72);
+    --accent-contrast-overlay: rgba(15, 5, 26, 0.18);
+    --accent-overlay-soft: rgba(0, 255, 255, 0.12);
+    --accent-overlay-strong: rgba(255, 0, 255, 0.18);
+    --accent-focus-ring: rgba(0, 255, 255, 0.26);
+    --accent-shadow-soft: rgba(0, 255, 255, 0.24);
+    --accent-shadow-medium: rgba(255, 0, 255, 0.24);
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+    --text-muted: #ffffff;
+    --text-inverse: #ffffff;
+    --gain: #22d3a6;
+    --loss: #ff5f7e;
+    --gain-bright: #36f0bf;
+    --gain-strong: #10b981;
+    --loss-bright: #ff8aa0;
+    --loss-strong: #f43f5e;
+    --gain-overlay: rgba(34, 211, 166, 0.14);
+    --loss-overlay: rgba(255, 95, 126, 0.14);
+    --gain-overlay-strong: rgba(16, 185, 129, 0.25);
+    --loss-overlay-strong: rgba(244, 63, 94, 0.25);
+    --status-warning: #fbbf24;
+    --status-warning-bright: #ffd166;
+    --status-warning-soft: #facc15;
+    --status-highlight-bg: rgba(0, 255, 255, 0.08);
+    --sentiment-gradient: linear-gradient(90deg, #ff5f7e, #fbbf24, #22d3a6);
+    --surface-overlay-subtle: rgba(255, 255, 255, 0.025);
+    --surface-overlay-soft: rgba(255, 255, 255, 0.04);
+    --surface-overlay-hover: rgba(255, 255, 255, 0.075);
+    --border: rgba(229, 231, 235, 0.18);
+    --divider-strong: rgba(0, 255, 255, 0.26);
+    --shadow: rgba(0, 0, 0, 0.42);
+    --chart-grid: rgba(0, 255, 255, 0.075);
+    --overlay: rgba(4, 2, 10, 0.72);
+}
+
+html {
+    background: #0f051a;
+}
+
+body {
+    font-family: 'JetBrains Mono', 'Instrument Sans', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    position: relative;
+    background:
+        radial-gradient(circle at 18% 12%, rgba(0, 255, 255, 0.16), transparent 33rem),
+        radial-gradient(circle at 84% 24%, rgba(255, 0, 255, 0.14), transparent 32rem),
+        radial-gradient(circle at 48% 90%, rgba(249, 115, 22, 0.12), transparent 34rem),
+        #0f051a;
+}
+
+body :where(h1, h2, h3, h4, h5, h6, p, a, button, label, span, div, td, th, input, select, textarea, small, strong, em, li) {
+    color: #ffffff;
+    text-shadow: 0 1px 0 #000, 1px 0 0 #000, 0 0 3px #000;
+}
+
+body :where(.positive, .negative, .transaction-amount, .mover-change, .mm-tile-profit, .mm-val, .market-stat-value, .market-stat-change, .change-cell, .trending-change, .balance-change, .coin-change, .stat-change, .pair-change) {
+    color: inherit;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+body::before {
+    z-index: 0;
+    background-image:
+        linear-gradient(rgba(0, 255, 255, 0.052) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.052) 1px, transparent 1px),
+        linear-gradient(rgba(255, 0, 255, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(255, 0, 255, 0.03) 2px, transparent 2px);
+    background-size: 52px 52px;
+    background-position: 0 0, 0 0, 0 0, 0 0;
+    animation: flipwise-grid-drift 28s linear infinite;
+}
+
+body::after {
+    display: none;
+}
+
+@keyframes flipwise-grid-drift {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 52px 52px, 52px 52px; }
+}
+
+.flipwise-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.flipwise-gradient-field,
+.flipwise-matrix,
+.flipwise-data-streams,
+.flipwise-particles {
+    position: absolute;
+    inset: 0;
+}
+
+.flipwise-gradient-field {
+    inset: -35%;
+    background:
+        radial-gradient(circle at 18% 28%, rgba(0, 255, 255, 0.18), transparent 32%),
+        radial-gradient(circle at 78% 70%, rgba(255, 0, 255, 0.16), transparent 34%),
+        radial-gradient(circle at 44% 84%, rgba(124, 58, 237, 0.16), transparent 32%),
+        radial-gradient(circle at 64% 18%, rgba(249, 115, 22, 0.13), transparent 30%);
+    filter: none;
+    opacity: 0.72;
+    animation: none;
+}
+
+.flipwise-matrix {
+    overflow: hidden;
+    opacity: 0.12;
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.flipwise-matrix-column {
+    position: absolute;
+    top: -120vh;
+    color: #00ffff;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.15;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.55);
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    animation: flipwise-matrix-fall linear infinite;
+}
+
+.flipwise-matrix-column:nth-child(3n) {
+    color: #ff00ff;
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+.flipwise-matrix-column:nth-child(5n) {
+    color: #7c3aed;
+    text-shadow: 0 0 5px rgba(124, 58, 237, 0.5);
+}
+
+.flipwise-data-stream {
+    position: absolute;
+    left: -24rem;
+    width: 22rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.85), rgba(255, 0, 255, 0.65), transparent);
+    box-shadow: 0 0 18px rgba(0, 255, 255, 0.46);
+    animation: flipwise-stream-run linear infinite;
+}
+
+.flipwise-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #00ffff;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.82);
+    opacity: 0;
+    animation: flipwise-particle-drift ease-in-out infinite;
+}
+
+.flipwise-particle:nth-child(odd) {
+    background: #ff00ff;
+    box-shadow: 0 0 12px rgba(255, 0, 255, 0.82);
+}
+
+.flipwise-particle:nth-child(4n) {
+    background: #f97316;
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.72);
+}
+
+@keyframes flipwise-gradient-turn {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.12); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes flipwise-matrix-fall {
+    from { transform: translateY(0); }
+    to { transform: translateY(230vh); }
+}
+
+@keyframes flipwise-stream-run {
+    from { translate: 0 0; opacity: 0; }
+    12% { opacity: 0.85; }
+    82% { opacity: 0.85; }
+    to { translate: calc(100vw + 48rem) 0; opacity: 0; }
+}
+
+@keyframes flipwise-particle-drift {
+    0% { transform: translate3d(0, 2rem, 0) scale(0.8); opacity: 0; }
+    18% { opacity: 0.95; }
+    75% { opacity: 0.55; }
+    100% { transform: translate3d(7rem, -11rem, 0) scale(1.18); opacity: 0; }
+}
+
+.dashboard {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(15, 5, 26, 0.02), rgba(15, 5, 26, 0.34));
+}
+
+.main-content {
+    background-color: transparent;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 255, 255, 0.38) rgba(15, 5, 26, 0.5);
+}
+
+.main-content::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.main-content::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(15, 5, 26, 0.48);
+}
+
+.main-content::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(0, 255, 255, 0.4), rgba(255, 0, 255, 0.32));
+    border-radius: 999px;
+    border: 2px solid rgba(15, 5, 26, 0.82);
+}
+
+.sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 255, 255, 0.38) transparent;
+}
+
+.sidebar {
+    background:
+        linear-gradient(180deg, rgba(24, 12, 48, 0.92), rgba(15, 5, 26, 0.94)),
+        rgba(15, 5, 26, 0.92);
+    border-right: 1px solid rgba(0, 255, 255, 0.26);
+    box-shadow: 18px 0 60px rgba(0, 0, 0, 0.35);
+    backdrop-filter: none;
+}
+
+.sidebar::before {
+    content: "FLIPWISE";
+    display: block;
+    margin: 0 22px 18px;
+    padding: 24px 0 14px;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.13);
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-shadow: 0 1px 0 #000, 0 0 10px rgba(0, 255, 255, 0.55);
+}
+
+.sidebar-time,
+.card,
+.stat-card,
+.metric-card,
+.filter-card,
+.scanner-controls,
+.market-card,
+.settings-card,
+.page-card,
+.tool-card,
+.method-card,
+.recipe-card,
+.alert-card {
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.018)),
+        linear-gradient(135deg, rgba(0, 255, 255, 0.04), rgba(255, 0, 255, 0.035)),
+        rgba(15, 5, 26, 0.66);
+    border: 1px solid rgba(229, 231, 235, 0.19);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    backdrop-filter: none;
+}
+
+.sidebar-time {
+    color: #ffffff;
+}
+
+.sidebar-time-label,
+.sidebar-time-sub,
+.sidebar-time-auto {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.sidebar-time-clock {
+    color: #ffffff;
+    text-shadow: 0 1px 0 #000, 0 0 8px rgba(0, 255, 255, 0.28);
+}
+
+.sidebar-time-btn {
+    color: #0f051a;
+}
+
+.mm-tile.primary {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+        linear-gradient(135deg, rgba(0, 255, 255, 0.14), rgba(124, 58, 237, 0.18) 54%, rgba(255, 0, 255, 0.1)),
+        rgba(18, 10, 36, 0.9);
+    border: 1px solid rgba(0, 255, 255, 0.42);
+    box-shadow: 0 20px 58px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.11), 0 0 30px rgba(0, 255, 255, 0.12);
+}
+
+.mm-tile.primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, rgba(0, 255, 255, 0.28), transparent 32%, transparent 68%, rgba(255, 0, 255, 0.2)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 38%);
+    opacity: 0.38;
+}
+
+.mm-tile.primary > * {
+    position: relative;
+    z-index: 1;
+}
+
+.mm-tile.primary .mm-tile-title,
+.mm-tile.primary .mm-row .mm-label,
+.mm-tile.primary .mm-row .mm-val {
+    color: #ffffff;
+}
+
+.mm-tile.primary .mm-divider {
+    border-top-color: rgba(0, 255, 255, 0.34);
+}
+
+.mm-tile.primary .mm-group-divider {
+    border-top-color: rgba(255, 255, 255, 0.18);
+}
+
+.mm-tile .mm-tile-profit.positive,
+.mm-tile.primary .mm-tile-profit.positive {
+    color: var(--gain-strong);
+    text-shadow: 0 1px 0 #000, 1px 0 0 #000, 0 0 6px rgba(16, 185, 129, 0.42);
+}
+
+.mm-tile .mm-tile-profit.negative {
+    color: var(--loss-strong);
+    text-shadow: 0 1px 0 #000, 1px 0 0 #000, 0 0 6px rgba(244, 63, 94, 0.42);
+}
+
+.mm-tile.primary .negative,
+.mm-tile.primary .mm-row.mm-negative .mm-label,
+.mm-tile.primary .mm-row.mm-negative .mm-val,
+.mm-tile.primary .mm-tile-profit.negative {
+    color: #ff174d;
+    text-shadow: 0 1px 0 #000, 1px 0 0 #000, 0 0 6px rgba(255, 23, 77, 0.38);
+}
+
+.mm-tile.primary .mm-tile-profit.negative {
+    -webkit-text-stroke: 0;
+}
+
+.card:hover,
+.stat-card:hover,
+.market-card:hover,
+.tool-card:hover,
+.method-card:hover,
+.recipe-card:hover {
+    border-color: rgba(0, 255, 255, 0.55);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34), 0 0 30px rgba(0, 255, 255, 0.12), 0 0 40px rgba(255, 0, 255, 0.06);
+}
+
+.nav-item {
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.16), rgba(255, 0, 255, 0.12));
+    border-color: rgba(0, 255, 255, 0.32);
+    color: #ffffff;
+    box-shadow: 0 0 24px rgba(0, 255, 255, 0.11);
+}
+
+.nav-icon,
+.card-title,
+.header h1,
+.page-title,
+.section-title {
+    color: #ffffff;
+    text-shadow: 0 1px 0 #000, 1px 0 0 #000, 0 0 3px #000;
+}
+
+.header,
+.page-header {
+    border-bottom: 1px solid rgba(229, 231, 235, 0.12);
+    padding-bottom: 18px;
+}
+
+.header h1,
+.page-title {
+    font-size: clamp(26px, 3vw, 42px);
+    line-height: 1.05;
+}
+
+button,
+.btn,
+.cyber-button,
+.sidebar-time-btn,
+.events-clear-btn,
+.movers-tab,
+.filter-btn,
+.scanner-btn {
+    border-color: rgba(0, 255, 255, 0.24);
+}
+
+.sidebar-time-btn,
+.events-clear-btn,
+.movers-tab.active,
+.filter-btn.active,
+.scanner-btn,
+.primary-btn,
+.chart-tab.active,
+.filter-tab.active,
+.settings-tab.active,
+.toggle-switch.active,
+.action-btn.primary,
+.qr-btn.primary,
+.security-btn.primary {
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035)),
+        linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(124, 58, 237, 0.18) 58%, rgba(255, 0, 255, 0.12)),
+        rgba(18, 10, 36, 0.88);
+    color: #ffffff;
+    border-color: rgba(0, 255, 255, 0.42);
+    box-shadow: 0 0 22px rgba(0, 255, 255, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.sidebar-time-btn:hover,
+.events-clear-btn:hover,
+.movers-tab.active:hover,
+.filter-btn.active:hover,
+.scanner-btn:hover,
+.primary-btn:hover,
+.chart-tab.active:hover,
+.filter-tab.active:hover,
+.settings-tab.active:hover,
+.action-btn.primary:hover,
+.qr-btn.primary:hover,
+.security-btn.primary:hover {
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.045)),
+        linear-gradient(135deg, rgba(0, 255, 255, 0.26), rgba(124, 58, 237, 0.22) 58%, rgba(255, 0, 255, 0.16)),
+        rgba(18, 10, 36, 0.92);
+    box-shadow: 0 0 28px rgba(0, 255, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+input,
+select,
+textarea,
+.header-search {
+    background: rgba(15, 5, 26, 0.68);
+    border-color: rgba(229, 231, 235, 0.18);
+    color: var(--text-primary);
+}
+
+table,
+.market-table,
+.scanner-table {
+    background: rgba(15, 5, 26, 0.35);
+}
+
+.card:has(> .market-table),
+.card:has(.decanting-table-scroll),
+.card:has(> table) {
+    padding: 0;
+    background: transparent;
+    border-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.card:has(> .market-table):hover,
+.card:has(.decanting-table-scroll):hover,
+.card:has(> table):hover {
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.market-table,
+.decanting-table-scroll > table {
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012)),
+        rgba(15, 5, 26, 0.42);
+    border: 1px solid rgba(0, 255, 255, 0.18);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+    backdrop-filter: none;
+}
+
+.decanting-table-scroll {
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+}
+
+.decanting-card .market-table {
+    table-layout: fixed;
+    font-size: 12px;
+}
+
+.decanting-card .market-table th,
+.decanting-card .market-table td {
+    padding: 7px 7px;
+    line-height: 1.2;
+}
+
+.decanting-card .market-table th {
+    font-size: 9px;
+    letter-spacing: 0;
+    white-space: normal;
+}
+
+.decanting-card .market-table th.market-table__th-item,
+.decanting-card .market-table td.market-table__td-item {
+    width: 19%;
+}
+
+.decanting-card .market-table th.market-table__th-num,
+.decanting-card .market-table td.market-table__td-num {
+    min-width: 0;
+    width: 10.125%;
+}
+
+.decanting-card .coin-cell {
+    gap: 6px;
+}
+
+.decanting-card .market-table .coin-cell .coin-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+}
+
+.decanting-card .market-table .coin-name {
+    white-space: normal;
+    line-height: 1.15;
+}
+
+th {
+    color: #ffffff;
+    background: rgba(0, 255, 255, 0.09);
+}
+
+tr:hover,
+.transaction-item:hover,
+.mover-item:hover {
+    background: rgba(0, 255, 255, 0.06);
+}
+
+.copyright {
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .sidebar::before {
+        padding-top: 18px;
+    }
+
+    .main-content {
+        padding-top: 86px;
+    }
+
+    .flipwise-matrix {
+        opacity: 0.1;
+    }
+
+    .flipwise-data-stream {
+        opacity: 0.65;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::before,
+    .flipwise-gradient-field,
+    .flipwise-matrix-column,
+    .flipwise-data-stream,
+    .flipwise-particle {
+        animation: none;
+    }
+
+}
