@@ -115,7 +115,6 @@ body::after {
 }
 
 .flipwise-gradient-field,
-.flipwise-matrix,
 .flipwise-data-streams,
 .flipwise-particles {
     position: absolute;
@@ -132,35 +131,6 @@ body::after {
     filter: none;
     opacity: 0.72;
     animation: none;
-}
-
-.flipwise-matrix {
-    overflow: hidden;
-    opacity: 0.12;
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-
-.flipwise-matrix-column {
-    position: absolute;
-    top: -120vh;
-    color: #00ffff;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    font-size: 13px;
-    line-height: 1.15;
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.55);
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    animation: flipwise-matrix-fall linear infinite;
-}
-
-.flipwise-matrix-column:nth-child(3n) {
-    color: #ff00ff;
-    text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
-}
-
-.flipwise-matrix-column:nth-child(5n) {
-    color: #7c3aed;
-    text-shadow: 0 0 5px rgba(124, 58, 237, 0.5);
 }
 
 .flipwise-data-stream {
@@ -198,11 +168,6 @@ body::after {
     0% { transform: rotate(0deg) scale(1); }
     50% { transform: rotate(180deg) scale(1.12); }
     100% { transform: rotate(360deg) scale(1); }
-}
-
-@keyframes flipwise-matrix-fall {
-    from { transform: translateY(0); }
-    to { transform: translateY(230vh); }
 }
 
 @keyframes flipwise-stream-run {
@@ -598,10 +563,6 @@ tr:hover,
         padding-top: 86px;
     }
 
-    .flipwise-matrix {
-        opacity: 0.1;
-    }
-
     .flipwise-data-stream {
         opacity: 0.65;
     }
@@ -610,7 +571,6 @@ tr:hover,
 @media (prefers-reduced-motion: reduce) {
     body::before,
     .flipwise-gradient-field,
-    .flipwise-matrix-column,
     .flipwise-data-stream,
     .flipwise-particle {
         animation: none;
