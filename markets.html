@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markets - Flipwise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/flipwise-theme.css">
+    <link rel="stylesheet" href="css/flipwise-pages.css">
+    <link rel="stylesheet" href="css/flipwise-standalone.css">
+    <!--
+
+Flipwise markets page
+
+-->
+</head>
+<body>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-time">
+                <div class="sidebar-time-label">Last refreshed</div>
+                <div class="sidebar-time-clock" id="refresh-clock">—</div>
+                <div class="sidebar-time-sub" id="refresh-last">—</div>
+                <div class="sidebar-time-actions">
+                    <button type="button" class="sidebar-time-btn" id="refresh-btn" title="Refresh">Refresh</button>
+                    <label class="sidebar-time-auto">
+                        <input type="checkbox" id="auto-refresh-checkbox" checked>
+                        <span>Auto (15s)</span>
+                    </label>
+                </div>
+            </div>
+
+            <nav class="nav-section">
+                <a href="index.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" rx="1"/>
+                        <rect x="14" y="3" width="7" height="7" rx="1"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                        <rect x="14" y="14" width="7" height="7" rx="1"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="markets.html" class="nav-item active">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                    Markets
+                </a>
+                <a href="scanner.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    Trade Scanner
+                </a>
+                <a href="money-makers.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                    </svg>
+                    Unusual Methods
+                </a>
+                <a href="enchanting.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"/><path d="M6 18l2-2 2 2 2-2 2 2"/>
+                    </svg>
+                    Enchanting
+                </a>
+                <a href="outfit-sets.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="8" height="6" rx="1"/><rect x="13" y="14" width="8" height="6" rx="1"/>
+                    </svg>
+                    Outfit Sets
+                </a>
+                <a href="tree-saplings.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22v-8M12 14c-2-2-5-3-8-2-1 3-1 6 2 8M12 14c2-2 5-3 8-2 1 3 1 6-2 8M12 8c-2-1-4-1-6 0-1 2 0 4 2 5M12 8c2-1 4-1 6 0 1 2 0 4-2 5"/>
+                    </svg>
+                    Tree Saplings
+                </a>
+                <a href="decanting.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 2h6v2l1.5 16h-9L9 4V2z"/>
+                    </svg>
+                    Decanting
+                </a>
+                <a href="gem-cutting.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l9 7-9 13L3 9l9-7z"/>
+                        <path d="M3 9h18"/>
+                    </svg>
+                    Gem Cutting
+                </a>
+                <a href="shops-to-ge.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l1-5h16l1 5"></path>
+                        <path d="M5 9v11h14V9"></path>
+                        <path d="M9 20v-6h6v6"></path>
+                    </svg>
+                    Shops to GE
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- Item profit cards -->
+            <div class="market-stats market-stats--five">
+                <div class="market-stat" data-item-name="Scythe of Vitur (uncharged)">
+                    <div class="market-stat-label">Scythe of Vitur</div>
+                    <div class="market-stat-value positive" id="item-profit-scythe">—</div>
+                    <div class="market-stat-prices">
+                        <div class="market-stat-side market-stat-buy">
+                            <span id="item-buy-scythe">Buy: —</span>
+                            <span class="market-stat-time" id="item-buy-time-scythe">—</span>
+                        </div>
+                        <div class="market-stat-side market-stat-sell">
+                            <span id="item-sell-scythe">Sell: —</span>
+                            <span class="market-stat-time" id="item-sell-time-scythe">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="market-stat" data-item-name="Twisted bow">
+                    <div class="market-stat-label">Twisted bow</div>
+                    <div class="market-stat-value positive" id="item-profit-tbow">—</div>
+                    <div class="market-stat-prices">
+                        <div class="market-stat-side market-stat-buy">
+                            <span id="item-buy-tbow">Buy: —</span>
+                            <span class="market-stat-time" id="item-buy-time-tbow">—</span>
+                        </div>
+                        <div class="market-stat-side market-stat-sell">
+                            <span id="item-sell-tbow">Sell: —</span>
+                            <span class="market-stat-time" id="item-sell-time-tbow">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="market-stat" data-item-name="Tumeken's shadow (uncharged)">
+                    <div class="market-stat-label">Tumeken's shadow</div>
+                    <div class="market-stat-value positive" id="item-profit-shadow">—</div>
+                    <div class="market-stat-prices">
+                        <div class="market-stat-side market-stat-buy">
+                            <span id="item-buy-shadow">Buy: —</span>
+                            <span class="market-stat-time" id="item-buy-time-shadow">—</span>
+                        </div>
+                        <div class="market-stat-side market-stat-sell">
+                            <span id="item-sell-shadow">Sell: —</span>
+                            <span class="market-stat-time" id="item-sell-time-shadow">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="market-stat" data-item-name="3rd Age longsword">
+                    <div class="market-stat-label">3rd Age longsword</div>
+                    <div class="market-stat-value positive" id="item-profit-3a-longsword">—</div>
+                    <div class="market-stat-prices">
+                        <div class="market-stat-side market-stat-buy">
+                            <span id="item-buy-3a-longsword">Buy: —</span>
+                            <span class="market-stat-time" id="item-buy-time-3a-longsword">—</span>
+                        </div>
+                        <div class="market-stat-side market-stat-sell">
+                            <span id="item-sell-3a-longsword">Sell: —</span>
+                            <span class="market-stat-time" id="item-sell-time-3a-longsword">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="market-stat" data-item-name="3rd Age bow">
+                    <div class="market-stat-label">3rd Age bow</div>
+                    <div class="market-stat-value positive" id="item-profit-3a-bow">—</div>
+                    <div class="market-stat-prices">
+                        <div class="market-stat-side market-stat-buy">
+                            <span id="item-buy-3a-bow">Buy: —</span>
+                            <span class="market-stat-time" id="item-buy-time-3a-bow">—</span>
+                        </div>
+                        <div class="market-stat-side market-stat-sell">
+                            <span id="item-sell-3a-bow">Sell: —</span>
+                            <span class="market-stat-time" id="item-sell-time-3a-bow">—</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="search-filters">
+                <div class="search-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" placeholder="Search Items..." id="searchInput">
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="items">Flipping</button>
+                    <button class="filter-tab" data-filter="third_age">Third Age</button>
+                    <button class="filter-tab" data-filter="runes">Runes</button>
+                    <button class="filter-tab" data-filter="herblore">Herblore</button>
+                </div>
+            </div>
+
+            <!-- Content Grid (full width: table uses space where Trending/Fear & Greed were) -->
+            <div class="content-grid content-grid--full">
+                <!-- Market Table -->
+                <div class="card">
+                    <table class="market-table">
+                        <thead>
+                            <tr id="marketTableHeadRow">
+                                <th class="market-table__th-item" data-sort="item">Item</th>
+                                <th class="market-table__th-num text-right" data-sort="low">Buy</th>
+                                <th class="market-table__th-num text-right" data-sort="high">Sell</th>
+                                <th class="market-table__th-num text-right" data-sort="profit">Profit</th>
+                                <th class="market-table__th-num text-right" data-sort="roi">ROI %</th>
+                                <th class="market-table__th-num text-right" data-sort="lowTime">Buy time</th>
+                                <th class="market-table__th-num text-right" data-sort="highTime">Sell time</th>
+                                <th class="market-table__th-star"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="marketsTableBody">
+                            <tr>
+                                <td colspan="8" class="text-muted">Items will load here.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <footer class="copyright">
+                Copyright &copy; 2026 Flipwise by MinMax Technology
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/sidebar-clock.js"></script>
+    <script src="js/flipwise-data.js"></script>
+    <script src="js/flipwise-sounds.js"></script>
+    <script src="js/flipwise-alerts.js"></script>
+    <script src="js/flipwise-context-menu.js"></script>
+    <script src="js/flipwise-api.js"></script>
+    <script>
+      (function() {
+        var REFRESH_RATE_MS = 15000; // 15 seconds, match Python
+        var AUTO_REFRESH_KEY = 'flipwise-auto-refresh';
+        var items = [
+          { name: 'Scythe of Vitur (uncharged)', id: 'item-profit-scythe', buyId: 'item-buy-scythe', sellId: 'item-sell-scythe', buyTimeId: 'item-buy-time-scythe', sellTimeId: 'item-sell-time-scythe' },
+          { name: 'Twisted bow', id: 'item-profit-tbow', buyId: 'item-buy-tbow', sellId: 'item-sell-tbow', buyTimeId: 'item-buy-time-tbow', sellTimeId: 'item-sell-time-tbow' },
+          { name: "Tumeken's shadow (uncharged)", id: 'item-profit-shadow', buyId: 'item-buy-shadow', sellId: 'item-sell-shadow', buyTimeId: 'item-buy-time-shadow', sellTimeId: 'item-sell-time-shadow' },
+          { name: '3rd Age longsword', id: 'item-profit-3a-longsword', buyId: 'item-buy-3a-longsword', sellId: 'item-sell-3a-longsword', buyTimeId: 'item-buy-time-3a-longsword', sellTimeId: 'item-sell-time-3a-longsword' },
+          { name: '3rd Age bow', id: 'item-profit-3a-bow', buyId: 'item-buy-3a-bow', sellId: 'item-sell-3a-bow', buyTimeId: 'item-buy-time-3a-bow', sellTimeId: 'item-sell-time-3a-bow' }
+        ];
+        var lastRefreshTime = null;
+        try {
+          var savedTs = localStorage.getItem('flipwise-last-refresh-ts') || sessionStorage.getItem('flipwise-last-refresh-ts');
+          if (savedTs) { var n = parseInt(savedTs, 10); if (!isNaN(n) && n > 0) lastRefreshTime = n; }
+        } catch (e) {}
+        var lastData = null;
+        var currentFilter = 'items'; /* default tab: Flipping */
+        var searchQuery = '';
+        var autoRefreshInterval = null;
+        var clockEl = document.getElementById('refresh-clock');
+        var lastEl = document.getElementById('refresh-last');
+        var refreshBtn = document.getElementById('refresh-btn');
+        var autoCheckbox = document.getElementById('auto-refresh-checkbox');
+
+        function fmtProfit(p) {
+          if (p == null) return '—';
+          var s = p >= 0 ? '+' : '';
+          return s + Number(p).toLocaleString() + ' gp';
+        }
+        function currentTimeStr() {
+          var d = new Date();
+          return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        }
+        function timeAgo(ts) {
+          if (ts == null || ts === undefined) return '—';
+          var ms = typeof ts === 'number' && ts < 1e12 ? ts * 1000 : ts;
+          var sec = Math.floor((Date.now() - ms) / 1000);
+          if (sec < 60) return 'Just now';
+          if (sec < 3600) return Math.floor(sec / 60) + ' min ago';
+          return (sec / 3600).toFixed(1) + ' hr ago';
+        }
+        function updateClock() {
+          if (lastEl && lastRefreshTime) lastEl.textContent = 'Refreshed ' + timeAgo(lastRefreshTime);
+        }
+        function fillCards(data) {
+          items.forEach(function(it) {
+            var el = document.getElementById(it.id);
+            if (!el) return;
+            var d = getDataByName(data, it.name);
+            var buyEl = it.buyId ? document.getElementById(it.buyId) : null;
+            var sellEl = it.sellId ? document.getElementById(it.sellId) : null;
+            var buyTimeEl = it.buyTimeId ? document.getElementById(it.buyTimeId) : null;
+            var sellTimeEl = it.sellTimeId ? document.getElementById(it.sellTimeId) : null;
+            if (!d) {
+              el.textContent = '—';
+              if (buyEl) buyEl.textContent = 'Buy: —';
+              if (sellEl) sellEl.textContent = 'Sell: —';
+              if (buyTimeEl) buyTimeEl.textContent = '—';
+              if (sellTimeEl) sellTimeEl.textContent = '—';
+            } else {
+              el.textContent = fmtProfit(d.profit);
+              el.className = 'market-stat-value ' + (d.profit > 0 ? 'positive' : d.profit < 0 ? 'negative' : '');
+              if (buyEl) buyEl.textContent = 'Buy: ' + (d.low != null ? Number(d.low).toLocaleString() : '—');
+              if (sellEl) sellEl.textContent = 'Sell: ' + (d.high != null ? Number(d.high).toLocaleString() : '—');
+              if (buyTimeEl) buyTimeEl.textContent = timeAgo(d.lowTime);
+              if (sellTimeEl) sellTimeEl.textContent = timeAgo(d.highTime);
+            }
+          });
+        }
+        function getDatasetForFilter(data, filter) {
+          if (!data) return null;
+          if (filter === 'items') return data.itemData || {};
+          if (filter === 'runes') return data.runesData || {};
+          if (filter === 'herblore') return data.herbloreData || {};
+          if (filter === 'third_age') return data.thirdAgeData || {};
+          return data.itemData || {};
+        }
+        function getDataByName(data, name) {
+          if (!data) return null;
+          return (data.itemData && data.itemData[name]) || (data.thirdAgeData && data.thirdAgeData[name]) ||
+            (data.runesData && data.runesData[name]) || (data.herbloreData && data.herbloreData[name]) ||
+            (data.scannerData && data.scannerData[name]) || null;
+        }
+        var sortColumn = 'profit';  /* default: most profitable first */
+        var sortDir = 'desc';
+        var FAVORITES_KEY = 'flipwise-favorites';
+        var PINNED_KEY = 'flipwise-pinned';
+        function getFavorites() {
+          try {
+            var raw = localStorage.getItem(FAVORITES_KEY);
+            return raw ? JSON.parse(raw) : [];
+          } catch (e) { return []; }
+        }
+        function setFavorites(arr) {
+          try { localStorage.setItem(FAVORITES_KEY, JSON.stringify(arr)); } catch (e) {}
+        }
+        function getPinned() {
+          try {
+            var raw = localStorage.getItem(PINNED_KEY);
+            return raw ? JSON.parse(raw) : [];
+          } catch (e) { return []; }
+        }
+        function setPinned(arr) {
+          try { localStorage.setItem(PINNED_KEY, JSON.stringify(arr)); } catch (e) {}
+        }
+        function togglePin(name) {
+          var arr = getPinned();
+          var i = arr.indexOf(name);
+          if (i >= 0) arr.splice(i, 1);
+          else arr.push(name);
+          setPinned(arr);
+        }
+        function toggleFavorite(name) {
+          var arr = getFavorites();
+          var i = arr.indexOf(name);
+          if (i >= 0) arr.splice(i, 1);
+          else arr.push(name);
+          setFavorites(arr);
+        }
+        function isFavorite(name) {
+          return getFavorites().indexOf(name) >= 0;
+        }
+        function updateTableHeader() {
+          var row = document.getElementById('marketTableHeadRow');
+          if (!row) return;
+          var isVolumeTable = currentFilter === 'runes' || currentFilter === 'herblore';
+          if (isVolumeTable) {
+            row.innerHTML =
+              '<th class="market-table__th-item market-table__th-sortable" data-sort="item">Item</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="low">Buy</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="high">Sell</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="profitPer">Profit Per</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="profitLimit">Profit Limit</th>' +
+              '<th class="market-table__th-star"></th>';
+          } else {
+            row.innerHTML =
+              '<th class="market-table__th-item market-table__th-sortable" data-sort="item">Item</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="low">Buy</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="high">Sell</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="profit">Profit</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="roi">ROI %</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="lowTime">Buy time</th>' +
+              '<th class="market-table__th-num text-right market-table__th-sortable" data-sort="highTime">Sell time</th>' +
+              '<th class="market-table__th-star"></th>';
+          }
+          setSortIndicator();
+        }
+        function setSortIndicator() {
+          var row = document.getElementById('marketTableHeadRow');
+          if (!row) return;
+          row.querySelectorAll('th[data-sort]').forEach(function(th) {
+            var col = th.getAttribute('data-sort');
+            th.classList.remove('sort-asc', 'sort-desc');
+            if (col === sortColumn) th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+          });
+        }
+        function fillTable(data) {
+          updateTableHeader();
+          var tbody = document.getElementById('marketsTableBody');
+          if (!tbody) return;
+          var dataset = getDatasetForFilter(data, currentFilter);
+          var rows = [];
+          if (dataset && typeof dataset === 'object') {
+            for (var name in dataset) {
+              if (Object.prototype.hasOwnProperty.call(dataset, name))
+                rows.push({ name: name, d: dataset[name] });
+            }
+          }
+          if (searchQuery) {
+            var q = searchQuery.trim().toLowerCase();
+            rows = rows.filter(function(r) { return (r.name || '').toLowerCase().indexOf(q) >= 0; });
+          }
+          var pinned = getPinned();
+          var key = sortColumn;
+          var mult = sortDir === 'asc' ? -1 : 1;
+          rows.sort(function(a, b) {
+            var pa = pinned.indexOf(a.name) >= 0 ? 0 : 1;
+            var pb = pinned.indexOf(b.name) >= 0 ? 0 : 1;
+            if (pa !== pb) return pa - pb;
+            if (key === 'item') {
+              var sa = (a.name || '').toLowerCase();
+              var sb = (b.name || '').toLowerCase();
+              return mult * (sa > sb ? 1 : sa < sb ? -1 : 0);
+            }
+            var va = a.d[key];
+            var vb = b.d[key];
+            if (key === 'profit' || key === 'low' || key === 'high' || key === 'roi' || key === 'profitPer' || key === 'profitLimit') {
+              va = va != null ? Number(va) : -Infinity;
+              vb = vb != null ? Number(vb) : -Infinity;
+              return mult * (vb - va);
+            }
+            if (key === 'highTime' || key === 'lowTime') {
+              va = va != null ? va : 0;
+              vb = vb != null ? vb : 0;
+              return mult * (vb - va);
+            }
+            return 0;
+          });
+          var isVolumeTable = currentFilter === 'runes' || currentFilter === 'herblore';
+          var colCount = isVolumeTable ? 6 : 8;
+          tbody.innerHTML = '';
+          if (rows.length === 0) {
+            var tr = document.createElement('tr');
+            var msg = !dataset ? 'Items will load here.' : searchQuery.trim() ? 'No items match your search.' : 'No items for this filter.';
+            tr.innerHTML = '<td colspan="' + colCount + '" class="text-muted">' + msg + '</td>';
+            tbody.appendChild(tr);
+            return;
+          }
+          rows.forEach(function(r) {
+            var d = r.d;
+            var low = d.low != null ? Number(d.low).toLocaleString() : '—';
+            var high = d.high != null ? Number(d.high).toLocaleString() : '—';
+            var tr = document.createElement('tr');
+            var fav = isFavorite(r.name);
+            if (isVolumeTable) {
+              var profitPer = d.profitPer != null ? d.profitPer : 0;
+              var profitLimit = d.profitLimit != null ? d.profitLimit : 0;
+              var perClass = profitPer > 0 ? 'positive' : profitPer < 0 ? 'negative' : '';
+              var limitClass = profitLimit > 0 ? 'positive' : profitLimit < 0 ? 'negative' : '';
+              tr.innerHTML =
+                '<td class="market-table__td-item"><div class="coin-cell"><span class="coin-icon">' + itemIconHtml(d, r.name.charAt(0)) + '</span><span class="coin-name">' + escapeHtml(r.name) + '</span></div></td>' +
+                '<td class="text-right market-table__td-num">' + low + '</td>' +
+                '<td class="text-right market-table__td-num">' + high + '</td>' +
+                '<td class="text-right market-table__td-num change-cell ' + perClass + '">' + escapeHtml(fmtProfit(d.profitPer)) + '</td>' +
+                '<td class="text-right market-table__td-num change-cell ' + limitClass + '">' + escapeHtml(fmtProfit(d.profitLimit)) + '</td>' +
+                '<td class="market-table__td-star"><button type="button" class="star-btn' + (fav ? ' star-btn--on' : '') + '" aria-label="Favorite" title="' + (fav ? 'Unfavorite' : 'Favorite') + '" data-item-name="' + escapeHtml(r.name) + '">' + (fav ? '★' : '☆') + '</button></td>';
+            } else {
+              var profit = d.profit != null ? d.profit : 0;
+              var profitClass = profit > 0 ? 'positive' : profit < 0 ? 'negative' : '';
+              var roi = d.roi != null ? Number(d.roi).toFixed(1) + '%' : '—';
+              var buyTime = timeAgo(d.lowTime);
+              var sellTime = timeAgo(d.highTime);
+              var hasBuyAlert = window.FlipwiseAlerts && window.FlipwiseAlerts.hasAlert(r.name, 'buy');
+              var hasSellAlert = window.FlipwiseAlerts && window.FlipwiseAlerts.hasAlert(r.name, 'sell');
+              var buyTimeClass = 'text-right market-table__td-num' + (hasBuyAlert ? ' market-table__td-alert-active' : '');
+              var sellTimeClass = 'text-right market-table__td-num' + (hasSellAlert ? ' market-table__td-alert-active' : '');
+              var buyTimeTitle = hasBuyAlert ? ' title="Buy Alert Set"' : '';
+              var sellTimeTitle = hasSellAlert ? ' title="Sell Alert Set"' : '';
+              tr.innerHTML =
+                '<td class="market-table__td-item"><div class="coin-cell"><span class="coin-icon">' + itemIconHtml(d, r.name.charAt(0)) + '</span><span class="coin-name">' + escapeHtml(r.name) + '</span></div></td>' +
+                '<td class="text-right market-table__td-num">' + low + '</td>' +
+                '<td class="text-right market-table__td-num">' + high + '</td>' +
+                '<td class="text-right market-table__td-num change-cell ' + profitClass + '">' + escapeHtml(fmtProfit(d.profit)) + '</td>' +
+                '<td class="text-right market-table__td-num">' + roi + '</td>' +
+                '<td class="' + buyTimeClass + '"' + buyTimeTitle + '>' + escapeHtml(buyTime) + '</td>' +
+                '<td class="' + sellTimeClass + '"' + sellTimeTitle + '>' + escapeHtml(sellTime) + '</td>' +
+                '<td class="market-table__td-star"><button type="button" class="star-btn' + (fav ? ' star-btn--on' : '') + '" aria-label="Favorite" title="' + (fav ? 'Unfavorite' : 'Favorite') + '" data-item-name="' + escapeHtml(r.name) + '">' + (fav ? '★' : '☆') + '</button></td>';
+            }
+            tr.dataset.itemName = r.name;
+            tr.addEventListener('contextmenu', function(e) {
+              var name = tr.dataset.itemName;
+              if (!name) return;
+              var dataset = getDatasetForFilter(lastData, currentFilter);
+              var rowData = dataset && dataset[name];
+              if (window.FlipwiseContextMenu) {
+                window.FlipwiseContextMenu.show(e, name, currentFilter, {
+                  idByName: (lastData && lastData.idByName) || {},
+                  pinnedSet: getPinned(),
+                  onTogglePin: function() { togglePin(name); if (lastData) fillTable(lastData); },
+                  onAddAlert: function(n, side) {
+                    var d = getDataByName(lastData, n);
+                    if (!d) return;
+                    var ts = side === 'buy' ? d.lowTime : d.highTime;
+                    if (window.FlipwiseAlerts) window.FlipwiseAlerts.setAlert(n, side, ts != null ? ts : 0);
+                    if (window.FlipwiseSounds) window.FlipwiseSounds.playAlertSet();
+                    if (window.FlipwiseAlerts) window.FlipwiseAlerts.appendEvent(n + ' ' + side + ' alert set.', 'alert-set');
+                    if (lastData) fillTable(lastData);
+                  },
+                  onClearAlert: function(n, side) {
+                    if (window.FlipwiseAlerts) window.FlipwiseAlerts.clearAlert(n, side);
+                    if (window.FlipwiseSounds) window.FlipwiseSounds.playAlertSet();
+                    if (window.FlipwiseAlerts) window.FlipwiseAlerts.appendEvent(n + ' ' + side + ' alert cleared.', 'alert-clear');
+                    if (lastData) fillTable(lastData);
+                  },
+                  onBreakdown: function(n) {
+                    if (window.FlipwiseItemNav) FlipwiseItemNav.go(n);
+                  },
+                  onVisitWiki: function() {}
+                });
+              }
+            });
+            tbody.appendChild(tr);
+          });
+          tbody.querySelectorAll('.star-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              var name = btn.getAttribute('data-item-name');
+              if (!name) return;
+              toggleFavorite(name);
+              var on = isFavorite(name);
+              btn.classList.toggle('star-btn--on', on);
+              btn.textContent = on ? '★' : '☆';
+              btn.setAttribute('title', on ? 'Unfavorite' : 'Favorite');
+            });
+          });
+        }
+        var WIKI_ICON_BASE = 'https://oldschool.runescape.wiki/images/';
+        function itemIconHtml(d, fallbackLetter) {
+          var letter = (fallbackLetter || (d && (d.name || '').charAt(0)) || '');
+          if (d && d.icon) {
+            var filename = String(d.icon).replace(/ /g, '_');
+            var url = WIKI_ICON_BASE + encodeURIComponent(filename);
+            return '<img src="' + escapeHtml(url) + '" alt="" class="item-icon" loading="lazy" referrerpolicy="no-referrer" data-fallback="' + escapeHtml(letter) + '" onerror="var f=this.getAttribute(\'data-fallback\')||\'?\'; var s=document.createElement(\'span\'); s.className=\'item-icon-fallback\'; s.textContent=f; this.parentNode.replaceChild(s,this);">';
+          }
+          return '<span class="item-icon-fallback">' + escapeHtml(letter) + '</span>';
+        }
+        function escapeHtml(s) {
+          if (s == null) return '';
+          var div = document.createElement('div');
+          div.textContent = s;
+          return div.innerHTML;
+        }
+        function doRefresh() {
+          if (refreshBtn) refreshBtn.disabled = true;
+          if (typeof FlipwiseAPI === 'undefined') {
+            items.forEach(function(it) {
+              var el = document.getElementById(it.id);
+              if (el) el.textContent = 'Unavailable';
+            });
+            if (refreshBtn) refreshBtn.disabled = false;
+            return;
+          }
+          FlipwiseAPI.refresh().then(function(data) {
+            lastRefreshTime = Date.now();
+            var tsStr = String(lastRefreshTime);
+            try {
+              localStorage.setItem('flipwise-last-refresh-ts', tsStr);
+              sessionStorage.setItem('flipwise-last-refresh-ts', tsStr);
+            } catch (e) {}
+            lastData = data;
+            fillCards(data);
+            fillTable(data);
+            updateClock();
+            if (window.FlipwiseAlerts && data.idByName) window.FlipwiseAlerts.checkAlerts(data, data.idByName);
+          }).catch(function() {
+            items.forEach(function(it) {
+              var el = document.getElementById(it.id);
+              if (el) el.textContent = 'Unavailable';
+            });
+          }).finally(function() {
+            if (refreshBtn) refreshBtn.disabled = false;
+          });
+        }
+        if (clockEl) {
+          updateClock();
+          setInterval(updateClock, 60000);
+        }
+        function startAutoRefresh() {
+          stopAutoRefresh();
+          if (!autoCheckbox || !autoCheckbox.checked) return;
+          autoRefreshInterval = setInterval(doRefresh, REFRESH_RATE_MS);
+        }
+        function stopAutoRefresh() {
+          if (autoRefreshInterval) {
+            clearInterval(autoRefreshInterval);
+            autoRefreshInterval = null;
+          }
+        }
+        if (autoCheckbox) {
+          try {
+            var saved = localStorage.getItem(AUTO_REFRESH_KEY);
+            if (saved !== null) autoCheckbox.checked = saved === 'true';
+          } catch (e) {}
+          autoCheckbox.addEventListener('change', function() {
+            try { localStorage.setItem(AUTO_REFRESH_KEY, autoCheckbox.checked); } catch (e) {}
+            if (autoCheckbox.checked) startAutoRefresh();
+            else stopAutoRefresh();
+          });
+        }
+        if (refreshBtn) refreshBtn.addEventListener('click', doRefresh);
+        (function wireFilters() {
+          var tabs = document.querySelectorAll('.filter-tab');
+          tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+              currentFilter = tab.getAttribute('data-filter') || 'items';
+              if (currentFilter === 'runes' || currentFilter === 'herblore') {
+                sortColumn = 'profitLimit';
+                sortDir = 'desc';
+              } else {
+                sortColumn = 'profit';
+                sortDir = 'desc';
+              }
+              tabs.forEach(function(t) { t.classList.remove('active'); });
+              tab.classList.add('active');
+              if (lastData) fillTable(lastData);
+            });
+          });
+        })();
+        (function wireTableSort() {
+          var table = document.querySelector('.market-table');
+          if (!table) return;
+          table.addEventListener('click', function(e) {
+            var th = e.target && e.target.closest ? e.target.closest('th[data-sort]') : null;
+            if (!th) return;
+            var col = th.getAttribute('data-sort');
+            if (!col) return;
+            if (sortColumn === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+            else { sortColumn = col; sortDir = 'desc'; }
+            setSortIndicator();
+            if (lastData) fillTable(lastData);
+          });
+        })();
+        (function wireSearch() {
+          var searchEl = document.getElementById('searchInput');
+          if (!searchEl) return;
+          searchEl.addEventListener('input', function() {
+            searchQuery = searchEl.value;
+            if (lastData) fillTable(lastData);
+          });
+        })();
+        doRefresh();
+        startAutoRefresh();
+      })();
+    </script>
+    <script src="js/flipwise-item-nav.js"></script>
+    <script src="js/flipwise-ui.js"></script>
+    <script src="js/flipwise-standalone.js"></script>
+
+</html>
