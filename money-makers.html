@@ -120,10 +120,11 @@
     return div.innerHTML;
   }
 
-  function formatValue(profit) {
+  function formatValue(profit, unit) {
     if (profit == null || profit === 0) return '—';
     var n = Number(profit);
-    return (n >= 0 ? '+' : '') + n.toLocaleString() + ' gp';
+    var suffix = unit === 'gp/hr' ? ' gp/hr' : ' gp';
+    return (n >= 0 ? '+' : '') + n.toLocaleString() + suffix;
   }
 
   function fmtNum(n) {
@@ -259,8 +260,8 @@
       var perHourStrD = (b.profit_per_hour != null) ? ((b.profit_per_hour >= 0 ? '+' : '') + fmtNum(b.profit_per_hour) + ' gp') : '—';
       html.push('<div class="mm-row' + (b.profit_per_hour != null && b.profit_per_hour >= 0 ? ' mm-winner' : (b.profit_per_hour != null && b.profit_per_hour < 0 ? ' mm-negative' : '')) + '"><span class="mm-label">Per Hour (~' + rateD + '): </span><span class="mm-val">' + perHourStrD + '</span></div>');
     } else if (key === 'mithril_seeds') {
-      html.push(rowWithIcon(b.seed_icon, 'Mithril Seed: ', fmtNum(b.fixed_gp) + ' gp', 'Mithril seeds'));
-      html.push(rowWithIcon(b.seed_icon, 'Mithril Seed: ', fmtNum(b.ge_price) + ' gp', 'Mithril seeds'));
+      html.push(rowWithIcon(b.seed_icon, 'Shop price: ', fmtNum(b.fixed_gp) + ' gp', 'Mithril seeds'));
+      html.push(rowWithIcon(b.seed_icon, 'GE price: ', fmtNum(b.ge_price) + ' gp', 'Mithril seeds'));
       html.push(taxRow(b.tax));
       if (b.ge_price_after_tax != null) {
         html.push('<div class="mm-row"><span class="mm-label">After tax: </span><span class="mm-val">' + fmtNum(b.ge_price_after_tax) + ' gp</span></div>');
@@ -288,7 +289,7 @@
       card.className = 'balance-card mm-tile' + (isPrimary ? ' primary' : '');
       if (t.itemName) card.setAttribute('data-item-name', t.itemName);
       var displayProfit = (t.key === 'sandworms' && t.breakdown && t.breakdown.profit_per_hour != null) ? t.breakdown.profit_per_hour : t.profit;
-      var valueStr = displayProfit > 0 ? formatValue(displayProfit) : (displayProfit < 0 ? formatValue(displayProfit) : 'Inactive');
+      var valueStr = displayProfit > 0 ? formatValue(displayProfit, t.unit) : (displayProfit < 0 ? formatValue(displayProfit, t.unit) : 'Inactive');
       if (displayProfit === 0) valueStr = 'Inactive';
       var profitClass = 'mm-tile-profit' + (displayProfit > 0 ? ' positive' : (displayProfit < 0 ? ' negative' : ''));
       var breakdownHtml = buildBreakdownHtml(t);

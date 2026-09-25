@@ -222,6 +222,7 @@ Flipwise dashboard shell
             var level = getTrendLevel(it.profit);
             var prev = lastTrendState[name];
             lastTrendState[name] = level;
+            if (prev == null) continue;
             if (level !== 3 && level !== -3) continue;
             if (prev === level) continue;
             var msg = name + ' is ' + (level === 3 ? 'trending upwards!' : 'trending down!');
@@ -232,7 +233,7 @@ Flipwise dashboard shell
               if (level === 3) window.FlipwiseSounds.playTrendUp();
               else window.FlipwiseSounds.playTrendDown();
             }
-            if (typeof renderEvents === 'function') renderEvents();
+            if (window.FlipwiseRenderEvents) window.FlipwiseRenderEvents();
           }
           window._lastTrendState = lastTrendState;
         }
@@ -491,40 +492,52 @@ Flipwise dashboard shell
             });
           }
         }
+        function stampRefresh() {
+          var t = Date.now();
+          try {
+            localStorage.setItem('flipwise-last-refresh-ts', String(t));
+            sessionStorage.setItem('flipwise-last-refresh-ts', String(t));
+          } catch (e) {}
+        }
         function onDashboardRefresh(data) {
           updateTopMovers(data);
           updateBestOpportunity(data);
+          if (window.FlipwiseAlerts && data && window.FlipwiseAlerts.checkAlerts) {
+            window.FlipwiseAlerts.checkAlerts(data, data.idByName || {});
+          }
+          if (window.FlipwiseRenderEvents) window.FlipwiseRenderEvents();
         }
-        if (typeof window.FlipwiseAPI !== 'undefined') {
-          window.FlipwiseAPI.refresh().then(function(data) {
+        function showDashboardError() {
+          var container = document.getElementById('moversList');
+          if (container) container.innerHTML = '<div class="movers-placeholder text-muted">Failed to load market data.</div>';
+          updateBestOpportunity(null);
+        }
+        var refreshBtn = document.getElementById('refresh-btn');
+        function doDashboardRefresh(disableBtn) {
+          if (typeof window.FlipwiseAPI === 'undefined') {
+            showDashboardError();
+            return Promise.resolve();
+          }
+          if (disableBtn && refreshBtn) refreshBtn.disabled = true;
+          return window.FlipwiseAPI.refresh().then(function(data) {
+            stampRefresh();
             onDashboardRefresh(data);
-            initMoversTabs();
+            return data;
           }).catch(function() {
-            var container = document.getElementById('moversList');
-            if (container) container.innerHTML = '<div class="movers-placeholder text-muted">Failed to load market data.</div>';
-            updateBestOpportunity(null);
-            initMoversTabs();
+            showDashboardError();
+          }).finally(function() {
+            if (refreshBtn) refreshBtn.disabled = false;
           });
-        } else {
-          initMoversTabs();
         }
+        initMoversTabs();
+        doDashboardRefresh(false);
         window.FlipwiseDashboard = { onRefresh: onDashboardRefresh };
         /* Auto-refresh every 15s when Auto is on; toggleable via sidebar checkbox */
+        var AUTO_REFRESH_KEY = 'flipwise-auto-refresh';
         var autoRefreshTimer = null;
-        function runAutoRefresh() {
-          if (typeof window.FlipwiseAPI === 'undefined') return;
-          window.FlipwiseAPI.refresh().then(function(data) {
-            var t = Date.now();
-            try {
-              localStorage.setItem('flipwise-last-refresh-ts', String(t));
-              sessionStorage.setItem('flipwise-last-refresh-ts', String(t));
-            } catch (e) {}
-            onDashboardRefresh(data);
-          });
-        }
         function startDashboardAutoRefresh() {
           if (autoRefreshTimer) return;
-          autoRefreshTimer = setInterval(runAutoRefresh, 15000);
+          autoRefreshTimer = setInterval(function() { doDashboardRefresh(false); }, 15000);
         }
         function stopDashboardAutoRefresh() {
           if (autoRefreshTimer) {
@@ -534,11 +547,23 @@ Flipwise dashboard shell
         }
         var autoCheckbox = document.getElementById('auto-refresh-checkbox');
         if (autoCheckbox) {
+          try {
+            var savedAuto = localStorage.getItem(AUTO_REFRESH_KEY);
+            if (savedAuto !== null) autoCheckbox.checked = savedAuto === 'true';
+          } catch (e) {}
           autoCheckbox.addEventListener('change', function() {
-            if (autoCheckbox.checked) startDashboardAutoRefresh();
-            else stopDashboardAutoRefresh();
+            try { localStorage.setItem(AUTO_REFRESH_KEY, autoCheckbox.checked ? 'true' : 'false'); } catch (e) {}
+            if (autoCheckbox.checked) {
+              doDashboardRefresh(false);
+              startDashboardAutoRefresh();
+            } else {
+              stopDashboardAutoRefresh();
+            }
           });
           if (autoCheckbox.checked) startDashboardAutoRefresh();
+        }
+        if (refreshBtn) {
+          refreshBtn.addEventListener('click', function() { doDashboardRefresh(true); });
         }
       })();
     </script>
@@ -599,6 +624,7 @@ Flipwise dashboard shell
           div.textContent = s;
           return div.innerHTML;
         }
+        window.FlipwiseRenderEvents = renderEvents;
         renderEvents();
         var clearBtn = document.getElementById('eventsClearBtn');
         if (clearBtn && window.FlipwiseAlerts) {

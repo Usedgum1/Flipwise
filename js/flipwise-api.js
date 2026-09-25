@@ -128,6 +128,7 @@
     var F = window.Flipwise;
     if (!F || !F.HIGH_VOLUME_ITEMS) return {};
     var out = {};
+    var maxTax = F.MAX_TAX || 5000000;
     buyLimits = buyLimits || {};
     iconById = iconById || {};
     for (var i = 0; i < F.HIGH_VOLUME_ITEMS.length; i++) {
@@ -139,7 +140,8 @@
       var lts = d.lowTime;
       if (!high || !low) continue;
       var limit = buyLimits[item.id] || 0;
-      var profitPer = high - low;
+      var tax = Math.min(Math.floor(high * 0.02), maxTax);
+      var profitPer = (high - tax) - low;
       var profitLimit = profitPer * limit;
       out[item.name] = {
         high: high,
@@ -159,6 +161,7 @@
     var F = window.Flipwise;
     if (!F || !F.HERBLORE_ITEMS) return {};
     var out = {};
+    var maxTax = F.MAX_TAX || 5000000;
     buyLimits = buyLimits || {};
     iconById = iconById || {};
     for (var i = 0; i < F.HERBLORE_ITEMS.length; i++) {
@@ -170,7 +173,8 @@
       var lts = d.lowTime;
       if (!high || !low) continue;
       var limit = buyLimits[item.id] || 0;
-      var profitPer = high - low;
+      var tax = Math.min(Math.floor(high * 0.02), maxTax);
+      var profitPer = (high - tax) - low;
       var profitLimit = profitPer * limit;
       out[item.name] = {
         high: high,
@@ -375,7 +379,8 @@
     var sandwormAfterTax = sandwormRaw - sandwormTax;
     var sandwormProfitEach = sandwormRaw ? sandwormAfterTax - sandwormCostEach : null;
     var sandwormProfitPack = sandwormProfitEach != null ? Math.round(sandwormProfitEach * sandwormQty) : 0;
-    addTile('sandworms', 'Buying Sandworms', sandwormProfitPack, 'gp', {
+    var sandwormHourly = sandwormProfitEach != null ? sandwormProfitPack * sandwormRate : 0;
+    addTile('sandworms', 'Buying Sandworms', sandwormHourly, 'gp/hr', {
       pack_gp: sandwormPackGp,
       pack_qty: sandwormQty,
       cost_each: sandwormCostEach,
@@ -384,7 +389,7 @@
       tax: sandwormTax,
       profit_per: sandwormProfitEach,
       profit_per_pack: sandwormProfitEach != null ? Math.round(sandwormProfitEach * sandwormQty) : null,
-      profit_per_hour: sandwormProfitEach != null ? Math.round(sandwormProfitEach * sandwormQty) * sandwormRate : null,
+      profit_per_hour: sandwormProfitEach != null ? sandwormHourly : null,
       hourly_rate: sandwormRate,
       pack_icon: iconById[String(sandwormPackId)],
       sandworm_icon: iconById[String(sandwormId)]

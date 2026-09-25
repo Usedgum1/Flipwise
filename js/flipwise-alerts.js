@@ -38,19 +38,26 @@
     return getAlerts().hasOwnProperty(key);
   }
 
-  function getDataByName(data, name) {
-    return (data && data.itemData && data.itemData[name]) ||
+  function getDataByName(data, name, idByName) {
+    var row = (data && data.itemData && data.itemData[name]) ||
       (data && data.thirdAgeData && data.thirdAgeData[name]) ||
       (data && data.runesData && data.runesData[name]) ||
       (data && data.herbloreData && data.herbloreData[name]) ||
       (data && data.scannerData && data.scannerData[name]) || null;
+    if (row) return row;
+    var ids = idByName || (data && data.idByName) || {};
+    var id = ids[name];
+    if (id == null || !data || !data.prices) return null;
+    var raw = data.prices[String(id)];
+    if (!raw) return null;
+    return { high: raw.high, low: raw.low, highTime: raw.highTime, lowTime: raw.lowTime };
   }
 
   /** Check all alerts against fresh data; fire and remove when timestamp updated. */
   function checkAlerts(data, idByName) {
     if (!data) return;
     var alerts = getAlerts();
-    var idByN = idByName || {};
+    var ids = idByName || (data && data.idByName) || {};
     var keys = Object.keys(alerts);
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
@@ -59,7 +66,7 @@
       var name = parts[0];
       var side = parts[1];
       var lastTs = alerts[key];
-      var row = getDataByName(data, name);
+      var row = getDataByName(data, name, ids);
       if (!row) continue;
       var newTs = side === 'buy' ? (row.lowTime) : (row.highTime);
       if (newTs != null && newTs > lastTs) {

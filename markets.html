@@ -425,7 +425,8 @@ Flipwise markets page
             if (key === 'item') {
               var sa = (a.name || '').toLowerCase();
               var sb = (b.name || '').toLowerCase();
-              return mult * (sa > sb ? 1 : sa < sb ? -1 : 0);
+              var nameCmp = sa > sb ? 1 : sa < sb ? -1 : 0;
+              return sortDir === 'asc' ? nameCmp : -nameCmp;
             }
             var va = a.d[key];
             var vb = b.d[key];
