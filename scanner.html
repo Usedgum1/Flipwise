@@ -131,6 +131,8 @@
         </main>
     </div>
     <script src="js/flipwise-data.js"></script>
+    <script src="js/flipwise-sounds.js"></script>
+    <script src="js/flipwise-alerts.js"></script>
     <script src="js/flipwise-api.js"></script>
     <script src="js/flipwise-refresh.js"></script>
     <script src="js/sidebar-clock.js"></script>
@@ -277,6 +279,7 @@
       return;
     }
     FlipwiseAPI.refresh().then(function(data) {
+      if (window.FlipwiseAPI.acceptRefresh && !window.FlipwiseAPI.acceptRefresh(data)) return;
       lastData = data;
       fillTable(data);
     }).catch(function() {

@@ -9,6 +9,21 @@
   // Browsers block setting the `User-Agent` header. Keep headers minimal so fetch works everywhere.
   var API_HEADERS = { 'Accept': 'application/json' };
   var TIMEOUT_MS = 10000;
+  var refreshSeq = 0;
+
+  function isLatest(seq) {
+    if (seq == null) return true;
+    return seq === refreshSeq;
+  }
+
+  /** Ignore a superseded response. On the latest payload, check armed alerts. */
+  function acceptRefresh(data) {
+    if (!data || !isLatest(data.seq)) return false;
+    if (window.FlipwiseAlerts && window.FlipwiseAlerts.checkAlerts) {
+      window.FlipwiseAlerts.checkAlerts(data, data.idByName || {});
+    }
+    return true;
+  }
 
   function get(url) {
     return Promise.race([
@@ -76,7 +91,7 @@
       var hts = d.highTime;
       var lts = d.lowTime;
       if (!high || !low || high <= low || !hts || !lts) continue;
-      if ((nowSec - hts > maxAge) && (nowSec - lts > maxAge)) continue;
+      if ((nowSec - hts > maxAge) || (nowSec - lts > maxAge)) continue;
       var tax = Math.min(Math.floor(high * 0.02), maxTax);
       var profit = (high - tax) - low;
       var roi = low > 0 ? (profit / low * 100) : 0;
@@ -314,15 +329,17 @@
     var odiumShards = F.ODIUM_SHARD_ITEMS || [];
     var odiumPartCosts = [];
     var odiumCost = 0;
+    var odiumComplete = odiumShards.length > 0;
     for (var o = 0; o < odiumShards.length; o++) {
       var oc = get(odiumShards[o].id);
       var c = (oc.high && oc.low) ? Math.min(oc.high, oc.low) : (oc.low || oc.high || 0);
+      if (!c) odiumComplete = false;
       odiumPartCosts.push(c);
       odiumCost += c;
     }
     var wardSell = geSellValue(get(F.ODIUM_WARD_ID || 11926));
     var odiumTax = geTaxEach(wardSell);
-    var odiumBulk = (wardSell && odiumCost) ? (wardSell - odiumTax - odiumCost) * (F.ODIUM_BULK_PER_HOUR || 20) : 0;
+    var odiumBulk = (odiumComplete && wardSell && odiumCost) ? (wardSell - odiumTax - odiumCost) * (F.ODIUM_BULK_PER_HOUR || 20) : 0;
     var odiumIds = (F.ODIUM_SHARD_ITEMS || []).map(function(p) { return p.id; });
     addTile('odium', 'Odium Ward Assembly', odiumBulk, 'gp/hr', {
       part1: odiumPartCosts[0] || 0, part2: odiumPartCosts[1] || 0, part3: odiumPartCosts[2] || 0, ward_sell: wardSell, tax: odiumTax,
@@ -334,15 +351,17 @@
     var malShards = F.MALEDICTION_SHARD_ITEMS || [];
     var malPartCosts = [];
     var malCost = 0;
+    var malComplete = malShards.length > 0;
     for (var m = 0; m < malShards.length; m++) {
       var mcv = get(malShards[m].id);
       var mcc = (mcv.high && mcv.low) ? Math.min(mcv.high, mcv.low) : (mcv.low || mcv.high || 0);
+      if (!mcc) malComplete = false;
       malPartCosts.push(mcc);
       malCost += mcc;
     }
     var malSell = geSellValue(get(F.MALEDICTION_WARD_ID || 11924));
     var malTax = geTaxEach(malSell);
-    var malBulk = (malSell && malCost) ? (malSell - malTax - malCost) * (F.MALEDICTION_BULK_PER_HOUR || 20) : 0;
+    var malBulk = (malComplete && malSell && malCost) ? (malSell - malTax - malCost) * (F.MALEDICTION_BULK_PER_HOUR || 20) : 0;
     var malIds = (F.MALEDICTION_SHARD_ITEMS || []).map(function(p) { return p.id; });
     addTile('malediction', 'Malediction Ward Assembly', malBulk, 'gp/hr', {
       part1: malPartCosts[0] || 0, part2: malPartCosts[1] || 0, part3: malPartCosts[2] || 0, ward_sell: malSell, tax: malTax,
@@ -391,7 +410,7 @@
       profit_per_pack: sandwormProfitEach != null ? Math.round(sandwormProfitEach * sandwormQty) : null,
       profit_per_hour: sandwormProfitEach != null ? sandwormHourly : null,
       hourly_rate: sandwormRate,
-      pack_icon: iconById[String(sandwormPackId)],
+      pack_icon: iconById[String(sandwormPackId)] || 'Sandworms pack.png',
       sandworm_icon: iconById[String(sandwormId)]
     }, 'Sandworms');
 
@@ -497,22 +516,29 @@
       var d = prices[String(id)] || {};
       return { high: d.high || 0, low: d.low || 0 };
     }
+    function hasQuote(id) {
+      var q = get(id);
+      return !!(q.high || q.low);
+    }
     for (var r = 0; r < F.ENCHANTING_RECIPES.length; r++) {
       var rec = F.ENCHANTING_RECIPES[r];
       var totalCost = 0;
       var materials = [];
+      var complete = (rec.inputs || []).length > 0 && hasQuote(rec.output_id);
       for (var i = 0; i < (rec.inputs || []).length; i++) {
         var inp = rec.inputs[i];
-        var costEach = get(inp.id).low || get(inp.id).high || 0;
-        var cost = costEach * (inp.qty || 1);
-        totalCost += cost;
+        var quoted = hasQuote(inp.id);
+        if (!quoted) complete = false;
+        var costEach = quoted ? (get(inp.id).low || get(inp.id).high || 0) : 0;
+        var cost = quoted ? costEach * (inp.qty || 1) : null;
+        if (cost != null) totalCost += cost;
         materials.push({ name: inp.name || '—', qty: inp.qty || 1, cost: cost, icon: iconById[String(inp.id)] });
       }
       var out = get(rec.output_id || 0);
-      var productValue = out.high || out.low || 0;
+      var productValue = complete ? (out.high || out.low || 0) : 0;
       var tax = productValue ? Math.min(Math.floor(productValue * 0.02), maxTax) : 0;
-      var profitBeforeTax = productValue && totalCost ? productValue - totalCost : 0;
-      var profitAfterTax = productValue && totalCost ? (productValue - tax) - totalCost : 0;
+      var profitBeforeTax = complete && productValue && totalCost ? productValue - totalCost : null;
+      var profitAfterTax = complete && productValue && totalCost ? (productValue - tax) - totalCost : null;
       tiles.push({
         key: rec.key,
         title: rec.title,
@@ -522,16 +548,16 @@
         itemName: rec.output_name || null,
         breakdown: {
           materials: materials,
-          total_cost: totalCost,
+          total_cost: complete ? totalCost : null,
           product_name: rec.output_name || rec.title,
-          product_value: productValue,
+          product_value: complete ? productValue : null,
           product_icon: iconById[String(rec.output_id)],
-          tax: tax,
+          tax: complete ? tax : null,
           profit_before_tax: profitBeforeTax,
           profit_after_tax: profitAfterTax
         }
       });
-      if (profitAfterTax > bestProfit) {
+      if (profitAfterTax != null && profitAfterTax > bestProfit) {
         bestProfit = profitAfterTax;
         bestKey = rec.key;
       }
@@ -553,50 +579,61 @@
       var d = prices[String(id)] || {};
       return { high: d.high || 0, low: d.low || 0 };
     }
+    function hasQuote(id) {
+      var q = get(id);
+      return !!(q.high || q.low);
+    }
     for (var r = 0; r < recipes.length; r++) {
       var rec = recipes[r];
       var totalCost = 0;
       var materials = [];
+      var complete = (rec.inputs || []).length > 0 && hasQuote(rec.output_id);
       for (var i = 0; i < (rec.inputs || []).length; i++) {
         var inp = rec.inputs[i];
-        var costEach = get(inp.id).low || get(inp.id).high || 0;
-        var cost = costEach * (inp.qty || 1);
-        totalCost += cost;
+        var quoted = hasQuote(inp.id);
+        if (!quoted) complete = false;
+        var costEach = quoted ? (get(inp.id).low || get(inp.id).high || 0) : 0;
+        var cost = quoted ? costEach * (inp.qty || 1) : null;
+        if (cost != null) totalCost += cost;
         materials.push({ name: inp.name || '—', qty: inp.qty || 1, cost: cost, icon: iconById[String(inp.id)] });
       }
       var out = get(rec.output_id || 0);
-      var productValue = out.high || out.low || 0;
+      var productValue = complete ? (out.high || out.low || 0) : 0;
       var tax = productValue ? Math.min(Math.floor(productValue * 0.02), maxTax) : 0;
-      var profitBeforeTax = productValue && totalCost ? productValue - totalCost : 0;
-      var profitAfterTax = productValue && totalCost ? (productValue - tax) - totalCost : 0;
+      var profitBeforeTax = complete && productValue && totalCost ? productValue - totalCost : null;
+      var profitAfterTax = complete && productValue && totalCost ? (productValue - tax) - totalCost : null;
       var breakdown = {
         materials: materials,
-        total_cost: totalCost,
+        total_cost: complete ? totalCost : null,
         product_name: rec.output_name || rec.title,
-        product_value: productValue,
+        product_value: complete ? productValue : null,
         product_icon: iconById[String(rec.output_id)],
-        tax: tax,
+        tax: complete ? tax : null,
         profit_before_tax: profitBeforeTax,
         profit_after_tax: profitAfterTax
       };
-      var setBuy = get(rec.output_id).high || get(rec.output_id).low || 0;
+      var setQuoted = hasQuote(rec.output_id);
+      var setBuy = setQuoted ? (get(rec.output_id).high || get(rec.output_id).low || 0) : null;
       var setToItemsPieces = [];
       var setToItemsTotalSell = 0;
+      var piecesComplete = setQuoted && (rec.inputs || []).length > 0;
       for (var j = 0; j < (rec.inputs || []).length; j++) {
         var pinp = rec.inputs[j];
-        var pieceLow = get(pinp.id).low || get(pinp.id).high || 0;
+        var pieceQuoted = hasQuote(pinp.id);
+        if (!pieceQuoted) piecesComplete = false;
+        var pieceLow = pieceQuoted ? (get(pinp.id).low || get(pinp.id).high || 0) : null;
         var pieceTax = pieceLow ? Math.min(Math.floor(pieceLow * 0.02), maxTax) : 0;
-        var afterTax = pieceLow - pieceTax;
-        setToItemsTotalSell += afterTax * (pinp.qty || 1);
+        var afterTax = pieceLow != null ? pieceLow - pieceTax : null;
+        if (afterTax != null) setToItemsTotalSell += afterTax * (pinp.qty || 1);
         setToItemsPieces.push({ name: pinp.name, qty: pinp.qty || 1, sell: pieceLow, sell_after_tax: afterTax, icon: iconById[String(pinp.id)] });
       }
-      var setToItemsProfit = setBuy && setToItemsTotalSell ? setToItemsTotalSell - setBuy : null;
+      var setToItemsProfit = piecesComplete && setBuy && setToItemsTotalSell ? setToItemsTotalSell - setBuy : null;
       breakdown.set_to_items = {
         set_buy: setBuy,
         set_icon: iconById[String(rec.output_id)],
         set_name: rec.output_name || rec.title,
         pieces: setToItemsPieces,
-        total_sell: setToItemsTotalSell,
+        total_sell: piecesComplete ? setToItemsTotalSell : null,
         profit: setToItemsProfit
       };
       tiles.push({
@@ -608,7 +645,7 @@
         itemName: rec.output_name || null,
         breakdown: breakdown
       });
-      if (profitAfterTax > bestProfit) {
+      if (profitAfterTax != null && profitAfterTax > bestProfit) {
         bestProfit = profitAfterTax;
         bestKey = rec.key;
       }
@@ -866,6 +903,7 @@
   }
 
   function refresh() {
+    var seq = ++refreshSeq;
     return fetchParallel().then(function(data) {
       var iconById = data.iconById || {};
       var itemData = processFlipItems(data.prices, iconById);
@@ -899,7 +937,8 @@
         treeSaplingsData: treeSaplingsData,
         decantingData: decantingData,
         gemCuttingData: gemCuttingData,
-        shopsToGeData: shopsToGeData
+        shopsToGeData: shopsToGeData,
+        seq: seq
       };
     });
   }
@@ -907,7 +946,7 @@
   /**
    * Historical buy/sell averages.
    * - '5m' uses v1 timestep=5m (~2 days of 5-minute buckets)
-   * - otherwise v2 lookback: 6h, 24h, 7d, 30d, 6m, 1y
+   * - otherwise v2 lookback: 24h, 7d, 30d, 1y
    */
   function fetchTimeseries(itemId, lookback) {
     if (itemId == null || itemId === '') return Promise.reject(new Error('missing item id'));
@@ -940,5 +979,5 @@
     });
   }
 
-  window.FlipwiseAPI = { refresh: refresh, fetchTimeseries: fetchTimeseries };
+  window.FlipwiseAPI = { refresh: refresh, fetchTimeseries: fetchTimeseries, isLatest: isLatest, acceptRefresh: acceptRefresh };
 })();

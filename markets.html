@@ -566,6 +566,7 @@ Flipwise markets page
             return;
           }
           FlipwiseAPI.refresh().then(function(data) {
+            if (window.FlipwiseAPI.acceptRefresh && !window.FlipwiseAPI.acceptRefresh(data)) return;
             lastRefreshTime = Date.now();
             var tsStr = String(lastRefreshTime);
             try {
@@ -576,7 +577,6 @@ Flipwise markets page
             fillCards(data);
             fillTable(data);
             updateClock();
-            if (window.FlipwiseAlerts && data.idByName) window.FlipwiseAlerts.checkAlerts(data, data.idByName);
           }).catch(function() {
             items.forEach(function(it) {
               var el = document.getElementById(it.id);

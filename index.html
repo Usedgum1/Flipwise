@@ -502,9 +502,6 @@ Flipwise dashboard shell
         function onDashboardRefresh(data) {
           updateTopMovers(data);
           updateBestOpportunity(data);
-          if (window.FlipwiseAlerts && data && window.FlipwiseAlerts.checkAlerts) {
-            window.FlipwiseAlerts.checkAlerts(data, data.idByName || {});
-          }
           if (window.FlipwiseRenderEvents) window.FlipwiseRenderEvents();
         }
         function showDashboardError() {
@@ -520,6 +517,7 @@ Flipwise dashboard shell
           }
           if (disableBtn && refreshBtn) refreshBtn.disabled = true;
           return window.FlipwiseAPI.refresh().then(function(data) {
+            if (window.FlipwiseAPI.acceptRefresh && !window.FlipwiseAPI.acceptRefresh(data)) return data;
             stampRefresh();
             onDashboardRefresh(data);
             return data;

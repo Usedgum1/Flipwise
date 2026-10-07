@@ -24,6 +24,7 @@
     var key = itemName + '|' + side;
     alerts[key] = lastTs;
     try { localStorage.setItem(ALERTS_KEY, JSON.stringify(alerts)); } catch (e) {}
+    requestNotificationPermission();
   }
 
   function clearAlert(itemName, side) {

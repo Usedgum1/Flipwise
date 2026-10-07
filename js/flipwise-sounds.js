@@ -71,6 +71,8 @@
     bootMute = false;
   }
 
+  setTimeout(clearBootMute, 3000);
+
   window.FlipwiseSounds = {
     playStartup: playStartup,
     playStartupOnceOnInteraction: playStartupOnceOnInteraction,

@@ -575,7 +575,9 @@ Flipwise.THIRD_AGE_ITEMS = [
   { id: 12422, name: "3rd Age wand" },
   { id: 10344, name: "3rd Age amulet" },
   { id: 12424, name: "3rd Age bow" },
-  { id: 23342, name: "3rd Age druidic staff" }
+  { id: 23342, name: "3rd Age druidic staff" },
+  { id: 20011, name: "3rd Age axe" },
+  { id: 20014, name: "3rd Age pickaxe" }
 ];
 
 // Gem Cutting: buy uncut gem, cut, sell cut gem.

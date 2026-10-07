@@ -72,6 +72,7 @@
       }
       if (disableBtn && refreshBtn) refreshBtn.disabled = true;
       return window.FlipwiseAPI.refresh().then(function(data) {
+        if (window.FlipwiseAPI.acceptRefresh && !window.FlipwiseAPI.acceptRefresh(data)) return data;
         stampRefresh();
         if (typeof onData === 'function') onData(data);
         return data;

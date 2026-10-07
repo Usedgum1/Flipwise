@@ -218,6 +218,7 @@
             return;
           }
           FlipwiseAPI.refresh().then(function(data) {
+            if (window.FlipwiseAPI.acceptRefresh && !window.FlipwiseAPI.acceptRefresh(data)) return;
             var t = Date.now();
             try {
               localStorage.setItem('flipwise-last-refresh-ts', String(t));

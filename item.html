@@ -24,6 +24,10 @@
                 <div class="sidebar-time-sub" id="refresh-last">—</div>
                 <div class="sidebar-time-actions">
                     <button type="button" class="sidebar-time-btn" id="refresh-btn" title="Refresh">Refresh</button>
+                    <label class="sidebar-time-auto">
+                        <input type="checkbox" id="auto-refresh-checkbox" checked>
+                        <span>Auto (15s)</span>
+                    </label>
                 </div>
             </div>
             <nav class="nav-section">
@@ -115,10 +119,11 @@
                 <div class="flipwise-breakdown-chart-header">
                     <span class="flipwise-breakdown-chart-label">Price history</span>
                     <div class="flipwise-breakdown-chart-tabs" id="itemChartTabs">
-                        <button type="button" class="chart-tab" data-lookback="5m">5m</button>
-                        <button type="button" class="chart-tab" data-lookback="24h">24h</button>
-                        <button type="button" class="chart-tab active" data-lookback="7d">7d</button>
-                        <button type="button" class="chart-tab" data-lookback="30d">30d</button>
+                        <button type="button" class="chart-tab" data-lookback="1y">1 year</button>
+                        <button type="button" class="chart-tab" data-lookback="30d">30 days</button>
+                        <button type="button" class="chart-tab active" data-lookback="7d">7 days</button>
+                        <button type="button" class="chart-tab" data-lookback="24h">24 hr</button>
+                        <button type="button" class="chart-tab" data-lookback="5m">5 min</button>
                     </div>
                 </div>
                 <div id="itemPageChart" class="flipwise-breakdown-chart" aria-live="polite">
@@ -137,6 +142,7 @@
     <script src="js/flipwise-sounds.js"></script>
     <script src="js/flipwise-alerts.js"></script>
     <script src="js/flipwise-api.js"></script>
+    <script src="js/flipwise-refresh.js"></script>
     <script src="js/flipwise-charts.js"></script>
     <script src="js/flipwise-item-page.js"></script>
     <script src="js/flipwise-ui.js"></script>

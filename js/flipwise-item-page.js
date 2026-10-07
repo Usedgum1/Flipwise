@@ -150,7 +150,11 @@
       return;
     }
     var reqId = ++chartRequestId;
-    chartEl.innerHTML = '<div class="flipwise-chart-placeholder text-muted">Loading chart…</div>';
+    var sameRange = chartEl.getAttribute('data-lookback') === chartLookback && chartEl.querySelector('.flipwise-chart-wrap');
+    if (!sameRange) {
+      chartEl.innerHTML = '<div class="flipwise-chart-placeholder text-muted">Loading chart…</div>';
+    }
+    chartEl.setAttribute('data-lookback', chartLookback);
     FlipwiseAPI.fetchTimeseries(itemId, chartLookback).then(function(series) {
       if (reqId !== chartRequestId) return;
       if (window.FlipwiseCharts && window.FlipwiseCharts.renderPriceChart) {
@@ -302,47 +306,24 @@
     bindChartTabs();
     setChartTab(chartLookback);
 
-    var refreshBtn = document.getElementById('refresh-btn');
-    if (refreshBtn) {
-      refreshBtn.addEventListener('click', function() {
-        if (typeof FlipwiseAPI === 'undefined') return;
-        refreshBtn.disabled = true;
-        FlipwiseAPI.refresh().then(function(data) {
-          var t = Date.now();
-          try {
-            localStorage.setItem('flipwise-last-refresh-ts', String(t));
-            sessionStorage.setItem('flipwise-last-refresh-ts', String(t));
-          } catch (e) {}
-          if (window.FlipwiseAlerts && window.FlipwiseAlerts.checkAlerts) {
-            FlipwiseAlerts.checkAlerts(data, data.idByName || {});
-          }
-          renderPage(data);
-        }).catch(function() {
-          showError('Failed to load item data.');
-        }).finally(function() {
-          refreshBtn.disabled = false;
-        });
-      });
-    }
-
     if (typeof FlipwiseAPI === 'undefined') {
       showError('API unavailable.');
       return;
     }
 
-    FlipwiseAPI.refresh().then(function(data) {
-      var t = Date.now();
-      try {
-        localStorage.setItem('flipwise-last-refresh-ts', String(t));
-        sessionStorage.setItem('flipwise-last-refresh-ts', String(t));
-      } catch (e) {}
-      if (window.FlipwiseAlerts && window.FlipwiseAlerts.checkAlerts) {
-        FlipwiseAlerts.checkAlerts(data, data.idByName || {});
-      }
-      renderPage(data);
-    }).catch(function() {
-      showError('Failed to load item data.');
-    });
+    if (window.FlipwiseRefresh && window.FlipwiseRefresh.bind) {
+      FlipwiseRefresh.bind({
+        onData: renderPage,
+        onError: function() { showError('Failed to load item data.'); }
+      });
+    } else {
+      FlipwiseAPI.refresh().then(function(data) {
+        if (window.FlipwiseAPI.acceptRefresh && !window.FlipwiseAPI.acceptRefresh(data)) return;
+        renderPage(data);
+      }).catch(function() {
+        showError('Failed to load item data.');
+      });
+    }
   }
 
   if (document.readyState === 'loading') {

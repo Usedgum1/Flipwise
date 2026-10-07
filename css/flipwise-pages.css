@@ -867,6 +867,7 @@ Flipwise - Shared App Page Styles
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 12px;
 }
@@ -879,7 +880,14 @@ Flipwise - Shared App Page Styles
 
 .flipwise-breakdown-chart-tabs {
     display: flex;
-    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.flipwise-breakdown-chart-tabs .chart-tab {
+    padding: 6px 8px;
+    white-space: nowrap;
 }
 
 .flipwise-breakdown-chart {
@@ -895,7 +903,7 @@ Flipwise - Shared App Page Styles
     display: none;
     position: absolute;
     top: 0;
-    bottom: 72px;
+    bottom: 36px;
     width: 1px;
     background: rgba(255, 255, 255, 0.35);
     pointer-events: none;

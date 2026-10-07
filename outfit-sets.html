@@ -106,6 +106,8 @@
         </main>
     </div>
     <script src="js/flipwise-data.js"></script>
+    <script src="js/flipwise-sounds.js"></script>
+    <script src="js/flipwise-alerts.js"></script>
     <script src="js/flipwise-api.js"></script>
     <script src="js/flipwise-refresh.js"></script>
     <script src="js/sidebar-clock.js"></script>
@@ -217,7 +219,7 @@
       if (t.itemName) card.setAttribute('data-item-name', t.itemName);
       var valueStr = t.profit > 0 ? formatValue(t.profit) : (t.profit < 0 ? formatValue(t.profit) : 'Inactive');
       if (t.profit === 0) valueStr = 'Inactive';
-      var profitClass = 'mm-tile-profit' + (t.profit < 0 ? ' negative' : '');
+      var profitClass = 'mm-tile-profit' + (t.profit > 0 ? ' positive' : (t.profit < 0 ? ' negative' : ''));
       var breakdownHtml = buildBreakdownHtml(t);
       card.innerHTML =
         '<div class="mm-tile-title">' + escapeHtml(t.title) + '</div>' +

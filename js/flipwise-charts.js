@@ -6,10 +6,10 @@
 
   var W = 480;
   var PRICE_H = 200;
-  var VOL_H = 56;
+  var VOL_H = 72;
   var RSI_H = 110;
   var PAD = { top: 12, right: 12, bottom: 28, left: 52 };
-  var VOL_PAD = { top: 6, right: 12, bottom: 6, left: 52 };
+  var VOL_PAD = { top: 22, right: 12, bottom: 4, left: 52 };
   var RSI_PAD = { top: 18, right: 12, bottom: 10, left: 52 };
   var RSI_PERIOD = 14;
 
@@ -19,6 +19,34 @@
     if (abs >= 1e9) return (n / 1e9).toFixed(1).replace(/\.0$/, '') + 'B';
     if (abs >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
     if (abs >= 1e4) return Math.round(n / 1000) + 'k';
+    return String(Math.round(n));
+  }
+
+  /** Axis labels keep enough decimals that a tight price range does not collapse to one number. */
+  function fmtAxis(n, span) {
+    if (n == null || n !== n || !isFinite(n)) return '—';
+    var abs = Math.abs(n);
+    var step = (span > 0 ? span : Math.max(abs, 1)) / 4;
+    function digits(unit) {
+      var s = step / unit;
+      if (s >= 1) return 0;
+      if (s >= 0.1) return 1;
+      if (s >= 0.01) return 2;
+      return 3;
+    }
+    if (abs >= 1e9 || step >= 1e9) return (n / 1e9).toFixed(digits(1e9)) + 'B';
+    if (abs >= 1e6 || step >= 1e6) return (n / 1e6).toFixed(digits(1e6)) + 'M';
+    if (abs >= 1e3 || step >= 1e3) return (n / 1e3).toFixed(digits(1e3)) + 'k';
+    if (step >= 1) return String(Math.round(n));
+    if (step >= 0.1) return n.toFixed(1);
+    return n.toFixed(2);
+  }
+
+  function fmtCount(n) {
+    if (n == null || n !== n || !isFinite(n)) return '—';
+    var abs = Math.abs(n);
+    if (abs >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (abs >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'k';
     return String(Math.round(n));
   }
 
@@ -33,12 +61,16 @@
     return sign + Math.round(n).toLocaleString() + ' gp';
   }
 
-  function fmtTime(ts) {
+  function fmtTime(ts, spanSec) {
     if (ts == null) return '';
     var ms = ts < 1e12 ? ts * 1000 : ts;
     var d = new Date(ms);
-    return d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' ' +
-      d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    var longRange = spanSec != null && spanSec >= 180 * 86400;
+    var dateOpts = { month: 'short', day: 'numeric' };
+    if (longRange) dateOpts.year = 'numeric';
+    var label = d.toLocaleDateString([], dateOpts);
+    if (longRange) return label;
+    return label + ' ' + d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   }
 
   function escapeAttr(s) {
@@ -80,7 +112,6 @@
 
   function buildMidSeries(data) {
     var points = [];
-    var last = null;
     for (var i = 0; i < (data || []).length; i++) {
       var row = data[i];
       if (!row || row.timestamp == null) continue;
@@ -95,10 +126,7 @@
         mid = Number(low);
       }
       if (mid != null) {
-        last = mid;
-        points.push({ t: row.timestamp, v: last });
-      } else if (last != null) {
-        points.push({ t: row.timestamp, v: last });
+        points.push({ t: row.timestamp, v: mid, observed: true });
       }
     }
     return points;
@@ -158,18 +186,28 @@
   function pathForPoints(points, xScale, yScale) {
     if (!points.length) return '';
     var d = '';
+    var open = false;
     for (var i = 0; i < points.length; i++) {
       var p = points[i];
-      if (p.v == null || p.v !== p.v) continue;
-      d += (d ? ' L' : 'M') + xScale(p.t) + ' ' + yScale(p.v);
+      if (!p || p.v == null || p.v !== p.v || p.observed === false) {
+        open = false;
+        continue;
+      }
+      d += (open ? ' L' : 'M') + xScale(p.t) + ' ' + yScale(p.v);
+      open = true;
     }
     return d;
   }
 
-  function dotsForObserved(points, xScale, yScale, cls) {
+  function dotsForObserved(points, xScale, yScale, cls, onlyIsolated) {
     var html = '';
     for (var i = 0; i < points.length; i++) {
       if (!points[i].observed) continue;
+      if (onlyIsolated) {
+        var prev = i > 0 && points[i - 1].observed;
+        var next = i + 1 < points.length && points[i + 1].observed;
+        if (prev || next) continue;
+      }
       html +=
         '<circle cx="' + xScale(points[i].t) + '" cy="' + yScale(points[i].v) +
         '" r="2.5" class="' + cls + '"/>';
@@ -204,7 +242,7 @@
     return ((clientX - rect.left) / rect.width) * W;
   }
 
-  function bindHover(wrap, hoverPts, plotLeft, plotRight) {
+  function bindHover(wrap, hoverPts, plotLeft, plotRight, spanSec) {
     var tooltip = wrap.querySelector('.flipwise-chart-tooltip');
     var crosshair = wrap.querySelector('.flipwise-chart-crosshair');
     var priceSvg = wrap.querySelector('.flipwise-price-chart');
@@ -230,14 +268,14 @@
       var marginCls = p.margin != null && p.margin >= 0 ? 'positive' : (p.margin != null ? 'negative' : '');
       var roiStr = p.roi != null ? (p.roi >= 0 ? '+' : '') + p.roi.toFixed(1) + '%' : '—';
       tooltip.innerHTML =
-        '<div class="flipwise-chart-tooltip-time">' + escapeHtml(fmtTime(p.t)) + '</div>' +
-        '<div class="flipwise-chart-tooltip-row"><span>Buy</span><span class="positive">' + escapeHtml(fmtGpFull(p.buy)) + '</span></div>' +
-        '<div class="flipwise-chart-tooltip-row"><span>Sell</span><span class="negative">' + escapeHtml(fmtGpFull(p.sell)) + '</span></div>' +
+        '<div class="flipwise-chart-tooltip-time">' + escapeHtml(fmtTime(p.t, spanSec)) + '</div>' +
+        '<div class="flipwise-chart-tooltip-row"><span>Buy</span><span>' + escapeHtml(fmtGpFull(p.buy)) + '</span></div>' +
+        '<div class="flipwise-chart-tooltip-row"><span>Sell</span><span>' + escapeHtml(fmtGpFull(p.sell)) + '</span></div>' +
         '<div class="flipwise-chart-tooltip-row"><span>Margin</span><span class="' + marginCls + '">' +
           escapeHtml(fmtMargin(p.margin)) + (p.roi != null ? ' (' + escapeHtml(roiStr) + ')' : '') +
         '</span></div>' +
         '<div class="flipwise-chart-tooltip-row"><span>Volume</span><span>' +
-          escapeHtml((p.buyVol || 0) + ' buy · ' + (p.sellVol || 0) + ' sell') +
+          escapeHtml(Number(p.buyVol || 0).toLocaleString() + ' buy · ' + Number(p.sellVol || 0).toLocaleString() + ' sell') +
         '</span></div>' +
         '<div class="flipwise-chart-tooltip-row"><span>RSI</span><span>' +
           escapeHtml(p.rsi != null ? p.rsi.toFixed(1) : '—') +
@@ -275,7 +313,10 @@
     if (!container) return;
     container.innerHTML = '';
 
-    var data = series && series.data ? series.data : [];
+    var data = series && series.data ? series.data.slice() : [];
+    data.sort(function(a, b) {
+      return (a && a.timestamp != null ? a.timestamp : 0) - (b && b.timestamp != null ? b.timestamp : 0);
+    });
     if (!data.length) {
       container.innerHTML = '<div class="flipwise-chart-placeholder text-muted">No chart data for this period.</div>';
       return;
@@ -291,6 +332,7 @@
     var start = series.startTimestamp != null ? series.startTimestamp : data[0].timestamp;
     var end = series.endTimestamp != null ? series.endTimestamp : data[data.length - 1].timestamp;
     if (end <= start) end = start + 1;
+    var spanSec = (end - start) / (start > 1e12 ? 1000 : 1);
 
     var minV = Infinity;
     var maxV = -Infinity;
@@ -326,8 +368,14 @@
 
     var buyPath = pathForPoints(buyPts, xScale, yScale);
     var sellPath = pathForPoints(sellPts, xScale, yScale);
-    var buyDots = dotsForObserved(buyPts, xScale, yScale, 'flipwise-chart-dot flipwise-chart-dot--buy');
-    var sellDots = dotsForObserved(sellPts, xScale, yScale, 'flipwise-chart-dot flipwise-chart-dot--sell');
+    function countObserved(pts) {
+      var n = 0;
+      for (var ci = 0; ci < pts.length; ci++) if (pts[ci].observed) n++;
+      return n;
+    }
+    var onlyIsolated = countObserved(buyPts) + countObserved(sellPts) > 80;
+    var buyDots = dotsForObserved(buyPts, xScale, yScale, 'flipwise-chart-dot flipwise-chart-dot--buy', onlyIsolated);
+    var sellDots = dotsForObserved(sellPts, xScale, yScale, 'flipwise-chart-dot flipwise-chart-dot--sell', onlyIsolated);
 
     var gridLines = '';
     for (var g = 0; g <= 4; g++) {
@@ -337,7 +385,7 @@
         '<line x1="' + PAD.left + '" y1="' + gy + '" x2="' + (W - PAD.right) + '" y2="' + gy +
         '" class="flipwise-chart-grid"/>' +
         '<text x="' + (PAD.left - 8) + '" y="' + (gy + 4) + '" class="flipwise-chart-axis" text-anchor="end">' +
-        escapeAttr(fmtGp(gv)) + '</text>';
+        escapeAttr(fmtAxis(gv, maxV - minV)) + '</text>';
     }
 
     /* Volume */
@@ -348,7 +396,8 @@
     }
     if (maxVol <= 0) maxVol = 1;
     var volPlotH = VOL_H - VOL_PAD.top - VOL_PAD.bottom;
-    var barW = Math.max(1.5, Math.min(6, plotW / Math.max(volPts.length, 1) * 0.55));
+    var volSlot = plotW / Math.max(volPts.length, 1);
+    var barW = Math.max(0.6, Math.min(5, volSlot * 0.72));
     var volBars = '';
     for (var vb = 0; vb < volPts.length; vb++) {
       var vp = volPts[vb];
@@ -402,8 +451,14 @@
     /* Hover index from forward-filled buy/sell */
     var buyByT = {};
     var sellByT = {};
-    for (var bi = 0; bi < buyPts.length; bi++) buyByT[buyPts[bi].t] = buyPts[bi].v;
-    for (var si = 0; si < sellPts.length; si++) sellByT[sellPts[si].t] = sellPts[si].v;
+    for (var bi = 0; bi < buyPts.length; bi++) {
+      if (buyPts[bi].observed === false) continue;
+      buyByT[buyPts[bi].t] = buyPts[bi].v;
+    }
+    for (var si = 0; si < sellPts.length; si++) {
+      if (sellPts[si].observed === false) continue;
+      sellByT[sellPts[si].t] = sellPts[si].v;
+    }
     var volByT = {};
     for (var vj = 0; vj < volPts.length; vj++) volByT[volPts[vj].t] = volPts[vj];
 
@@ -447,16 +502,16 @@
         (sellPath ? '<path d="' + escapeAttr(sellPath) + '" class="flipwise-chart-line flipwise-chart-line--sell" fill="none"/>' : '') +
         buyDots +
         sellDots +
-        '<text x="' + PAD.left + '" y="' + (PRICE_H - 8) + '" class="flipwise-chart-axis">' + escapeAttr(fmtTime(start)) + '</text>' +
-        '<text x="' + (W - PAD.right) + '" y="' + (PRICE_H - 8) + '" class="flipwise-chart-axis" text-anchor="end">' + escapeAttr(fmtTime(end)) + '</text>' +
+        '<text x="' + PAD.left + '" y="' + (PRICE_H - 8) + '" class="flipwise-chart-axis">' + escapeAttr(fmtTime(start, spanSec)) + '</text>' +
+        '<text x="' + (W - PAD.right) + '" y="' + (PRICE_H - 8) + '" class="flipwise-chart-axis" text-anchor="end">' + escapeAttr(fmtTime(end, spanSec)) + '</text>' +
       '</svg>';
 
     var volSvg =
       '<svg class="flipwise-vol-chart" viewBox="0 0 ' + W + ' ' + VOL_H + '" role="img" aria-label="Trade volume">' +
-        '<text x="' + PAD.left + '" y="10" class="flipwise-rsi-title">Volume</text>' +
+        '<text x="' + PAD.left + '" y="12" class="flipwise-rsi-title">Volume</text>' +
         volBars +
-        '<text x="' + (PAD.left - 8) + '" y="' + (VOL_PAD.top + 8) + '" class="flipwise-chart-axis" text-anchor="end">' +
-          escapeAttr(fmtGp(maxVol)) +
+        '<text x="' + (PAD.left - 8) + '" y="' + (VOL_PAD.top + 3) + '" class="flipwise-chart-axis" text-anchor="end">' +
+          escapeAttr(fmtCount(maxVol)) +
         '</text>' +
       '</svg>';
 
@@ -490,7 +545,7 @@
       '</div>';
 
     container.innerHTML = wrapHtml;
-    bindHover(container.querySelector('.flipwise-chart-wrap'), hoverPts, PAD.left, W - PAD.right);
+    bindHover(container.querySelector('.flipwise-chart-wrap'), hoverPts, PAD.left, W - PAD.right, spanSec);
   }
 
   window.FlipwiseCharts = { renderPriceChart: renderPriceChart };

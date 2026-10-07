@@ -218,6 +218,7 @@
             return;
           }
           FlipwiseAPI.refresh().then(function(data) {
+            if (window.FlipwiseAPI.acceptRefresh && !window.FlipwiseAPI.acceptRefresh(data)) return;
             lastData = data;
             var t = Date.now();
             try {

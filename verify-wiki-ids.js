@@ -40,8 +40,8 @@ function loadMapping(cb) {
 function collectChecks(F) {
   const checks = [];
   function add(id, name, src) {
-    if (id == null || !name) return;
-    checks.push({ id: Number(id), name: String(name), src: src });
+    if (id == null) return;
+    checks.push({ id: Number(id), name: name ? String(name) : null, src: src });
   }
   [
     'FLIP_ITEMS', 'THIRD_AGE_ITEMS', 'HIGH_VOLUME_ITEMS', 'HERBLORE_ITEMS',
@@ -50,7 +50,23 @@ function collectChecks(F) {
   ].forEach(function (key) {
     (F[key] || []).forEach(function (it) { add(it.id, it.name, key); });
   });
-  (F.DECANTING_ITEMS || []).forEach(function (it) { add(it.id4, it.name, 'DECANTING'); });
+  (F.DECANTING_ITEMS || []).forEach(function (it) {
+    add(it.id4, it.name, 'DECANTING');
+    [it.id1, it.id2, it.id3].forEach(function (id) { add(id, null, 'DECANT_DOSE'); });
+  });
+  (F.TREE_SAPLING_ITEMS || []).forEach(function (it) { add(it.seed_id, null, 'SEED'); });
+  [
+    ['CANNON_SET', F.MULTICANNON_ID],
+    ['SOUL', F.SOUL_RUNE_ID],
+    ['SANDWORM', F.SANDWORM_ID],
+    ['LOCKPICK', F.LOCKPICK_ID],
+    ['DRAGONFRUIT', F.DRAGONFRUIT_ID],
+    ['DRAGONBREATH', F.BOTTLED_DRAGONBREATH_ID],
+    ['MITHRIL_SEED', F.MITHRIL_SEED_ID],
+    ['BANDIT_BREW', F.BANDITS_BREW_ID],
+    ['ODIUM_WARD', F.ODIUM_WARD_ID],
+    ['MALEDICTION_WARD', F.MALEDICTION_WARD_ID]
+  ].forEach(function (pair) { add(pair[1], null, pair[0]); });
   (F.GEM_CUTTING_ITEMS || []).forEach(function (it) {
     add(it.uncut_id, it.uncut_name, 'GEM');
     add(it.cut_id, it.cut_name, 'GEM');
@@ -92,8 +108,8 @@ loadMapping(function (err, mapping, source) {
     if (seen[key]) return;
     seen[key] = true;
     const live = byId[c.id];
-    if (live === undefined) bad.push({ id: c.id, expected: c.name, wiki: '(missing)', src: c.src });
-    else if (live !== c.name) bad.push({ id: c.id, expected: c.name, wiki: live, src: c.src });
+    if (live === undefined) bad.push({ id: c.id, expected: c.name || '(any name)', wiki: '(missing)', src: c.src });
+    else if (c.name && live !== c.name) bad.push({ id: c.id, expected: c.name, wiki: live, src: c.src });
     else ok++;
   });
 
