@@ -10,7 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/flipwise-theme.css">
     <link rel="stylesheet" href="css/flipwise-pages.css">
-    <link rel="stylesheet" href="css/flipwise-standalone.css">
+    <link id="flipwise-neon-theme" rel="stylesheet" href="css/flipwise-standalone.css">
+    <script>
+    (function () {
+      var theme = 'neon';
+      try {
+        var saved = localStorage.getItem('flipwise-theme');
+        if (saved === 'copper' || saved === 'neon' || saved === 'neon-black' || saved === 'neon-blue' || saved === 'neon-red') theme = saved;
+      } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+      if (theme === 'copper') {
+        var link = document.getElementById('flipwise-neon-theme');
+        if (link) link.disabled = true;
+      }
+    })();
+    </script>
     <!--
 
 Flipwise markets page

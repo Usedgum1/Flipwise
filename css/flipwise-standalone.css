@@ -8,23 +8,39 @@ Description: Nexus-inspired analytics dashboard treatment for standalone app
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --bg-primary: #0f051a;
-    --bg-secondary: rgba(18, 10, 36, 0.9);
+    --nx-bg: #0f051a;
+    --nx-bg-rgb: 15, 5, 26;
+    --nx-surface-rgb: 18, 10, 36;
+    --nx-side-rgb: 24, 12, 48;
+    --nx-deep-rgb: 4, 2, 10;
+    --nx-a1: #00ffff;
+    --nx-a1-rgb: 0, 255, 255;
+    --nx-a1-soft: #67ffff;
+    --nx-a2: #ff00ff;
+    --nx-a2-rgb: 255, 0, 255;
+    --nx-a3: #7c3aed;
+    --nx-a3-rgb: 124, 58, 237;
+    --nx-a3-soft: #9f67ff;
+    --nx-a4: #f97316;
+    --nx-a4-rgb: 249, 115, 22;
+    --nx-a4-soft: #fbbf24;
+    --bg-primary: var(--nx-bg);
+    --bg-secondary: rgba(var(--nx-surface-rgb), 0.9);
     --bg-card: rgba(229, 231, 235, 0.04);
     --bg-card-hover: rgba(229, 231, 235, 0.08);
-    --accent-copper: #00ffff;
-    --accent-copper-light: #ff00ff;
-    --accent-gradient: linear-gradient(135deg, #00ffff 0%, #7c3aed 48%, #f97316 100%);
-    --accent-gradient-hover: linear-gradient(135deg, #67ffff 0%, #9f67ff 48%, #fbbf24 100%);
-    --accent-contrast: #0f051a;
-    --accent-contrast-soft: rgba(15, 5, 26, 0.88);
-    --accent-contrast-muted: rgba(15, 5, 26, 0.72);
-    --accent-contrast-overlay: rgba(15, 5, 26, 0.18);
-    --accent-overlay-soft: rgba(0, 255, 255, 0.12);
-    --accent-overlay-strong: rgba(255, 0, 255, 0.18);
-    --accent-focus-ring: rgba(0, 255, 255, 0.26);
-    --accent-shadow-soft: rgba(0, 255, 255, 0.24);
-    --accent-shadow-medium: rgba(255, 0, 255, 0.24);
+    --accent-copper: var(--nx-a1);
+    --accent-copper-light: var(--nx-a2);
+    --accent-gradient: linear-gradient(135deg, var(--nx-a1) 0%, var(--nx-a3) 48%, var(--nx-a4) 100%);
+    --accent-gradient-hover: linear-gradient(135deg, var(--nx-a1-soft) 0%, var(--nx-a3-soft) 48%, var(--nx-a4-soft) 100%);
+    --accent-contrast: var(--nx-bg);
+    --accent-contrast-soft: rgba(var(--nx-bg-rgb), 0.88);
+    --accent-contrast-muted: rgba(var(--nx-bg-rgb), 0.72);
+    --accent-contrast-overlay: rgba(var(--nx-bg-rgb), 0.18);
+    --accent-overlay-soft: rgba(var(--nx-a1-rgb), 0.12);
+    --accent-overlay-strong: rgba(var(--nx-a2-rgb), 0.18);
+    --accent-focus-ring: rgba(var(--nx-a1-rgb), 0.26);
+    --accent-shadow-soft: rgba(var(--nx-a1-rgb), 0.24);
+    --accent-shadow-medium: rgba(var(--nx-a2-rgb), 0.24);
     --text-primary: #ffffff;
     --text-secondary: #ffffff;
     --text-muted: #ffffff;
@@ -42,29 +58,86 @@ Description: Nexus-inspired analytics dashboard treatment for standalone app
     --status-warning: #fbbf24;
     --status-warning-bright: #ffd166;
     --status-warning-soft: #facc15;
-    --status-highlight-bg: rgba(0, 255, 255, 0.08);
+    --status-highlight-bg: rgba(var(--nx-a1-rgb), 0.08);
     --surface-overlay-subtle: rgba(255, 255, 255, 0.025);
     --surface-overlay-soft: rgba(255, 255, 255, 0.04);
     --surface-overlay-hover: rgba(255, 255, 255, 0.075);
     --border: rgba(229, 231, 235, 0.18);
-    --divider-strong: rgba(0, 255, 255, 0.26);
+    --divider-strong: rgba(var(--nx-a1-rgb), 0.26);
     --shadow: rgba(0, 0, 0, 0.42);
-    --chart-grid: rgba(0, 255, 255, 0.075);
-    --overlay: rgba(4, 2, 10, 0.72);
+    --chart-grid: rgba(var(--nx-a1-rgb), 0.075);
+    --overlay: rgba(var(--nx-deep-rgb), 0.72);
+}
+
+html[data-theme="neon-black"] {
+    --nx-bg: #000000;
+    --nx-bg-rgb: 0, 0, 0;
+    --nx-surface-rgb: 0, 16, 8;
+    --nx-side-rgb: 0, 28, 12;
+    --nx-deep-rgb: 0, 0, 0;
+    --nx-a1: #00ff66;
+    --nx-a1-rgb: 0, 255, 102;
+    --nx-a1-soft: #7dffb3;
+    --nx-a2: #b6ff3a;
+    --nx-a2-rgb: 182, 255, 58;
+    --nx-a3: #00c853;
+    --nx-a3-rgb: 0, 200, 83;
+    --nx-a3-soft: #5dff9a;
+    --nx-a4: #d4ff4a;
+    --nx-a4-rgb: 212, 255, 74;
+    --nx-a4-soft: #e8ff8a;
+}
+
+html[data-theme="neon-blue"] {
+    --nx-bg: #030818;
+    --nx-bg-rgb: 3, 8, 24;
+    --nx-surface-rgb: 6, 20, 52;
+    --nx-side-rgb: 8, 32, 72;
+    --nx-deep-rgb: 1, 4, 14;
+    --nx-a1: #00b7ff;
+    --nx-a1-rgb: 0, 183, 255;
+    --nx-a1-soft: #7ad8ff;
+    --nx-a2: #4f7dff;
+    --nx-a2-rgb: 79, 125, 255;
+    --nx-a3: #2563eb;
+    --nx-a3-rgb: 37, 99, 235;
+    --nx-a3-soft: #93b4ff;
+    --nx-a4: #7af0ff;
+    --nx-a4-rgb: 122, 240, 255;
+    --nx-a4-soft: #d4fbff;
+}
+
+html[data-theme="neon-red"] {
+    --nx-bg: #140206;
+    --nx-bg-rgb: 20, 2, 6;
+    --nx-surface-rgb: 40, 6, 12;
+    --nx-side-rgb: 56, 8, 16;
+    --nx-deep-rgb: 8, 0, 2;
+    --nx-a1: #ff2040;
+    --nx-a1-rgb: 255, 32, 64;
+    --nx-a1-soft: #ff7a8a;
+    --nx-a2: #ff4d6d;
+    --nx-a2-rgb: 255, 77, 109;
+    --nx-a3: #c4002f;
+    --nx-a3-rgb: 196, 0, 47;
+    --nx-a3-soft: #ff6b81;
+    --nx-a4: #ff8a5b;
+    --nx-a4-rgb: 255, 138, 91;
+    --nx-a4-soft: #ffc2a8;
 }
 
 html {
-    background: #0f051a;
+    background: var(--nx-bg);
 }
 
 body {
     font-family: 'JetBrains Mono', 'Instrument Sans', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     position: relative;
     background:
-        radial-gradient(circle at 18% 12%, rgba(0, 255, 255, 0.16), transparent 33rem),
-        radial-gradient(circle at 84% 24%, rgba(255, 0, 255, 0.14), transparent 32rem),
-        radial-gradient(circle at 48% 90%, rgba(249, 115, 22, 0.12), transparent 34rem),
-        #0f051a;
+        radial-gradient(circle at 18% 12%, rgba(var(--nx-a1-rgb), 0.16), transparent 33rem),
+        radial-gradient(circle at 84% 24%, rgba(var(--nx-a2-rgb), 0.14), transparent 32rem),
+        radial-gradient(circle at 48% 90%, rgba(var(--nx-a4-rgb), 0.12), transparent 34rem),
+        var(--nx-bg);
 }
 
 body :where(h1, h2, h3, h4, h5, h6, p, a, button, label, span, div, td, th, input, select, textarea, small, strong, em, li) {
@@ -87,10 +160,10 @@ body::after {
 body::before {
     z-index: 0;
     background-image:
-        linear-gradient(rgba(0, 255, 255, 0.052) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.052) 1px, transparent 1px),
-        linear-gradient(rgba(255, 0, 255, 0.03) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(255, 0, 255, 0.03) 2px, transparent 2px);
+        linear-gradient(rgba(var(--nx-a1-rgb), 0.052) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--nx-a1-rgb), 0.052) 1px, transparent 1px),
+        linear-gradient(rgba(var(--nx-a2-rgb), 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(var(--nx-a2-rgb), 0.03) 2px, transparent 2px);
     background-size: 52px 52px;
     background-position: 0 0, 0 0, 0 0, 0 0;
     animation: flipwise-grid-drift 28s linear infinite;
@@ -123,10 +196,10 @@ body::after {
 .flipwise-gradient-field {
     inset: -35%;
     background:
-        radial-gradient(circle at 18% 28%, rgba(0, 255, 255, 0.18), transparent 32%),
-        radial-gradient(circle at 78% 70%, rgba(255, 0, 255, 0.16), transparent 34%),
-        radial-gradient(circle at 44% 84%, rgba(124, 58, 237, 0.16), transparent 32%),
-        radial-gradient(circle at 64% 18%, rgba(249, 115, 22, 0.13), transparent 30%);
+        radial-gradient(circle at 18% 28%, rgba(var(--nx-a1-rgb), 0.18), transparent 32%),
+        radial-gradient(circle at 78% 70%, rgba(var(--nx-a2-rgb), 0.16), transparent 34%),
+        radial-gradient(circle at 44% 84%, rgba(var(--nx-a3-rgb), 0.16), transparent 32%),
+        radial-gradient(circle at 64% 18%, rgba(var(--nx-a4-rgb), 0.13), transparent 30%);
     filter: none;
     opacity: 0.72;
     animation: none;
@@ -137,8 +210,8 @@ body::after {
     left: -24rem;
     width: 22rem;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.85), rgba(255, 0, 255, 0.65), transparent);
-    box-shadow: 0 0 18px rgba(0, 255, 255, 0.46);
+    background: linear-gradient(90deg, transparent, rgba(var(--nx-a1-rgb), 0.85), rgba(var(--nx-a2-rgb), 0.65), transparent);
+    box-shadow: 0 0 18px rgba(var(--nx-a1-rgb), 0.46);
     animation: flipwise-stream-run linear infinite;
 }
 
@@ -146,21 +219,21 @@ body::after {
     position: absolute;
     width: 3px;
     height: 3px;
-    background: #00ffff;
+    background: var(--nx-a1);
     border-radius: 50%;
-    box-shadow: 0 0 12px rgba(0, 255, 255, 0.82);
+    box-shadow: 0 0 12px rgba(var(--nx-a1-rgb), 0.82);
     opacity: 0;
     animation: flipwise-particle-drift ease-in-out infinite;
 }
 
 .flipwise-particle:nth-child(odd) {
-    background: #ff00ff;
-    box-shadow: 0 0 12px rgba(255, 0, 255, 0.82);
+    background: var(--nx-a2);
+    box-shadow: 0 0 12px rgba(var(--nx-a2-rgb), 0.82);
 }
 
 .flipwise-particle:nth-child(4n) {
-    background: #f97316;
-    box-shadow: 0 0 12px rgba(249, 115, 22, 0.72);
+    background: var(--nx-a4);
+    box-shadow: 0 0 12px rgba(var(--nx-a4-rgb), 0.72);
 }
 
 @keyframes flipwise-gradient-turn {
@@ -186,13 +259,13 @@ body::after {
 .dashboard {
     position: relative;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(15, 5, 26, 0.02), rgba(15, 5, 26, 0.34));
+    background: linear-gradient(180deg, rgba(var(--nx-bg-rgb), 0.02), rgba(var(--nx-bg-rgb), 0.34));
 }
 
 .main-content {
     background-color: transparent;
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 255, 255, 0.38) rgba(15, 5, 26, 0.5);
+    scrollbar-color: rgba(var(--nx-a1-rgb), 0.38) rgba(var(--nx-bg-rgb), 0.5);
 }
 
 .main-content::-webkit-scrollbar,
@@ -203,26 +276,26 @@ body::after {
 
 .main-content::-webkit-scrollbar-track,
 .sidebar::-webkit-scrollbar-track {
-    background: rgba(15, 5, 26, 0.48);
+    background: rgba(var(--nx-bg-rgb), 0.48);
 }
 
 .main-content::-webkit-scrollbar-thumb,
 .sidebar::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(0, 255, 255, 0.4), rgba(255, 0, 255, 0.32));
+    background: linear-gradient(180deg, rgba(var(--nx-a1-rgb), 0.4), rgba(var(--nx-a2-rgb), 0.32));
     border-radius: 999px;
-    border: 2px solid rgba(15, 5, 26, 0.82);
+    border: 2px solid rgba(var(--nx-bg-rgb), 0.82);
 }
 
 .sidebar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 255, 255, 0.38) transparent;
+    scrollbar-color: rgba(var(--nx-a1-rgb), 0.38) transparent;
 }
 
 .sidebar {
     background:
-        linear-gradient(180deg, rgba(24, 12, 48, 0.92), rgba(15, 5, 26, 0.94)),
-        rgba(15, 5, 26, 0.92);
-    border-right: 1px solid rgba(0, 255, 255, 0.26);
+        linear-gradient(180deg, rgba(var(--nx-side-rgb), 0.92), rgba(var(--nx-bg-rgb), 0.94)),
+        rgba(var(--nx-bg-rgb), 0.92);
+    border-right: 1px solid rgba(var(--nx-a1-rgb), 0.26);
     box-shadow: 18px 0 60px rgba(0, 0, 0, 0.35);
     backdrop-filter: none;
 }
@@ -237,7 +310,7 @@ body::after {
     font-size: 24px;
     font-weight: 800;
     letter-spacing: 0;
-    text-shadow: 0 1px 0 #000, 0 0 10px rgba(0, 255, 255, 0.55);
+    text-shadow: 0 1px 0 #000, 0 0 10px rgba(var(--nx-a1-rgb), 0.55);
 }
 
 .sidebar-time,
@@ -255,8 +328,8 @@ body::after {
 .alert-card {
     background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.018)),
-        linear-gradient(135deg, rgba(0, 255, 255, 0.04), rgba(255, 0, 255, 0.035)),
-        rgba(15, 5, 26, 0.66);
+        linear-gradient(135deg, rgba(var(--nx-a1-rgb), 0.04), rgba(var(--nx-a2-rgb), 0.035)),
+        rgba(var(--nx-bg-rgb), 0.66);
     border: 1px solid rgba(229, 231, 235, 0.19);
     box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.09);
     backdrop-filter: none;
@@ -274,11 +347,11 @@ body::after {
 
 .sidebar-time-clock {
     color: #ffffff;
-    text-shadow: 0 1px 0 #000, 0 0 8px rgba(0, 255, 255, 0.28);
+    text-shadow: 0 1px 0 #000, 0 0 8px rgba(var(--nx-a1-rgb), 0.28);
 }
 
 .sidebar-time-btn {
-    color: #0f051a;
+    color: var(--nx-bg);
 }
 
 .mm-tile.primary {
@@ -286,10 +359,10 @@ body::after {
     overflow: hidden;
     background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
-        linear-gradient(135deg, rgba(0, 255, 255, 0.14), rgba(124, 58, 237, 0.18) 54%, rgba(255, 0, 255, 0.1)),
-        rgba(18, 10, 36, 0.9);
-    border: 1px solid rgba(0, 255, 255, 0.42);
-    box-shadow: 0 20px 58px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.11), 0 0 30px rgba(0, 255, 255, 0.12);
+        linear-gradient(135deg, rgba(var(--nx-a1-rgb), 0.14), rgba(var(--nx-a3-rgb), 0.18) 54%, rgba(var(--nx-a2-rgb), 0.1)),
+        rgba(var(--nx-surface-rgb), 0.9);
+    border: 1px solid rgba(var(--nx-a1-rgb), 0.42);
+    box-shadow: 0 20px 58px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.11), 0 0 30px rgba(var(--nx-a1-rgb), 0.12);
 }
 
 .mm-tile.primary::before {
@@ -298,7 +371,7 @@ body::after {
     inset: 0;
     pointer-events: none;
     background:
-        linear-gradient(90deg, rgba(0, 255, 255, 0.28), transparent 32%, transparent 68%, rgba(255, 0, 255, 0.2)),
+        linear-gradient(90deg, rgba(var(--nx-a1-rgb), 0.28), transparent 32%, transparent 68%, rgba(var(--nx-a2-rgb), 0.2)),
         linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 38%);
     opacity: 0.38;
 }
@@ -315,7 +388,7 @@ body::after {
 }
 
 .mm-tile.primary .mm-divider {
-    border-top-color: rgba(0, 255, 255, 0.34);
+    border-top-color: rgba(var(--nx-a1-rgb), 0.34);
 }
 
 .mm-tile.primary .mm-group-divider {
@@ -351,8 +424,8 @@ body::after {
 .tool-card:hover,
 .method-card:hover,
 .recipe-card:hover {
-    border-color: rgba(0, 255, 255, 0.55);
-    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34), 0 0 30px rgba(0, 255, 255, 0.12), 0 0 40px rgba(255, 0, 255, 0.06);
+    border-color: rgba(var(--nx-a1-rgb), 0.55);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34), 0 0 30px rgba(var(--nx-a1-rgb), 0.12), 0 0 40px rgba(var(--nx-a2-rgb), 0.06);
 }
 
 .nav-item {
@@ -362,10 +435,10 @@ body::after {
 
 .nav-item:hover,
 .nav-item.active {
-    background: linear-gradient(135deg, rgba(0, 255, 255, 0.16), rgba(255, 0, 255, 0.12));
-    border-color: rgba(0, 255, 255, 0.32);
+    background: linear-gradient(135deg, rgba(var(--nx-a1-rgb), 0.16), rgba(var(--nx-a2-rgb), 0.12));
+    border-color: rgba(var(--nx-a1-rgb), 0.32);
     color: #ffffff;
-    box-shadow: 0 0 24px rgba(0, 255, 255, 0.11);
+    box-shadow: 0 0 24px rgba(var(--nx-a1-rgb), 0.11);
 }
 
 .nav-icon,
@@ -397,7 +470,7 @@ button,
 .movers-tab,
 .filter-btn,
 .scanner-btn {
-    border-color: rgba(0, 255, 255, 0.24);
+    border-color: rgba(var(--nx-a1-rgb), 0.24);
 }
 
 .sidebar-time-btn,
@@ -410,11 +483,11 @@ button,
 .filter-tab.active {
     background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035)),
-        linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(124, 58, 237, 0.18) 58%, rgba(255, 0, 255, 0.12)),
-        rgba(18, 10, 36, 0.88);
+        linear-gradient(135deg, rgba(var(--nx-a1-rgb), 0.2), rgba(var(--nx-a3-rgb), 0.18) 58%, rgba(var(--nx-a2-rgb), 0.12)),
+        rgba(var(--nx-surface-rgb), 0.88);
     color: #ffffff;
-    border-color: rgba(0, 255, 255, 0.42);
-    box-shadow: 0 0 22px rgba(0, 255, 255, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    border-color: rgba(var(--nx-a1-rgb), 0.42);
+    box-shadow: 0 0 22px rgba(var(--nx-a1-rgb), 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .sidebar-time-btn:hover,
@@ -427,24 +500,53 @@ button,
 .filter-tab.active:hover {
     background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.045)),
-        linear-gradient(135deg, rgba(0, 255, 255, 0.26), rgba(124, 58, 237, 0.22) 58%, rgba(255, 0, 255, 0.16)),
-        rgba(18, 10, 36, 0.92);
-    box-shadow: 0 0 28px rgba(0, 255, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        linear-gradient(135deg, rgba(var(--nx-a1-rgb), 0.26), rgba(var(--nx-a3-rgb), 0.22) 58%, rgba(var(--nx-a2-rgb), 0.16)),
+        rgba(var(--nx-surface-rgb), 0.92);
+    box-shadow: 0 0 28px rgba(var(--nx-a1-rgb), 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 input,
 select,
 textarea,
 .header-search {
-    background: rgba(15, 5, 26, 0.68);
+    background: rgba(var(--nx-bg-rgb), 0.68);
     border-color: rgba(229, 231, 235, 0.18);
     color: var(--text-primary);
+}
+
+.sidebar-theme-select,
+.sidebar-theme-option {
+    color: #ffffff;
+    text-shadow: none;
+}
+
+.sidebar-theme-select {
+    background-color: rgb(var(--nx-bg-rgb));
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.sidebar-theme-menu {
+    background: #121216;
+    border-color: rgba(var(--nx-a1-rgb), 0.35);
+}
+
+.sidebar-theme-option {
+    background: transparent;
+    box-shadow: none;
+}
+
+.sidebar-theme-option:hover,
+.sidebar-theme-option.is-current {
+    background: rgba(var(--nx-a1-rgb), 0.16);
+    color: #ffffff;
 }
 
 table,
 .market-table,
 .scanner-table {
-    background: rgba(15, 5, 26, 0.35);
+    background: rgba(var(--nx-bg-rgb), 0.35);
 }
 
 .card:has(> .market-table),
@@ -474,8 +576,8 @@ table,
     border-radius: 8px;
     background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012)),
-        rgba(15, 5, 26, 0.42);
-    border: 1px solid rgba(0, 255, 255, 0.18);
+        rgba(var(--nx-bg-rgb), 0.42);
+    border: 1px solid rgba(var(--nx-a1-rgb), 0.18);
     box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
     backdrop-filter: none;
 }
@@ -531,13 +633,13 @@ table,
 
 th {
     color: #ffffff;
-    background: rgba(0, 255, 255, 0.09);
+    background: rgba(var(--nx-a1-rgb), 0.09);
 }
 
 tr:hover,
 .transaction-item:hover,
 .mover-item:hover {
-    background: rgba(0, 255, 255, 0.06);
+    background: rgba(var(--nx-a1-rgb), 0.06);
 }
 
 .copyright {
