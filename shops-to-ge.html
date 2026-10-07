@@ -120,6 +120,16 @@
         <main class="main-content">
             <p class="page-intro text-secondary">Buy items from shops at a fixed price, then sell on the GE. GE Value uses the higher of buy/sell, minus tax. Profit shown per item and for the shop's default stock.</p>
 
+            <div class="search-filters">
+                <div class="search-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" placeholder="Search shops or items..." id="searchInput">
+                </div>
+                <button type="button" class="filter-tab" id="profitOnlyBtn" aria-pressed="false">Profit only</button>
+            </div>
+
             <div class="content-grid content-grid--full">
                 <div class="card decanting-card">
                     <div class="decanting-table-scroll">
@@ -165,6 +175,8 @@
         var PAGE_SIZE = 20;
         var sortColumn = 'profitLimit';
         var sortDir = 'desc';
+        var searchQuery = '';
+        var profitOnly = false;
 
         var WIKI_ICON_BASE = 'https://oldschool.runescape.wiki/images/';
         function escapeHtml(s) {
@@ -248,6 +260,27 @@
           var keys = Object.keys(dataset || {});
           if (!keys.length) {
             tbody.innerHTML = '<tr><td colspan="7" class="text-muted">No items configured yet.</td></tr>';
+            renderPager('shopsPager', 0);
+            return;
+          }
+          var q = searchQuery.trim().toLowerCase();
+          if (q) {
+            keys = keys.filter(function(k) {
+              var d = dataset[k] || {};
+              var npc = (d.npc || '').toLowerCase();
+              var item = (d.itemName || '').toLowerCase();
+              return npc.indexOf(q) >= 0 || item.indexOf(q) >= 0;
+            });
+          }
+          if (profitOnly) {
+            keys = keys.filter(function(k) {
+              var d = dataset[k] || {};
+              return d.profitPer != null && Number(d.profitPer) > 0;
+            });
+          }
+          if (!keys.length) {
+            var empty = profitOnly && q ? 'No profitable shops match your search.' : (q ? 'No shops match your search.' : 'No profitable shops in this list.');
+            tbody.innerHTML = '<tr><td colspan="7" class="text-muted">' + empty + '</td></tr>';
             renderPager('shopsPager', 0);
             return;
           }
@@ -350,6 +383,24 @@
           });
         }
         if (refreshBtn) refreshBtn.addEventListener('click', doRefresh);
+        var searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+          searchInput.addEventListener('input', function() {
+            searchQuery = searchInput.value;
+            pageIndex = 0;
+            if (lastData) fillTable(lastData);
+          });
+        }
+        var profitBtn = document.getElementById('profitOnlyBtn');
+        if (profitBtn) {
+          profitBtn.addEventListener('click', function() {
+            profitOnly = !profitOnly;
+            profitBtn.classList.toggle('is-on', profitOnly);
+            profitBtn.setAttribute('aria-pressed', profitOnly ? 'true' : 'false');
+            pageIndex = 0;
+            if (lastData) fillTable(lastData);
+          });
+        }
         (function wireTableSort() {
           var table = document.querySelector('.market-table');
           if (!table) return;
