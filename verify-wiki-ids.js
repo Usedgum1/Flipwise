@@ -82,6 +82,10 @@ function collectChecks(F) {
     add(r.output_id, r.output_name, 'OUT');
     (r.inputs || []).forEach(function (i) { add(i.id, i.name, 'OUT'); });
   });
+  (F.ASSEMBLY_RECIPES || []).forEach(function (r) {
+    add(r.output_id, r.output_name, 'ASM');
+    (r.inputs || []).forEach(function (i) { add(i.id, i.name, 'ASM'); });
+  });
   return checks;
 }
 

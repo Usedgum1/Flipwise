@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Decanting - Flipwise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="css/flipwise-standalone.css">
 </head>
 <body>
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
         <div class="hamburger"><span></span><span></span><span></span></div>
     </button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -244,7 +245,11 @@
     headRow.querySelectorAll('th[data-sort]').forEach(function(th) {
       var col = th.getAttribute('data-sort');
       th.classList.remove('sort-asc', 'sort-desc');
-      if (col === sortColumn) th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+      th.removeAttribute('aria-sort');
+      if (col === sortColumn) {
+        th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+        th.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+      }
     });
   }
   if (headRow) {

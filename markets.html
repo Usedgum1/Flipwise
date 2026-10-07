@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markets - Flipwise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +18,7 @@ Flipwise markets page
 -->
 </head>
 <body>
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
         <div class="hamburger">
             <span></span>
             <span></span>
@@ -114,7 +115,7 @@ Flipwise markets page
 
         <main class="main-content">
             <!-- Item profit cards -->
-            <div class="market-stats market-stats--five">
+            <div class="market-stats">
                 <div class="market-stat" data-item-name="Scythe of Vitur (uncharged)">
                     <div class="market-stat-label">Scythe of Vitur</div>
                     <div class="market-stat-value positive" id="item-profit-scythe">—</div>
@@ -157,6 +158,20 @@ Flipwise markets page
                         </div>
                     </div>
                 </div>
+                <div class="market-stat" data-item-name="Torva armour set">
+                    <div class="market-stat-label">Torva armour set</div>
+                    <div class="market-stat-value positive" id="item-profit-torva">—</div>
+                    <div class="market-stat-prices">
+                        <div class="market-stat-side market-stat-buy">
+                            <span id="item-buy-torva">Buy: —</span>
+                            <span class="market-stat-time" id="item-buy-time-torva">—</span>
+                        </div>
+                        <div class="market-stat-side market-stat-sell">
+                            <span id="item-sell-torva">Sell: —</span>
+                            <span class="market-stat-time" id="item-sell-time-torva">—</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="market-stat" data-item-name="3rd Age longsword">
                     <div class="market-stat-label">3rd Age longsword</div>
                     <div class="market-stat-value positive" id="item-profit-3a-longsword">—</div>
@@ -185,6 +200,34 @@ Flipwise markets page
                         </div>
                     </div>
                 </div>
+                <div class="market-stat" data-item-name="3rd Age axe">
+                    <div class="market-stat-label">3rd Age axe</div>
+                    <div class="market-stat-value positive" id="item-profit-3a-axe">—</div>
+                    <div class="market-stat-prices">
+                        <div class="market-stat-side market-stat-buy">
+                            <span id="item-buy-3a-axe">Buy: —</span>
+                            <span class="market-stat-time" id="item-buy-time-3a-axe">—</span>
+                        </div>
+                        <div class="market-stat-side market-stat-sell">
+                            <span id="item-sell-3a-axe">Sell: —</span>
+                            <span class="market-stat-time" id="item-sell-time-3a-axe">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="market-stat" data-item-name="3rd Age pickaxe">
+                    <div class="market-stat-label">3rd Age pickaxe</div>
+                    <div class="market-stat-value positive" id="item-profit-3a-pickaxe">—</div>
+                    <div class="market-stat-prices">
+                        <div class="market-stat-side market-stat-buy">
+                            <span id="item-buy-3a-pickaxe">Buy: —</span>
+                            <span class="market-stat-time" id="item-buy-time-3a-pickaxe">—</span>
+                        </div>
+                        <div class="market-stat-side market-stat-sell">
+                            <span id="item-sell-3a-pickaxe">Sell: —</span>
+                            <span class="market-stat-time" id="item-sell-time-3a-pickaxe">—</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Search and Filters -->
@@ -194,15 +237,17 @@ Flipwise markets page
                         <circle cx="11" cy="11" r="8"/>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                     </svg>
-                    <input type="text" placeholder="Search Items..." id="searchInput">
+                    <input type="text" placeholder="Search items..." id="searchInput">
                 </div>
                 <div class="filter-tabs">
                     <button class="filter-tab active" data-filter="items">Flipping</button>
                     <button class="filter-tab" data-filter="third_age">Third Age</button>
                     <button class="filter-tab" data-filter="runes">Runes</button>
                     <button class="filter-tab" data-filter="herblore">Herblore</button>
+                    <button type="button" class="filter-tab" id="favoritesOnlyBtn" aria-pressed="false">Favorites</button>
                 </div>
             </div>
+            <p id="herbloreNote" class="filter-note" hidden>Grand Exchange flip margin on these potions, not cleaning profit.</p>
 
             <!-- Content Grid (full width: table uses space where Trending/Fear & Greed were) -->
             <div class="content-grid content-grid--full">
@@ -211,13 +256,13 @@ Flipwise markets page
                     <table class="market-table">
                         <thead>
                             <tr id="marketTableHeadRow">
-                                <th class="market-table__th-item" data-sort="item">Item</th>
-                                <th class="market-table__th-num text-right" data-sort="low">Buy</th>
-                                <th class="market-table__th-num text-right" data-sort="high">Sell</th>
-                                <th class="market-table__th-num text-right" data-sort="profit">Profit</th>
-                                <th class="market-table__th-num text-right" data-sort="roi">ROI %</th>
-                                <th class="market-table__th-num text-right" data-sort="lowTime">Buy time</th>
-                                <th class="market-table__th-num text-right" data-sort="highTime">Sell time</th>
+                                <th class="market-table__th-item market-table__th-sortable" data-sort="item">Item</th>
+                                <th class="market-table__th-num text-right market-table__th-sortable" data-sort="low">Buy</th>
+                                <th class="market-table__th-num text-right market-table__th-sortable" data-sort="high">Sell</th>
+                                <th class="market-table__th-num text-right market-table__th-sortable" data-sort="profit">Profit</th>
+                                <th class="market-table__th-num text-right market-table__th-sortable" data-sort="roi">ROI %</th>
+                                <th class="market-table__th-num text-right market-table__th-sortable" data-sort="lowTime">Buy time</th>
+                                <th class="market-table__th-num text-right market-table__th-sortable" data-sort="highTime">Sell time</th>
                                 <th class="market-table__th-star"></th>
                             </tr>
                         </thead>
@@ -227,6 +272,7 @@ Flipwise markets page
                             </tr>
                         </tbody>
                     </table>
+                    <nav class="table-pager" id="marketsPager" aria-label="Market pages" hidden></nav>
                 </div>
             </div>
 
@@ -250,8 +296,11 @@ Flipwise markets page
           { name: 'Scythe of Vitur (uncharged)', id: 'item-profit-scythe', buyId: 'item-buy-scythe', sellId: 'item-sell-scythe', buyTimeId: 'item-buy-time-scythe', sellTimeId: 'item-sell-time-scythe' },
           { name: 'Twisted bow', id: 'item-profit-tbow', buyId: 'item-buy-tbow', sellId: 'item-sell-tbow', buyTimeId: 'item-buy-time-tbow', sellTimeId: 'item-sell-time-tbow' },
           { name: "Tumeken's shadow (uncharged)", id: 'item-profit-shadow', buyId: 'item-buy-shadow', sellId: 'item-sell-shadow', buyTimeId: 'item-buy-time-shadow', sellTimeId: 'item-sell-time-shadow' },
+          { name: 'Torva armour set', id: 'item-profit-torva', buyId: 'item-buy-torva', sellId: 'item-sell-torva', buyTimeId: 'item-buy-time-torva', sellTimeId: 'item-sell-time-torva' },
           { name: '3rd Age longsword', id: 'item-profit-3a-longsword', buyId: 'item-buy-3a-longsword', sellId: 'item-sell-3a-longsword', buyTimeId: 'item-buy-time-3a-longsword', sellTimeId: 'item-sell-time-3a-longsword' },
-          { name: '3rd Age bow', id: 'item-profit-3a-bow', buyId: 'item-buy-3a-bow', sellId: 'item-sell-3a-bow', buyTimeId: 'item-buy-time-3a-bow', sellTimeId: 'item-sell-time-3a-bow' }
+          { name: '3rd Age bow', id: 'item-profit-3a-bow', buyId: 'item-buy-3a-bow', sellId: 'item-sell-3a-bow', buyTimeId: 'item-buy-time-3a-bow', sellTimeId: 'item-sell-time-3a-bow' },
+          { name: '3rd Age axe', id: 'item-profit-3a-axe', buyId: 'item-buy-3a-axe', sellId: 'item-sell-3a-axe', buyTimeId: 'item-buy-time-3a-axe', sellTimeId: 'item-sell-time-3a-axe' },
+          { name: '3rd Age pickaxe', id: 'item-profit-3a-pickaxe', buyId: 'item-buy-3a-pickaxe', sellId: 'item-sell-3a-pickaxe', buyTimeId: 'item-buy-time-3a-pickaxe', sellTimeId: 'item-sell-time-3a-pickaxe' }
         ];
         var lastRefreshTime = null;
         try {
@@ -261,6 +310,8 @@ Flipwise markets page
         var lastData = null;
         var currentFilter = 'items'; /* default tab: Flipping */
         var searchQuery = '';
+        var pageIndex = 0;
+        var PAGE_SIZE = 20;
         var autoRefreshInterval = null;
         var clockEl = document.getElementById('refresh-clock');
         var lastEl = document.getElementById('refresh-last');
@@ -327,6 +378,7 @@ Flipwise markets page
             (data.scannerData && data.scannerData[name]) || null;
         }
         var sortColumn = 'profit';  /* default: most profitable first */
+        var favoritesOnly = false;
         var sortDir = 'desc';
         var FAVORITES_KEY = 'flipwise-favorites';
         var PINNED_KEY = 'flipwise-pinned';
@@ -396,10 +448,49 @@ Flipwise markets page
           row.querySelectorAll('th[data-sort]').forEach(function(th) {
             var col = th.getAttribute('data-sort');
             th.classList.remove('sort-asc', 'sort-desc');
-            if (col === sortColumn) th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+            th.removeAttribute('aria-sort');
+            if (col === sortColumn) {
+              th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+              th.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+            }
           });
         }
-        function fillTable(data) {
+        function renderPager(pagerId, total) {
+          var el = document.getElementById(pagerId);
+          if (!el) return;
+          if (!total) {
+            el.hidden = true;
+            el.innerHTML = '';
+            return;
+          }
+          var pages = Math.ceil(total / PAGE_SIZE);
+          if (pageIndex >= pages) pageIndex = pages - 1;
+          if (pageIndex < 0) pageIndex = 0;
+          var start = pageIndex * PAGE_SIZE;
+          var end = Math.min(start + PAGE_SIZE, total);
+          var html = '<span class="table-pager__status">Showing ' + (start + 1).toLocaleString() + '–' + end.toLocaleString() + ' of ' + total.toLocaleString() + '</span>';
+          html += '<button type="button" class="table-pager__btn" data-page="prev"' + (pageIndex === 0 ? ' disabled' : '') + '>Previous</button>';
+          var windowSize = 7;
+          var from = 0;
+          var to = pages;
+          if (pages > windowSize) {
+            from = pageIndex - 3;
+            if (from < 0) from = 0;
+            to = from + windowSize;
+            if (to > pages) {
+              to = pages;
+              from = to - windowSize;
+            }
+          }
+          for (var i = from; i < to; i++) {
+            var current = i === pageIndex;
+            html += '<button type="button" class="table-pager__btn' + (current ? ' is-current' : '') + '" data-page="' + i + '"' + (current ? ' aria-current="page"' : '') + '>' + (i + 1) + '</button>';
+          }
+          html += '<button type="button" class="table-pager__btn" data-page="next"' + (pageIndex >= pages - 1 ? ' disabled' : '') + '>Next</button>';
+          el.hidden = false;
+          el.innerHTML = html;
+        }
+        function fillTable(data, scrollToTable) {
           updateTableHeader();
           var tbody = document.getElementById('marketsTableBody');
           if (!tbody) return;
@@ -415,6 +506,11 @@ Flipwise markets page
             var q = searchQuery.trim().toLowerCase();
             rows = rows.filter(function(r) { return (r.name || '').toLowerCase().indexOf(q) >= 0; });
           }
+          if (favoritesOnly) {
+            rows = rows.filter(function(r) { return isFavorite(r.name); });
+          }
+          var note = document.getElementById('herbloreNote');
+          if (note) note.hidden = currentFilter !== 'herblore';
           var pinned = getPinned();
           var key = sortColumn;
           var mult = sortDir === 'asc' ? -1 : 1;
@@ -445,26 +541,30 @@ Flipwise markets page
           var isVolumeTable = currentFilter === 'runes' || currentFilter === 'herblore';
           var colCount = isVolumeTable ? 6 : 8;
           tbody.innerHTML = '';
+          renderPager('marketsPager', rows.length);
           if (rows.length === 0) {
             var tr = document.createElement('tr');
-            var msg = !dataset ? 'Items will load here.' : searchQuery.trim() ? 'No items match your search.' : 'No items for this filter.';
+            var msg = !dataset ? 'Items will load here.' : favoritesOnly && !searchQuery.trim() ? 'No favorites in this list.' : searchQuery.trim() ? 'No items match your search.' : 'No items for this filter.';
             tr.innerHTML = '<td colspan="' + colCount + '" class="text-muted">' + msg + '</td>';
             tbody.appendChild(tr);
             return;
           }
-          rows.forEach(function(r) {
+          var pageStart = pageIndex * PAGE_SIZE;
+          rows.slice(pageStart, pageStart + PAGE_SIZE).forEach(function(r) {
             var d = r.d;
             var low = d.low != null ? Number(d.low).toLocaleString() : '—';
             var high = d.high != null ? Number(d.high).toLocaleString() : '—';
             var tr = document.createElement('tr');
             var fav = isFavorite(r.name);
+            var pinMark = pinned.indexOf(r.name) >= 0 ? '<span class="pin-mark">Pinned</span>' : '';
+            if (pinned.indexOf(r.name) >= 0) tr.classList.add('is-pinned');
             if (isVolumeTable) {
               var profitPer = d.profitPer != null ? d.profitPer : 0;
               var profitLimit = d.profitLimit != null ? d.profitLimit : 0;
               var perClass = profitPer > 0 ? 'positive' : profitPer < 0 ? 'negative' : '';
               var limitClass = profitLimit > 0 ? 'positive' : profitLimit < 0 ? 'negative' : '';
               tr.innerHTML =
-                '<td class="market-table__td-item"><div class="coin-cell"><span class="coin-icon">' + itemIconHtml(d, r.name.charAt(0)) + '</span><span class="coin-name">' + escapeHtml(r.name) + '</span></div></td>' +
+                '<td class="market-table__td-item"><div class="coin-cell"><span class="coin-icon">' + itemIconHtml(d, r.name.charAt(0)) + '</span><span class="coin-name">' + escapeHtml(r.name) + pinMark + '</span></div></td>' +
                 '<td class="text-right market-table__td-num">' + low + '</td>' +
                 '<td class="text-right market-table__td-num">' + high + '</td>' +
                 '<td class="text-right market-table__td-num change-cell ' + perClass + '">' + escapeHtml(fmtProfit(d.profitPer)) + '</td>' +
@@ -483,7 +583,7 @@ Flipwise markets page
               var buyTimeTitle = hasBuyAlert ? ' title="Buy Alert Set"' : '';
               var sellTimeTitle = hasSellAlert ? ' title="Sell Alert Set"' : '';
               tr.innerHTML =
-                '<td class="market-table__td-item"><div class="coin-cell"><span class="coin-icon">' + itemIconHtml(d, r.name.charAt(0)) + '</span><span class="coin-name">' + escapeHtml(r.name) + '</span></div></td>' +
+                '<td class="market-table__td-item"><div class="coin-cell"><span class="coin-icon">' + itemIconHtml(d, r.name.charAt(0)) + '</span><span class="coin-name">' + escapeHtml(r.name) + pinMark + '</span></div></td>' +
                 '<td class="text-right market-table__td-num">' + low + '</td>' +
                 '<td class="text-right market-table__td-num">' + high + '</td>' +
                 '<td class="text-right market-table__td-num change-cell ' + profitClass + '">' + escapeHtml(fmtProfit(d.profit)) + '</td>' +
@@ -532,12 +632,20 @@ Flipwise markets page
               var name = btn.getAttribute('data-item-name');
               if (!name) return;
               toggleFavorite(name);
+              if (favoritesOnly && lastData) {
+                fillTable(lastData);
+                return;
+              }
               var on = isFavorite(name);
               btn.classList.toggle('star-btn--on', on);
               btn.textContent = on ? '★' : '☆';
               btn.setAttribute('title', on ? 'Unfavorite' : 'Favorite');
             });
           });
+          if (scrollToTable) {
+            var card = tbody.closest('.card');
+            if (card && card.scrollIntoView) card.scrollIntoView({ block: 'start' });
+          }
         }
         var WIKI_ICON_BASE = 'https://oldschool.runescape.wiki/images/';
         function itemIconHtml(d, fallbackLetter) {
@@ -627,9 +735,20 @@ Flipwise markets page
               }
               tabs.forEach(function(t) { t.classList.remove('active'); });
               tab.classList.add('active');
+              pageIndex = 0;
               if (lastData) fillTable(lastData);
             });
           });
+          var favBtn = document.getElementById('favoritesOnlyBtn');
+          if (favBtn) {
+            favBtn.addEventListener('click', function() {
+              favoritesOnly = !favoritesOnly;
+              favBtn.classList.toggle('is-on', favoritesOnly);
+              favBtn.setAttribute('aria-pressed', favoritesOnly ? 'true' : 'false');
+              pageIndex = 0;
+              if (lastData) fillTable(lastData);
+            });
+          }
         })();
         (function wireTableSort() {
           var table = document.querySelector('.market-table');
@@ -642,6 +761,7 @@ Flipwise markets page
             if (sortColumn === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
             else { sortColumn = col; sortDir = 'desc'; }
             setSortIndicator();
+            pageIndex = 0;
             if (lastData) fillTable(lastData);
           });
         })();
@@ -650,7 +770,24 @@ Flipwise markets page
           if (!searchEl) return;
           searchEl.addEventListener('input', function() {
             searchQuery = searchEl.value;
+            pageIndex = 0;
             if (lastData) fillTable(lastData);
+          });
+        })();
+        (function wirePager() {
+          var el = document.getElementById('marketsPager');
+          if (!el) return;
+          el.addEventListener('click', function(e) {
+            var btn = e.target.closest ? e.target.closest('[data-page]') : null;
+            if (!btn || btn.disabled) return;
+            var v = btn.getAttribute('data-page');
+            var next = pageIndex;
+            if (v === 'prev') next = pageIndex - 1;
+            else if (v === 'next') next = pageIndex + 1;
+            else next = parseInt(v, 10);
+            if (isNaN(next) || next === pageIndex) return;
+            pageIndex = next;
+            if (lastData) fillTable(lastData, true);
           });
         })();
         doRefresh();

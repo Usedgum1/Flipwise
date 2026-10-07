@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item - Flipwise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,12 +98,11 @@
 
         <main class="main-content item-page">
             <div class="item-page-header">
-                <button type="button" class="item-page-back" onclick="history.back()">← Back</button>
+                <button type="button" class="item-page-back" id="itemPageBack">← Back</button>
                 <div class="item-page-title-row">
                     <div id="itemPageIcon" class="item-page-icon"></div>
                     <div>
                         <h1 id="itemPageName">Loading…</h1>
-                        <p id="itemPageMeta" class="text-muted"></p>
                     </div>
                 </div>
             </div>
@@ -125,8 +125,10 @@
                         <button type="button" class="chart-tab" data-lookback="24h">24 hr</button>
                         <button type="button" class="chart-tab" data-lookback="5m">5 min</button>
                     </div>
+                        <button type="button" class="chart-tab" id="chartPriceOnlyBtn" aria-pressed="false">Price only</button>
+                    </div>
                 </div>
-                <div id="itemPageChart" class="flipwise-breakdown-chart" aria-live="polite">
+                <p id="chartRangeNote" class="chart-range-note">Prices over the last 7 days.</p>
                     <div class="flipwise-chart-placeholder text-muted">Loading chart…</div>
                 </div>
             </div>

@@ -138,6 +138,182 @@ Flipwise.ENCHANTING_RECIPES = [
       { id: 564, name: 'Cosmic rune', qty: 1 },
       { id: 554, name: 'Fire rune', qty: 5 }
     ]
+  },
+  {
+    key: 'torture',
+    title: 'Amulet of torture',
+    output_id: 19553,
+    output_name: 'Amulet of torture',
+    inputs: [
+      { id: 19541, name: 'Zenyte amulet', qty: 1 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 566, name: 'Soul rune', qty: 20 },
+      { id: 565, name: 'Blood rune', qty: 20 }
+    ]
+  },
+  {
+    key: 'tormented',
+    title: 'Tormented bracelet',
+    output_id: 19544,
+    output_name: 'Tormented bracelet',
+    inputs: [
+      { id: 19532, name: 'Zenyte bracelet', qty: 1 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 566, name: 'Soul rune', qty: 20 },
+      { id: 565, name: 'Blood rune', qty: 20 }
+    ]
+  },
+  {
+    key: 'glory',
+    title: 'Amulet of glory',
+    output_id: 1704,
+    output_name: 'Amulet of glory',
+    inputs: [
+      { id: 1702, name: 'Dragonstone amulet', qty: 1 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 557, name: 'Earth rune', qty: 15 },
+      { id: 555, name: 'Water rune', qty: 15 }
+    ]
+  },
+  {
+    key: 'wealth',
+    title: 'Ring of wealth',
+    output_id: 2572,
+    output_name: 'Ring of wealth',
+    inputs: [
+      { id: 1645, name: 'Dragonstone ring', qty: 1 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 557, name: 'Earth rune', qty: 15 },
+      { id: 555, name: 'Water rune', qty: 15 }
+    ]
+  },
+  {
+    key: 'skills_necklace',
+    title: 'Skills necklace',
+    output_id: 11113,
+    output_name: 'Skills necklace',
+    inputs: [
+      { id: 1664, name: 'Dragon necklace', qty: 1 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 557, name: 'Earth rune', qty: 15 },
+      { id: 555, name: 'Water rune', qty: 15 }
+    ]
+  },
+  {
+    key: 'combat_bracelet',
+    title: 'Combat bracelet',
+    output_id: 11126,
+    output_name: 'Combat bracelet',
+    inputs: [
+      { id: 11115, name: 'Dragonstone bracelet', qty: 1 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 557, name: 'Earth rune', qty: 15 },
+      { id: 555, name: 'Water rune', qty: 15 }
+    ]
+  },
+  {
+    key: 'ruby_bolts',
+    title: 'Ruby bolts (e)',
+    output_id: 9242,
+    output_name: 'Ruby bolts (e)',
+    output_qty: 10,
+    inputs: [
+      { id: 9339, name: 'Ruby bolts', qty: 10 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 554, name: 'Fire rune', qty: 5 },
+      { id: 565, name: 'Blood rune', qty: 1 }
+    ]
+  },
+  {
+    key: 'ruby_dragon_bolts',
+    title: 'Ruby dragon bolts (e)',
+    output_id: 21944,
+    output_name: 'Ruby dragon bolts (e)',
+    output_qty: 10,
+    inputs: [
+      { id: 21967, name: 'Ruby dragon bolts', qty: 10 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 554, name: 'Fire rune', qty: 5 },
+      { id: 565, name: 'Blood rune', qty: 1 }
+    ]
+  },
+  {
+    key: 'diamond_bolts',
+    title: 'Diamond bolts (e)',
+    output_id: 9243,
+    output_name: 'Diamond bolts (e)',
+    output_qty: 10,
+    inputs: [
+      { id: 9340, name: 'Diamond bolts', qty: 10 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 557, name: 'Earth rune', qty: 10 },
+      { id: 563, name: 'Law rune', qty: 2 }
+    ]
+  },
+  {
+    key: 'diamond_dragon_bolts',
+    title: 'Diamond dragon bolts (e)',
+    output_id: 21946,
+    output_name: 'Diamond dragon bolts (e)',
+    output_qty: 10,
+    inputs: [
+      { id: 21969, name: 'Diamond dragon bolts', qty: 10 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 557, name: 'Earth rune', qty: 10 },
+      { id: 563, name: 'Law rune', qty: 2 }
+    ]
+  },
+  {
+    key: 'dragonstone_bolts',
+    title: 'Dragonstone bolts (e)',
+    output_id: 9244,
+    output_name: 'Dragonstone bolts (e)',
+    output_qty: 10,
+    inputs: [
+      { id: 9341, name: 'Dragonstone bolts', qty: 10 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 557, name: 'Earth rune', qty: 15 },
+      { id: 566, name: 'Soul rune', qty: 1 }
+    ]
+  },
+  {
+    key: 'dragonstone_dragon_bolts',
+    title: 'Dragonstone dragon bolts (e)',
+    output_id: 21948,
+    output_name: 'Dragonstone dragon bolts (e)',
+    output_qty: 10,
+    inputs: [
+      { id: 21971, name: 'Dragonstone dragon bolts', qty: 10 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 557, name: 'Earth rune', qty: 15 },
+      { id: 566, name: 'Soul rune', qty: 1 }
+    ]
+  },
+  {
+    key: 'onyx_bolts',
+    title: 'Onyx bolts (e)',
+    output_id: 9245,
+    output_name: 'Onyx bolts (e)',
+    output_qty: 10,
+    inputs: [
+      { id: 9342, name: 'Onyx bolts', qty: 10 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 554, name: 'Fire rune', qty: 20 },
+      { id: 560, name: 'Death rune', qty: 1 }
+    ]
+  },
+  {
+    key: 'onyx_dragon_bolts',
+    title: 'Onyx dragon bolts (e)',
+    output_id: 21950,
+    output_name: 'Onyx dragon bolts (e)',
+    output_qty: 10,
+    inputs: [
+      { id: 21973, name: 'Onyx dragon bolts', qty: 10 },
+      { id: 564, name: 'Cosmic rune', qty: 1 },
+      { id: 554, name: 'Fire rune', qty: 20 },
+      { id: 560, name: 'Death rune', qty: 1 }
+    ]
   }
 ];
 
@@ -268,6 +444,84 @@ Flipwise.OUTFIT_SET_RECIPES = [
       { id: 30073, name: 'Hueycoatl hide coif', qty: 1 },
       { id: 30082, name: 'Hueycoatl hide vambraces', qty: 1 }
     ]
+  },
+  {
+    key: 'justiciar',
+    title: "Justiciar armour set",
+    output_id: 22438,
+    output_name: "Justiciar armour set",
+    inputs: [
+      { id: 22326, name: "Justiciar faceguard", qty: 1 },
+      { id: 22327, name: "Justiciar chestguard", qty: 1 },
+      { id: 22328, name: "Justiciar legguards", qty: 1 }
+    ]
+  },
+  {
+    key: 'blood_moon',
+    title: 'Blood Moon armour set',
+    output_id: 31136,
+    output_name: 'Blood Moon armour set',
+    inputs: [
+      { id: 29028, name: 'Blood Moon helm', qty: 1 },
+      { id: 29022, name: 'Blood Moon chestplate', qty: 1 },
+      { id: 29025, name: 'Blood Moon tassets', qty: 1 }
+    ]
+  },
+  {
+    key: 'blue_moon',
+    title: 'Blue Moon armour set',
+    output_id: 31139,
+    output_name: 'Blue Moon armour set',
+    inputs: [
+      { id: 29019, name: 'Blue Moon helm', qty: 1 },
+      { id: 29013, name: 'Blue Moon chestplate', qty: 1 },
+      { id: 29016, name: 'Blue Moon tassets', qty: 1 }
+    ]
+  },
+  {
+    key: 'eclipse_moon',
+    title: 'Eclipse Moon armour set',
+    output_id: 31142,
+    output_name: 'Eclipse Moon armour set',
+    inputs: [
+      { id: 29010, name: 'Eclipse Moon helm', qty: 1 },
+      { id: 29004, name: 'Eclipse Moon chestplate', qty: 1 },
+      { id: 29007, name: 'Eclipse Moon tassets', qty: 1 }
+    ]
+  },
+  {
+    key: 'dagonhai',
+    title: "Dagon'hai robes set",
+    output_id: 24333,
+    output_name: "Dagon'hai robes set",
+    inputs: [
+      { id: 24288, name: "Dagon'hai hat", qty: 1 },
+      { id: 24291, name: "Dagon'hai robe top", qty: 1 },
+      { id: 24294, name: "Dagon'hai robe bottom", qty: 1 }
+    ]
+  },
+  {
+    key: 'obsidian',
+    title: 'Obsidian armour set',
+    output_id: 21279,
+    output_name: 'Obsidian armour set',
+    inputs: [
+      { id: 21298, name: 'Obsidian helmet', qty: 1 },
+      { id: 21301, name: 'Obsidian platebody', qty: 1 },
+      { id: 21304, name: 'Obsidian platelegs', qty: 1 }
+    ]
+  },
+  {
+    key: 'dragon_sk',
+    title: 'Dragon armour set (sk)',
+    output_id: 21885,
+    output_name: 'Dragon armour set (sk)',
+    inputs: [
+      { id: 11335, name: 'Dragon full helm', qty: 1 },
+      { id: 21892, name: 'Dragon platebody', qty: 1 },
+      { id: 4585, name: 'Dragon plateskirt', qty: 1 },
+      { id: 21895, name: 'Dragon kiteshield', qty: 1 }
+    ]
   }
 ];
 
@@ -369,6 +623,161 @@ Flipwise.MONEY_MAKER_TOOLTIPS = {
   mithril_seeds: "Fixed cost 350 gp per seed, sell on GE. ~1945 per hour."
 };
 
+// One-way assemblies. Profit is one finished item: input lows, output high, after GE tax.
+Flipwise.ASSEMBLY_RECIPES = [
+  {
+    key: 'voidwaker',
+    title: 'Voidwaker',
+    output_id: 27690,
+    output_name: 'Voidwaker',
+    inputs: [
+      { id: 27684, name: 'Voidwaker blade', qty: 1 },
+      { id: 27687, name: 'Voidwaker gem', qty: 1 },
+      { id: 27681, name: 'Voidwaker hilt', qty: 1 }
+    ]
+  },
+  {
+    key: 'bandos_godsword',
+    title: 'Bandos godsword',
+    output_id: 11804,
+    output_name: 'Bandos godsword',
+    inputs: [
+      { id: 11798, name: 'Godsword blade', qty: 1 },
+      { id: 11812, name: 'Bandos hilt', qty: 1 }
+    ]
+  },
+  {
+    key: 'armadyl_godsword',
+    title: 'Armadyl godsword',
+    output_id: 11802,
+    output_name: 'Armadyl godsword',
+    inputs: [
+      { id: 11798, name: 'Godsword blade', qty: 1 },
+      { id: 11810, name: 'Armadyl hilt', qty: 1 }
+    ]
+  },
+  {
+    key: 'saradomin_godsword',
+    title: 'Saradomin godsword',
+    output_id: 11806,
+    output_name: 'Saradomin godsword',
+    inputs: [
+      { id: 11798, name: 'Godsword blade', qty: 1 },
+      { id: 11814, name: 'Saradomin hilt', qty: 1 }
+    ]
+  },
+  {
+    key: 'zamorak_godsword',
+    title: 'Zamorak godsword',
+    output_id: 11808,
+    output_name: 'Zamorak godsword',
+    inputs: [
+      { id: 11798, name: 'Godsword blade', qty: 1 },
+      { id: 11816, name: 'Zamorak hilt', qty: 1 }
+    ]
+  },
+  {
+    key: 'ancient_godsword',
+    title: 'Ancient godsword',
+    output_id: 26233,
+    output_name: 'Ancient godsword',
+    inputs: [
+      { id: 11798, name: 'Godsword blade', qty: 1 },
+      { id: 26370, name: 'Ancient hilt', qty: 1 }
+    ]
+  },
+  {
+    key: 'blessed_spirit_shield',
+    title: 'Blessed spirit shield',
+    output_id: 12831,
+    output_name: 'Blessed spirit shield',
+    inputs: [
+      { id: 12829, name: 'Spirit shield', qty: 1 },
+      { id: 12833, name: 'Holy elixir', qty: 1 }
+    ]
+  },
+  {
+    key: 'arcane_spirit_shield',
+    title: 'Arcane spirit shield',
+    output_id: 12825,
+    output_name: 'Arcane spirit shield',
+    inputs: [
+      { id: 12831, name: 'Blessed spirit shield', qty: 1 },
+      { id: 12827, name: 'Arcane sigil', qty: 1 }
+    ]
+  },
+  {
+    key: 'spectral_spirit_shield',
+    title: 'Spectral spirit shield',
+    output_id: 12821,
+    output_name: 'Spectral spirit shield',
+    inputs: [
+      { id: 12831, name: 'Blessed spirit shield', qty: 1 },
+      { id: 12823, name: 'Spectral sigil', qty: 1 }
+    ]
+  },
+  {
+    key: 'elysian_spirit_shield',
+    title: 'Elysian spirit shield',
+    output_id: 12817,
+    output_name: 'Elysian spirit shield',
+    inputs: [
+      { id: 12831, name: 'Blessed spirit shield', qty: 1 },
+      { id: 12819, name: 'Elysian sigil', qty: 1 }
+    ]
+  },
+  {
+    key: 'masori_mask_f',
+    title: 'Masori mask (f)',
+    output_id: 27235,
+    output_name: 'Masori mask (f)',
+    inputs: [
+      { id: 27226, name: 'Masori mask', qty: 1 },
+      { id: 11826, name: 'Armadyl helmet', qty: 1 }
+    ]
+  },
+  {
+    key: 'masori_body_f',
+    title: 'Masori body (f)',
+    output_id: 27238,
+    output_name: 'Masori body (f)',
+    inputs: [
+      { id: 27229, name: 'Masori body', qty: 1 },
+      { id: 11828, name: 'Armadyl chestplate', qty: 1 }
+    ]
+  },
+  {
+    key: 'masori_chaps_f',
+    title: 'Masori chaps (f)',
+    output_id: 27241,
+    output_name: 'Masori chaps (f)',
+    inputs: [
+      { id: 27232, name: 'Masori chaps', qty: 1 },
+      { id: 11830, name: 'Armadyl chainskirt', qty: 1 }
+    ]
+  },
+  {
+    key: 'dragonfire_shield',
+    title: 'Dragonfire shield',
+    output_id: 11284,
+    output_name: 'Dragonfire shield',
+    inputs: [
+      { id: 1540, name: 'Anti-dragon shield', qty: 1 },
+      { id: 11286, name: 'Draconic visage', qty: 1 }
+    ]
+  },
+  {
+    key: 'dragonfire_ward',
+    title: 'Dragonfire ward',
+    output_id: 22003,
+    output_name: 'Dragonfire ward',
+    inputs: [
+      { id: 1540, name: 'Anti-dragon shield', qty: 1 },
+      { id: 22006, name: 'Skeletal visage', qty: 1 }
+    ]
+  }
+];
+
 // Flip items (ids and names). Includes the four card items + rest for table.
 Flipwise.FLIP_ITEMS = [
   { id: 20997, name: "Twisted bow" },
@@ -428,7 +837,17 @@ Flipwise.FLIP_ITEMS = [
   { id: 32093, name: "Inky paint" },
   { id: 32110, name: "Merchant's paint" },
   { id: 33631, name: "Crimson kisten" },
-  { id: 33639, name: "Necklace of rupture" }
+  { id: 33639, name: "Necklace of rupture" },
+  { id: 26219, name: "Osmumten's fang" },
+  { id: 22324, name: "Ghrazi rapier" },
+  { id: 22481, name: "Sanguinesti staff (uncharged)" },
+  { id: 25985, name: "Elidinis' ward" },
+  { id: 12821, name: "Spectral spirit shield" },
+  { id: 26233, name: "Ancient godsword" },
+  { id: 29577, name: "Burning claws" },
+  { id: 27652, name: "Webweaver bow (u)" },
+  { id: 27657, name: "Ursine chainmace (u)" },
+  { id: 27662, name: "Accursed sceptre (u)" }
 ];
 
 Flipwise.HIGH_VOLUME_ITEMS = [
@@ -472,6 +891,7 @@ Flipwise.HERBLORE_ITEMS = [
   { id: 2485, name: "Grimy lantadyme" },
   { id: 217, name: "Grimy dwarf weed" },
   { id: 219, name: "Grimy torstol" },
+  { id: 30094, name: "Grimy huasca" },
   { id: 249, name: "Guam leaf" },
   { id: 251, name: "Marrentill" },
   { id: 253, name: "Tarromin" },
@@ -486,6 +906,7 @@ Flipwise.HERBLORE_ITEMS = [
   { id: 2481, name: "Lantadyme" },
   { id: 267, name: "Dwarf weed" },
   { id: 269, name: "Torstol" },
+  { id: 30097, name: "Huasca" },
   { id: 91, name: "Guam potion (unf)" },
   { id: 93, name: "Marrentill potion (unf)" },
   { id: 95, name: "Tarromin potion (unf)" },
@@ -500,6 +921,7 @@ Flipwise.HERBLORE_ITEMS = [
   { id: 2483, name: "Lantadyme potion (unf)" },
   { id: 109, name: "Dwarf weed potion (unf)" },
   { id: 111, name: "Torstol potion (unf)" },
+  { id: 30100, name: "Huasca potion (unf)" },
   { id: 149, name: "Super attack(1)" },
   { id: 147, name: "Super attack(2)" },
   { id: 145, name: "Super attack(3)" },
@@ -564,11 +986,14 @@ Flipwise.THIRD_AGE_ITEMS = [
   { id: 10350, name: "3rd Age full helmet" },
   { id: 10348, name: "3rd Age platebody" },
   { id: 10346, name: "3rd Age platelegs" },
+  { id: 23242, name: "3rd Age plateskirt" },
   { id: 10352, name: "3rd Age kiteshield" },
+  { id: 12437, name: "3rd Age cloak" },
   { id: 10338, name: "3rd Age robe top" },
   { id: 10340, name: "3rd Age robe" },
   { id: 10342, name: "3rd Age mage hat" },
   { id: 10330, name: "3rd Age range top" },
+  { id: 10334, name: "3rd Age range coif" },
   { id: 10332, name: "3rd Age range legs" },
   { id: 10336, name: "3rd Age vambraces" },
   { id: 12426, name: "3rd Age longsword" },
@@ -576,7 +1001,11 @@ Flipwise.THIRD_AGE_ITEMS = [
   { id: 10344, name: "3rd Age amulet" },
   { id: 12424, name: "3rd Age bow" },
   { id: 23342, name: "3rd Age druidic staff" },
+  { id: 23336, name: "3rd Age druidic robe top" },
+  { id: 23339, name: "3rd Age druidic robe bottoms" },
+  { id: 23345, name: "3rd Age druidic cloak" },
   { id: 20011, name: "3rd Age axe" },
+  { id: 28226, name: "3rd Age felling axe" },
   { id: 20014, name: "3rd Age pickaxe" }
 ];
 
@@ -604,48 +1033,518 @@ Flipwise.GEM_CUTTING_ITEMS = [
   { display_name: 'Uncut red topaz', uncut_id: 1629, uncut_name: 'Uncut red topaz', cut_id: 1613, cut_name: 'Red topaz', ge_limit: 10000 }
 ];
 
-// Shops → GE: buy at fixed shop cost, sell on GE.
+// Shops → GE: buy at the shop's listed price, sell on the GE.
+// Selling is not buy-limited, so the quantity is the shop's default stock.
 // - GE Value uses the higher of buy/sell (max(high, low)), minus tax.
 // - Profit per = (GE Value after tax) - shop_cost
-// - Profit (limit) = profit per * GE buy limit (from mapping) unless overridden.
+// - Stock profit = profit per * shop_stock
 Flipwise.SHOPS_TO_GE_ITEMS = [
-  // Martin Thwait (shop stock)
-  { npc: 'Martin Thwait', display_name: 'Rope', item_id: 954, shop_cost: 18, ge_limit_override: null },
-  { npc: 'Martin Thwait', display_name: 'Lockpick', item_id: 1523, shop_cost: 20, ge_limit_override: null },
-  { npc: 'Martin Thwait', display_name: 'Chisel', item_id: 1755, shop_cost: 1, ge_limit_override: null },
-  { npc: 'Martin Thwait', display_name: 'Knife', item_id: 946, shop_cost: 6, ge_limit_override: null },
-  // Note: "Stethoscope" was not found in OSRS Wiki price mapping, so it can't be priced here until we have a valid GE-tracked item id/name.
-  { npc: 'Martin Thwait', display_name: 'Bronze knife', item_id: 864, shop_cost: 1, ge_limit_override: null },
-  { npc: 'Martin Thwait', display_name: 'Iron knife', item_id: 863, shop_cost: 3, ge_limit_override: null },
-  { npc: 'Martin Thwait', display_name: 'Steel knife', item_id: 865, shop_cost: 11, ge_limit_override: null },
-  { npc: 'Martin Thwait', display_name: 'Bronze claws', item_id: 3095, shop_cost: 15, ge_limit_override: null },
-  { npc: 'Martin Thwait', display_name: 'Iron claws', item_id: 3096, shop_cost: 50, ge_limit_override: null },
-  { npc: 'Martin Thwait', display_name: 'Steel claws', item_id: 3097, shop_cost: 175, ge_limit_override: null },
+  // Martin Thwait
+  { npc: 'Martin Thwait', display_name: 'Rope', item_id: 954, shop_cost: 18, shop_stock: 50 },
+  { npc: 'Martin Thwait', display_name: 'Lockpick', item_id: 1523, shop_cost: 20, shop_stock: 25 },
+  { npc: 'Martin Thwait', display_name: 'Chisel', item_id: 1755, shop_cost: 1, shop_stock: 30 },
+  { npc: 'Martin Thwait', display_name: 'Knife', item_id: 946, shop_cost: 6, shop_stock: 20 },
+  // Stethoscope is not on the GE, so it cannot be priced here.
+  { npc: 'Martin Thwait', display_name: 'Bronze knife', item_id: 864, shop_cost: 1, shop_stock: 15 },
+  { npc: 'Martin Thwait', display_name: 'Iron knife', item_id: 863, shop_cost: 3, shop_stock: 10 },
+  { npc: 'Martin Thwait', display_name: 'Steel knife', item_id: 865, shop_cost: 11, shop_stock: 5 },
+  { npc: 'Martin Thwait', display_name: 'Bronze claws', item_id: 3095, shop_cost: 15, shop_stock: 3 },
+  { npc: 'Martin Thwait', display_name: 'Iron claws', item_id: 3096, shop_cost: 50, shop_stock: 2 },
+  { npc: 'Martin Thwait', display_name: 'Steel claws', item_id: 3097, shop_cost: 175, shop_stock: 1 },
 
   // Elgan's Exceptional Staffs (Prifddinas)
-  { npc: "Elgan's Exceptional Staffs", display_name: 'Battlestaff', item_id: 1391, shop_cost: 7000, ge_limit_override: null },
-  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff', item_id: 1379, shop_cost: 15, ge_limit_override: null },
-  { npc: "Elgan's Exceptional Staffs", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, ge_limit_override: null },
-  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Battlestaff', item_id: 1391, shop_cost: 7000, shop_stock: 5 },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff', item_id: 1379, shop_cost: 15, shop_stock: 5 },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, shop_stock: 5 },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Elgan's Exceptional Staffs", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, shop_stock: 2 },
 
   // Filamina's Wares (Arceuus)
-  { npc: "Filamina's Wares", display_name: 'Staff', item_id: 1379, shop_cost: 15, ge_limit_override: null },
-  { npc: "Filamina's Wares", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, ge_limit_override: null },
-  { npc: "Filamina's Wares", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Filamina's Wares", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Filamina's Wares", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Filamina's Wares", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, ge_limit_override: null },
+  { npc: "Filamina's Wares", display_name: 'Staff', item_id: 1379, shop_cost: 15, shop_stock: 5 },
+  { npc: "Filamina's Wares", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, shop_stock: 5 },
+  { npc: "Filamina's Wares", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Filamina's Wares", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Filamina's Wares", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Filamina's Wares", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, shop_stock: 2 },
 
   // Sebamo's Sublime Staffs (Auburnvale)
-  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff', item_id: 1379, shop_cost: 15, ge_limit_override: null },
-  { npc: "Sebamo's Sublime Staffs", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, ge_limit_override: null },
-  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, ge_limit_override: null },
-  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, ge_limit_override: null }
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff', item_id: 1379, shop_cost: 15, shop_stock: 5 },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Magic staff', item_id: 1389, shop_cost: 200, shop_stock: 5 },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of air', item_id: 1381, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of water', item_id: 1383, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of earth', item_id: 1385, shop_cost: 1500, shop_stock: 2 },
+  { npc: "Sebamo's Sublime Staffs", display_name: 'Staff of fire', item_id: 1387, shop_cost: 1500, shop_stock: 2 },
+
+  // Baba Yaga (Lunar Isle). Default stock at the listed price.
+  { npc: 'Baba Yaga', display_name: 'Astral rune', item_id: 9075, shop_cost: 50, shop_stock: 250 },
+  { npc: 'Baba Yaga', display_name: 'Chaos rune', item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: 'Baba Yaga', display_name: 'Nature rune', item_id: 561, shop_cost: 180, shop_stock: 250 },
+  { npc: 'Baba Yaga', display_name: 'Death rune', item_id: 560, shop_cost: 180, shop_stock: 250 },
+  { npc: 'Baba Yaga', display_name: 'Law rune', item_id: 563, shop_cost: 240, shop_stock: 250 },
+  { npc: 'Baba Yaga', display_name: 'Blood rune', item_id: 565, shop_cost: 400, shop_stock: 250 },
+  { npc: 'Baba Yaga', display_name: 'Soul rune', item_id: 566, shop_cost: 300, shop_stock: 250 },
+  { npc: 'Baba Yaga', display_name: 'Battlestaff', item_id: 1391, shop_cost: 7000, shop_stock: 5 },
+
+  // Magic Guild (Yanille). Soul runes stay on Unusual Methods, which uses Akutha's stack prices.
+  { npc: 'Magic Guild', display_name: 'Chaos rune', item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: 'Magic Guild', display_name: 'Nature rune', item_id: 561, shop_cost: 180, shop_stock: 250 },
+  { npc: 'Magic Guild', display_name: 'Death rune', item_id: 560, shop_cost: 180, shop_stock: 250 },
+  { npc: 'Magic Guild', display_name: 'Law rune', item_id: 563, shop_cost: 240, shop_stock: 250 },
+  { npc: 'Magic Guild', display_name: 'Blood rune', item_id: 565, shop_cost: 400, shop_stock: 250 },
+  { npc: 'Magic Guild', display_name: 'Battlestaff', item_id: 1391, shop_cost: 7000, shop_stock: 5 },
+
+  // Zaff (Varrock). Default shop stock is 5. The diary barrel is a separate daily pile.
+  { npc: "Zaff's Superior Staffs", display_name: 'Battlestaff', item_id: 1391, shop_cost: 7000, shop_stock: 5 },
+
+  // More coin shops. Quantity is each shelf's default stock, not the GE buy limit.
+  { npc: "Ali's Discount Wares", display_name: "Air rune", item_id: 556, shop_cost: 5, shop_stock: 20 },
+  { npc: "Ali's Discount Wares", display_name: "Blood rune", item_id: 565, shop_cost: 500, shop_stock: 100 },
+  { npc: "Ali's Discount Wares", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 100 },
+  { npc: "Ali's Discount Wares", display_name: "Bronze pickaxe", item_id: 1265, shop_cost: 1, shop_stock: 23 },
+  { npc: "Ali's Discount Wares", display_name: "Bucket", item_id: 1925, shop_cost: 2, shop_stock: 19 },
+  { npc: "Ali's Discount Wares", display_name: "Chaos rune", item_id: 562, shop_cost: 112, shop_stock: 100 },
+  { npc: "Ali's Discount Wares", display_name: "Cosmic rune", item_id: 564, shop_cost: 62, shop_stock: 10 },
+  { npc: "Ali's Discount Wares", display_name: "Death rune", item_id: 560, shop_cost: 225, shop_stock: 100 },
+  { npc: "Ali's Discount Wares", display_name: "Desert boots", item_id: 1837, shop_cost: 20, shop_stock: 2 },
+  { npc: "Ali's Discount Wares", display_name: "Desert legs", item_id: 6390, shop_cost: 25, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Desert robes", item_id: 6386, shop_cost: 25, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Desert shirt", item_id: 1833, shop_cost: 40, shop_stock: 3 },
+  { npc: "Ali's Discount Wares", display_name: "Desert top", item_id: 6384, shop_cost: 15, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Desert top (overcoat)", item_id: 6388, shop_cost: 35, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Earth rune", item_id: 557, shop_cost: 5, shop_stock: 20 },
+  { npc: "Ali's Discount Wares", display_name: "Fake beard", item_id: 4593, shop_cost: 1, shop_stock: 11 },
+  { npc: "Ali's Discount Wares", display_name: "Fez", item_id: 6382, shop_cost: 20, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Fire rune", item_id: 554, shop_cost: 5, shop_stock: 20 },
+  { npc: "Ali's Discount Wares", display_name: "Jug", item_id: 1935, shop_cost: 1, shop_stock: 2 },
+  { npc: "Ali's Discount Wares", display_name: "Kharidian headpiece", item_id: 4591, shop_cost: 1, shop_stock: 12 },
+  { npc: "Ali's Discount Wares", display_name: "Knife", item_id: 946, shop_cost: 6, shop_stock: 5 },
+  { npc: "Ali's Discount Wares", display_name: "Law rune", item_id: 563, shop_cost: 300, shop_stock: 100 },
+  { npc: "Ali's Discount Wares", display_name: "Maple blackjack", item_id: 6416, shop_cost: 1200, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Maple blackjack(d)", item_id: 6420, shop_cost: 1600, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Maple blackjack(o)", item_id: 6418, shop_cost: 1600, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Menaphite purple hat", item_id: 6392, shop_cost: 35, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Menaphite purple kilt", item_id: 6398, shop_cost: 20, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Menaphite purple robe", item_id: 6396, shop_cost: 40, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Menaphite purple top", item_id: 6394, shop_cost: 20, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Menaphite red hat", item_id: 6400, shop_cost: 35, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Menaphite red kilt", item_id: 6406, shop_cost: 20, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Menaphite red robe", item_id: 6404, shop_cost: 40, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Menaphite red top", item_id: 6402, shop_cost: 20, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 100 },
+  { npc: "Ali's Discount Wares", display_name: "Nature rune", item_id: 561, shop_cost: 225, shop_stock: 100 },
+  { npc: "Ali's Discount Wares", display_name: "Oak blackjack(d)", item_id: 6410, shop_cost: 400, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Oak blackjack(o)", item_id: 6408, shop_cost: 400, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Papyrus", item_id: 970, shop_cost: 10, shop_stock: 50 },
+  { npc: "Ali's Discount Wares", display_name: "Pot", item_id: 1931, shop_cost: 1, shop_stock: 3 },
+  { npc: "Ali's Discount Wares", display_name: "Raw chicken", item_id: 2138, shop_cost: 1, shop_stock: 15 },
+  { npc: "Ali's Discount Wares", display_name: "Soul rune", item_id: 566, shop_cost: 375, shop_stock: 100 },
+  { npc: "Ali's Discount Wares", display_name: "Tinderbox", item_id: 590, shop_cost: 1, shop_stock: 11 },
+  { npc: "Ali's Discount Wares", display_name: "Water rune", item_id: 555, shop_cost: 5, shop_stock: 20 },
+  { npc: "Ali's Discount Wares", display_name: "Willow blackjack", item_id: 4600, shop_cost: 600, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Willow blackjack(d)", item_id: 6414, shop_cost: 800, shop_stock: 25 },
+  { npc: "Ali's Discount Wares", display_name: "Willow blackjack(o)", item_id: 6412, shop_cost: 800, shop_stock: 25 },
+  { npc: "Alice's Farming shop", display_name: "Basket", item_id: 5376, shop_cost: 1, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Bucket", item_id: 1925, shop_cost: 2, shop_stock: 100 },
+  { npc: "Alice's Farming shop", display_name: "Compost", item_id: 6032, shop_cost: 20, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Empty sack", item_id: 5418, shop_cost: 1, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Filled plant pot", item_id: 5354, shop_cost: 1, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Gardening trowel", item_id: 5325, shop_cost: 12, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Plant cure", item_id: 6036, shop_cost: 40, shop_stock: 100 },
+  { npc: "Alice's Farming shop", display_name: "Rake", item_id: 5341, shop_cost: 6, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Secateurs", item_id: 5329, shop_cost: 5, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Seed dibber", item_id: 5343, shop_cost: 6, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Spade", item_id: 952, shop_cost: 3, shop_stock: 500 },
+  { npc: "Alice's Farming shop", display_name: "Watering can", item_id: 5331, shop_cost: 8, shop_stock: 500 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Blood rune", item_id: 565, shop_cost: 400, shop_stock: 250 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Cosmic rune", item_id: 564, shop_cost: 50, shop_stock: 250 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 250 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Law rune", item_id: 563, shop_cost: 240, shop_stock: 250 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Nature rune", item_id: 561, shop_cost: 180, shop_stock: 250 },
+  { npc: "Amlodd's Magical Supplies", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Aubury's Rune Shop", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Aubury's Rune Shop", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Aubury's Rune Shop", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: "Aubury's Rune Shop", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 250 },
+  { npc: "Aubury's Rune Shop", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Aubury's Rune Shop", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Aubury's Rune Shop", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Aubury's Rune Shop", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Ava's Odds and Ends", display_name: "Feather", item_id: 314, shop_cost: 2, shop_stock: 1000 },
+  { npc: "Ava's Odds and Ends", display_name: "Iron arrow", item_id: 884, shop_cost: 3, shop_stock: 40 },
+  { npc: "Ava's Odds and Ends", display_name: "Iron arrowtips", item_id: 40, shop_cost: 2, shop_stock: 30 },
+  { npc: "Ava's Odds and Ends", display_name: "Steel arrow", item_id: 886, shop_cost: 15, shop_stock: 10 },
+  { npc: "Ava's Odds and Ends", display_name: "Steel arrowtips", item_id: 41, shop_cost: 7, shop_stock: 20 },
+  { npc: "Battle Runes", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 1000 },
+  { npc: "Battle Runes", display_name: "Blood rune", item_id: 565, shop_cost: 400, shop_stock: 500 },
+  { npc: "Battle Runes", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 100 },
+  { npc: "Battle Runes", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 500 },
+  { npc: "Battle Runes", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 500 },
+  { npc: "Battle Runes", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 1000 },
+  { npc: "Battle Runes", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 1000 },
+  { npc: "Battle Runes", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 1000 },
+  { npc: "Battle Runes", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 1000 },
+  { npc: "Betty's Magic Emporium", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Betty's Magic Emporium", display_name: "Blue wizard hat", item_id: 579, shop_cost: 2, shop_stock: 1 },
+  { npc: "Betty's Magic Emporium", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Betty's Magic Emporium", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: "Betty's Magic Emporium", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 250 },
+  { npc: "Betty's Magic Emporium", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Betty's Magic Emporium", display_name: "Eye of newt", item_id: 221, shop_cost: 3, shop_stock: 300 },
+  { npc: "Betty's Magic Emporium", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Betty's Magic Emporium", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Betty's Magic Emporium", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Betty's Magic Emporium", display_name: "Wizard hat", item_id: 1017, shop_cost: 2, shop_stock: 1 },
+  { npc: "Branwen's Farming Shop", display_name: "Basket", item_id: 5376, shop_cost: 1, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Bucket", item_id: 1925, shop_cost: 2, shop_stock: 100 },
+  { npc: "Branwen's Farming Shop", display_name: "Compost", item_id: 6032, shop_cost: 20, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Empty plant pot", item_id: 5350, shop_cost: 1, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Empty sack", item_id: 5418, shop_cost: 1, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Filled plant pot", item_id: 5354, shop_cost: 1, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Gardening trowel", item_id: 5325, shop_cost: 12, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Rake", item_id: 5341, shop_cost: 6, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Secateurs", item_id: 5329, shop_cost: 5, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Seed dibber", item_id: 5343, shop_cost: 6, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Spade", item_id: 952, shop_cost: 3, shop_stock: 500 },
+  { npc: "Branwen's Farming Shop", display_name: "Watering can", item_id: 5331, shop_cost: 8, shop_stock: 500 },
+  { npc: "Construction supplies", display_name: "Bolt of cloth", item_id: 8790, shop_cost: 650, shop_stock: 1000 },
+  { npc: "Construction supplies", display_name: "Bronze nails", item_id: 4819, shop_cost: 2, shop_stock: 1000 },
+  { npc: "Construction supplies", display_name: "Iron nails", item_id: 4820, shop_cost: 5, shop_stock: 1000 },
+  { npc: "Construction supplies", display_name: "Saw", item_id: 8794, shop_cost: 13, shop_stock: 1000 },
+  { npc: "Construction supplies", display_name: "Steel nails", item_id: 1539, shop_cost: 3, shop_stock: 1000 },
+  { npc: "Darren's Wilderness Cape Shop", display_name: "Team-14 cape", item_id: 4341, shop_cost: 50, shop_stock: 100 },
+  { npc: "Darren's Wilderness Cape Shop", display_name: "Team-24 cape", item_id: 4361, shop_cost: 50, shop_stock: 100 },
+  { npc: "Darren's Wilderness Cape Shop", display_name: "Team-34 cape", item_id: 4381, shop_cost: 50, shop_stock: 100 },
+  { npc: "Darren's Wilderness Cape Shop", display_name: "Team-4 cape", item_id: 4321, shop_cost: 50, shop_stock: 100 },
+  { npc: "Darren's Wilderness Cape Shop", display_name: "Team-44 cape", item_id: 4401, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edmond's Wilderness Cape Shop", display_name: "Team-18 cape", item_id: 4349, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edmond's Wilderness Cape Shop", display_name: "Team-28 cape", item_id: 4369, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edmond's Wilderness Cape Shop", display_name: "Team-38 cape", item_id: 4389, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edmond's Wilderness Cape Shop", display_name: "Team-48 cape", item_id: 4409, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edmond's Wilderness Cape Shop", display_name: "Team-8 cape", item_id: 4329, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edward's Wilderness Cape Shop", display_name: "Team-15 cape", item_id: 4343, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edward's Wilderness Cape Shop", display_name: "Team-25 cape", item_id: 4363, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edward's Wilderness Cape Shop", display_name: "Team-35 cape", item_id: 4383, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edward's Wilderness Cape Shop", display_name: "Team-45 cape", item_id: 4403, shop_cost: 50, shop_stock: 100 },
+  { npc: "Edward's Wilderness Cape Shop", display_name: "Team-5 cape", item_id: 4323, shop_cost: 50, shop_stock: 100 },
+  { npc: "Fishing Guild Shop", display_name: "Big fishing net", item_id: 305, shop_cost: 20, shop_stock: 5 },
+  { npc: "Fishing Guild Shop", display_name: "Feather", item_id: 314, shop_cost: 2, shop_stock: 1500 },
+  { npc: "Fishing Guild Shop", display_name: "Fishing bait", item_id: 313, shop_cost: 3, shop_stock: 2000 },
+  { npc: "Fishing Guild Shop", display_name: "Fishing rod", item_id: 307, shop_cost: 5, shop_stock: 5 },
+  { npc: "Fishing Guild Shop", display_name: "Fly fishing rod", item_id: 309, shop_cost: 5, shop_stock: 5 },
+  { npc: "Fishing Guild Shop", display_name: "Harpoon", item_id: 311, shop_cost: 5, shop_stock: 2 },
+  { npc: "Fishing Guild Shop", display_name: "Lobster pot", item_id: 301, shop_cost: 20, shop_stock: 2 },
+  { npc: "Fishing Guild Shop", display_name: "Small fishing net", item_id: 303, shop_cost: 5, shop_stock: 5 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw anchovies", item_id: 321, shop_cost: 15, shop_stock: 100 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw bass", item_id: 363, shop_cost: 40, shop_stock: 50 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw cod", item_id: 341, shop_cost: 10, shop_stock: 100 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw herring", item_id: 345, shop_cost: 10, shop_stock: 250 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw lobster", item_id: 377, shop_cost: 70, shop_stock: 50 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw mackerel", item_id: 353, shop_cost: 15, shop_stock: 250 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw sardine", item_id: 327, shop_cost: 10, shop_stock: 500 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw shark", item_id: 383, shop_cost: 170, shop_stock: 25 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw shrimps", item_id: 317, shop_cost: 5, shop_stock: 500 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw swordfish", item_id: 371, shop_cost: 80, shop_stock: 50 },
+  { npc: "Frankie's Fishing Emporium", display_name: "Raw tuna", item_id: 359, shop_cost: 40, shop_stock: 100 },
+  { npc: "Garden Centre", display_name: "Bagged bluebells", item_id: 8455, shop_cost: 15000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged daffodils", item_id: 8453, shop_cost: 10000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged dead tree", item_id: 8417, shop_cost: 1000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged flower", item_id: 8451, shop_cost: 5000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged magic tree", item_id: 8429, shop_cost: 50000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged maple tree", item_id: 8425, shop_cost: 15000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged marigolds", item_id: 8459, shop_cost: 10000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged nice tree", item_id: 8419, shop_cost: 2000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged oak tree", item_id: 8421, shop_cost: 5000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged plant 1", item_id: 8431, shop_cost: 1000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged plant 2", item_id: 8433, shop_cost: 5000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged plant 3", item_id: 8435, shop_cost: 10000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged roses", item_id: 8461, shop_cost: 15000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged sunflower", item_id: 8457, shop_cost: 5000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged willow tree", item_id: 8423, shop_cost: 10000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Bagged yew tree", item_id: 8427, shop_cost: 20000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Fancy hedge (bagged)", item_id: 8445, shop_cost: 25000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Nice hedge (bagged)", item_id: 8439, shop_cost: 10000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Small box hedge (bagged)", item_id: 8441, shop_cost: 15000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Tall box hedge (bagged)", item_id: 8449, shop_cost: 100000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Tall fancy hedge (bagged)", item_id: 8447, shop_cost: 50000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Thorny hedge (bagged)", item_id: 8437, shop_cost: 5000, shop_stock: 20 },
+  { npc: "Garden Centre", display_name: "Topiary hedge (bagged)", item_id: 8443, shop_cost: 20000, shop_stock: 20 },
+  { npc: "General Store (Canifis)", display_name: "Blood talisman", item_id: 1450, shop_cost: 8, shop_stock: 1 },
+  { npc: "General Store (Canifis)", display_name: "Bucket", item_id: 1925, shop_cost: 4, shop_stock: 2 },
+  { npc: "General Store (Canifis)", display_name: "Chisel", item_id: 1755, shop_cost: 2, shop_stock: 2 },
+  { npc: "General Store (Canifis)", display_name: "Hammer", item_id: 2347, shop_cost: 2, shop_stock: 5 },
+  { npc: "General Store (Canifis)", display_name: "Jug", item_id: 1935, shop_cost: 2, shop_stock: 2 },
+  { npc: "General Store (Canifis)", display_name: "Knife", item_id: 946, shop_cost: 12, shop_stock: 2 },
+  { npc: "General Store (Canifis)", display_name: "Needle", item_id: 1733, shop_cost: 2, shop_stock: 2 },
+  { npc: "General Store (Canifis)", display_name: "Pot", item_id: 1931, shop_cost: 2, shop_stock: 3 },
+  { npc: "General Store (Canifis)", display_name: "Thread", item_id: 1734, shop_cost: 2, shop_stock: 50 },
+  { npc: "General Store (Canifis)", display_name: "Tinderbox", item_id: 590, shop_cost: 2, shop_stock: 2 },
+  { npc: "Gerrant's Fishy Business", display_name: "Feather", item_id: 314, shop_cost: 2, shop_stock: 1000 },
+  { npc: "Gerrant's Fishy Business", display_name: "Fishing bait", item_id: 313, shop_cost: 3, shop_stock: 1500 },
+  { npc: "Gerrant's Fishy Business", display_name: "Fishing rod", item_id: 307, shop_cost: 5, shop_stock: 5 },
+  { npc: "Gerrant's Fishy Business", display_name: "Fly fishing rod", item_id: 309, shop_cost: 5, shop_stock: 5 },
+  { npc: "Gerrant's Fishy Business", display_name: "Harpoon", item_id: 311, shop_cost: 5, shop_stock: 2 },
+  { npc: "Gerrant's Fishy Business", display_name: "Lobster pot", item_id: 301, shop_cost: 20, shop_stock: 2 },
+  { npc: "Gerrant's Fishy Business", display_name: "Raw sardine", item_id: 327, shop_cost: 10, shop_stock: 200 },
+  { npc: "Gerrant's Fishy Business", display_name: "Small fishing net", item_id: 303, shop_cost: 5, shop_stock: 5 },
+  { npc: "Hickton's Archery Emporium", display_name: "Adamant arrowtips", item_id: 43, shop_cost: 40, shop_stock: 200 },
+  { npc: "Hickton's Archery Emporium", display_name: "Bronze arrow", item_id: 882, shop_cost: 1, shop_stock: 1000 },
+  { npc: "Hickton's Archery Emporium", display_name: "Bronze arrowtips", item_id: 39, shop_cost: 1, shop_stock: 1000 },
+  { npc: "Hickton's Archery Emporium", display_name: "Bronze bolts", item_id: 877, shop_cost: 1, shop_stock: 200 },
+  { npc: "Hickton's Archery Emporium", display_name: "Crossbow", item_id: 837, shop_cost: 70, shop_stock: 2 },
+  { npc: "Hickton's Archery Emporium", display_name: "Iron arrow", item_id: 884, shop_cost: 3, shop_stock: 800 },
+  { npc: "Hickton's Archery Emporium", display_name: "Iron arrowtips", item_id: 40, shop_cost: 2, shop_stock: 800 },
+  { npc: "Hickton's Archery Emporium", display_name: "Longbow", item_id: 839, shop_cost: 80, shop_stock: 2 },
+  { npc: "Hickton's Archery Emporium", display_name: "Mithril arrowtips", item_id: 42, shop_cost: 16, shop_stock: 400 },
+  { npc: "Hickton's Archery Emporium", display_name: "Oak longbow", item_id: 845, shop_cost: 160, shop_stock: 4 },
+  { npc: "Hickton's Archery Emporium", display_name: "Oak shortbow", item_id: 843, shop_cost: 100, shop_stock: 4 },
+  { npc: "Hickton's Archery Emporium", display_name: "Rune arrowtips", item_id: 44, shop_cost: 200, shop_stock: 100 },
+  { npc: "Hickton's Archery Emporium", display_name: "Shortbow", item_id: 841, shop_cost: 50, shop_stock: 4 },
+  { npc: "Hickton's Archery Emporium", display_name: "Steel arrowtips", item_id: 41, shop_cost: 6, shop_stock: 600 },
+  { npc: "Hickton's Archery Emporium", display_name: "Studded body", item_id: 1133, shop_cost: 850, shop_stock: 2 },
+  { npc: "Hickton's Archery Emporium", display_name: "Studded chaps", item_id: 1097, shop_cost: 750, shop_stock: 2 },
+  { npc: "Ian's Wilderness Cape Shop", display_name: "Team-12 cape", item_id: 4337, shop_cost: 50, shop_stock: 100 },
+  { npc: "Ian's Wilderness Cape Shop", display_name: "Team-2 cape", item_id: 4317, shop_cost: 50, shop_stock: 100 },
+  { npc: "Ian's Wilderness Cape Shop", display_name: "Team-22 cape", item_id: 4357, shop_cost: 50, shop_stock: 100 },
+  { npc: "Ian's Wilderness Cape Shop", display_name: "Team-32 cape", item_id: 4377, shop_cost: 50, shop_stock: 100 },
+  { npc: "Ian's Wilderness Cape Shop", display_name: "Team-42 cape", item_id: 4397, shop_cost: 50, shop_stock: 100 },
+  { npc: "Keldagrim Stonemason", display_name: "Condensed gold", item_id: 26266, shop_cost: 10400000, shop_stock: 10 },
+  { npc: "Keldagrim Stonemason", display_name: "Gold leaf", item_id: 8784, shop_cost: 130000, shop_stock: 20 },
+  { npc: "Keldagrim Stonemason", display_name: "Limestone brick", item_id: 3420, shop_cost: 26, shop_stock: 1000 },
+  { npc: "Keldagrim Stonemason", display_name: "Magic stone", item_id: 8788, shop_cost: 975000, shop_stock: 10 },
+  { npc: "Keldagrim Stonemason", display_name: "Marble block", item_id: 8786, shop_cost: 325000, shop_stock: 20 },
+  { npc: "Larry's Wilderness Cape Shop", display_name: "Team-13 cape", item_id: 4339, shop_cost: 50, shop_stock: 100 },
+  { npc: "Larry's Wilderness Cape Shop", display_name: "Team-23 cape", item_id: 4359, shop_cost: 50, shop_stock: 100 },
+  { npc: "Larry's Wilderness Cape Shop", display_name: "Team-3 cape", item_id: 4319, shop_cost: 50, shop_stock: 100 },
+  { npc: "Larry's Wilderness Cape Shop", display_name: "Team-33 cape", item_id: 4379, shop_cost: 50, shop_stock: 100 },
+  { npc: "Larry's Wilderness Cape Shop", display_name: "Team-43 cape", item_id: 4399, shop_cost: 50, shop_stock: 100 },
+  { npc: "Little Munty's Little Shop", display_name: "Ball of wool", item_id: 1759, shop_cost: 2, shop_stock: 30 },
+  { npc: "Little Munty's Little Shop", display_name: "Bowl", item_id: 1923, shop_cost: 4, shop_stock: 5 },
+  { npc: "Little Munty's Little Shop", display_name: "Bronze pickaxe", item_id: 1265, shop_cost: 1, shop_stock: 20 },
+  { npc: "Little Munty's Little Shop", display_name: "Bucket", item_id: 1925, shop_cost: 2, shop_stock: 5 },
+  { npc: "Little Munty's Little Shop", display_name: "Chisel", item_id: 1755, shop_cost: 1, shop_stock: 2 },
+  { npc: "Little Munty's Little Shop", display_name: "Hammer", item_id: 2347, shop_cost: 1, shop_stock: 5 },
+  { npc: "Little Munty's Little Shop", display_name: "Jug", item_id: 1935, shop_cost: 1, shop_stock: 5 },
+  { npc: "Little Munty's Little Shop", display_name: "Pot", item_id: 1931, shop_cost: 1, shop_stock: 50000 },
+  { npc: "Little Munty's Little Shop", display_name: "Tinderbox", item_id: 590, shop_cost: 1, shop_stock: 2 },
+  { npc: "Lliann's Wares", display_name: "Elven boots", item_id: 24003, shop_cost: 10000, shop_stock: 50 },
+  { npc: "Lliann's Wares", display_name: "Elven gloves", item_id: 24006, shop_cost: 10000, shop_stock: 50 },
+  { npc: "Lliann's Wares", display_name: "Elven legwear", item_id: 24024, shop_cost: 5000, shop_stock: 100 },
+  { npc: "Lliann's Wares", display_name: "Elven skirt (white)", item_id: 24018, shop_cost: 5000, shop_stock: 100 },
+  { npc: "Lliann's Wares", display_name: "Elven skirt (yellow)", item_id: 24012, shop_cost: 5000, shop_stock: 100 },
+  { npc: "Lliann's Wares", display_name: "Elven top (white vest)", item_id: 24027, shop_cost: 5000, shop_stock: 100 },
+  { npc: "Lliann's Wares", display_name: "Elven top (white)", item_id: 24015, shop_cost: 5000, shop_stock: 100 },
+  { npc: "Lliann's Wares", display_name: "Elven top (yellow vest)", item_id: 24021, shop_cost: 5000, shop_stock: 100 },
+  { npc: "Lliann's Wares", display_name: "Elven top (yellow)", item_id: 24009, shop_cost: 5000, shop_stock: 100 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 200 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 140 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Cosmic rune", item_id: 564, shop_cost: 50, shop_stock: 20 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 250 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 200 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 200 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Law rune", item_id: 563, shop_cost: 240, shop_stock: 250 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 140 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Nature rune", item_id: 561, shop_cost: 180, shop_stock: 250 },
+  { npc: "Lundail's Arena-side Rune Shop", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 200 },
+  { npc: "Myths' Guild Armoury", display_name: "Dragon metal shard", item_id: 22097, shop_cost: 1800000, shop_stock: 1 },
+  { npc: "Myths' Guild Armoury", display_name: "Shield right half", item_id: 2368, shop_cost: 750000, shop_stock: 1 },
+  { npc: "Neil's Wilderness Cape Shop", display_name: "Team-17 cape", item_id: 4347, shop_cost: 50, shop_stock: 100 },
+  { npc: "Neil's Wilderness Cape Shop", display_name: "Team-27 cape", item_id: 4367, shop_cost: 50, shop_stock: 100 },
+  { npc: "Neil's Wilderness Cape Shop", display_name: "Team-37 cape", item_id: 4387, shop_cost: 50, shop_stock: 100 },
+  { npc: "Neil's Wilderness Cape Shop", display_name: "Team-47 cape", item_id: 4407, shop_cost: 50, shop_stock: 100 },
+  { npc: "Neil's Wilderness Cape Shop", display_name: "Team-7 cape", item_id: 4327, shop_cost: 50, shop_stock: 100 },
+  { npc: "Oziach", display_name: "Anti-dragon shield", item_id: 1540, shop_cost: 26, shop_stock: 35 },
+  { npc: "Pellem's Fur Store", display_name: "Bear fur", item_id: 948, shop_cost: 13, shop_stock: 3 },
+  { npc: "Pellem's Fur Store", display_name: "Fur", item_id: 6814, shop_cost: 13, shop_stock: 3 },
+  { npc: "Pellem's Fur Store", display_name: "Grey wolf fur", item_id: 958, shop_cost: 65, shop_stock: 3 },
+  { npc: "Pellem's Fur Store", display_name: "Jaguar fur", item_id: 29218, shop_cost: 104, shop_stock: 2 },
+  { npc: "Pellem's Fur Store", display_name: "Mixed hide base", item_id: 29292, shop_cost: 11700, shop_stock: 10 },
+  { npc: "Pellem's Fur Store", display_name: "Needle", item_id: 1733, shop_cost: 1, shop_stock: 3 },
+  { npc: "Pellem's Fur Store", display_name: "Thread", item_id: 1734, shop_cost: 1, shop_stock: 100 },
+  { npc: "Razmire Builders Merchants", display_name: "Limestone", item_id: 3211, shop_cost: 10, shop_stock: 1000 },
+  { npc: "Razmire Builders Merchants", display_name: "Limestone brick", item_id: 3420, shop_cost: 21, shop_stock: 1000 },
+  { npc: "Razmire Builders Merchants", display_name: "Plank", item_id: 960, shop_cost: 1, shop_stock: 10 },
+  { npc: "Razmire Builders Merchants", display_name: "Swamp paste", item_id: 1941, shop_cost: 31, shop_stock: 1000 },
+  { npc: "Razmire Builders Merchants", display_name: "Timber beam", item_id: 8837, shop_cost: 1, shop_stock: 1000 },
+  { npc: "Richard's Farming shop", display_name: "Basket", item_id: 5376, shop_cost: 1, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Bucket", item_id: 1925, shop_cost: 2, shop_stock: 100 },
+  { npc: "Richard's Farming shop", display_name: "Compost", item_id: 6032, shop_cost: 20, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Empty sack", item_id: 5418, shop_cost: 1, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Filled plant pot", item_id: 5354, shop_cost: 1, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Gardening trowel", item_id: 5325, shop_cost: 12, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Plant cure", item_id: 6036, shop_cost: 40, shop_stock: 100 },
+  { npc: "Richard's Farming shop", display_name: "Rake", item_id: 5341, shop_cost: 6, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Secateurs", item_id: 5329, shop_cost: 5, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Seed dibber", item_id: 5343, shop_cost: 6, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Spade", item_id: 952, shop_cost: 3, shop_stock: 500 },
+  { npc: "Richard's Farming shop", display_name: "Watering can", item_id: 5331, shop_cost: 8, shop_stock: 500 },
+  { npc: "Sam's Wilderness Cape Shop", display_name: "Team-10 cape", item_id: 4333, shop_cost: 50, shop_stock: 100 },
+  { npc: "Sam's Wilderness Cape Shop", display_name: "Team-20 cape", item_id: 4353, shop_cost: 50, shop_stock: 100 },
+  { npc: "Sam's Wilderness Cape Shop", display_name: "Team-30 cape", item_id: 4373, shop_cost: 50, shop_stock: 100 },
+  { npc: "Sam's Wilderness Cape Shop", display_name: "Team-40 cape", item_id: 4393, shop_cost: 50, shop_stock: 100 },
+  { npc: "Sam's Wilderness Cape Shop", display_name: "Team-50 cape", item_id: 4413, shop_cost: 50, shop_stock: 100 },
+  { npc: "Sarah's Farming shop", display_name: "Basket", item_id: 5376, shop_cost: 1, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Bucket", item_id: 1925, shop_cost: 2, shop_stock: 100 },
+  { npc: "Sarah's Farming shop", display_name: "Compost", item_id: 6032, shop_cost: 20, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Empty sack", item_id: 5418, shop_cost: 1, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Filled plant pot", item_id: 5354, shop_cost: 1, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Gardening trowel", item_id: 5325, shop_cost: 12, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Plant cure", item_id: 6036, shop_cost: 40, shop_stock: 100 },
+  { npc: "Sarah's Farming shop", display_name: "Rake", item_id: 5341, shop_cost: 6, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Secateurs", item_id: 5329, shop_cost: 5, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Seed dibber", item_id: 5343, shop_cost: 6, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Spade", item_id: 952, shop_cost: 3, shop_stock: 500 },
+  { npc: "Sarah's Farming shop", display_name: "Watering can", item_id: 5331, shop_cost: 8, shop_stock: 500 },
+  { npc: "Simon's Wilderness Cape Shop", display_name: "Team-19 cape", item_id: 4351, shop_cost: 50, shop_stock: 100 },
+  { npc: "Simon's Wilderness Cape Shop", display_name: "Team-29 cape", item_id: 4371, shop_cost: 50, shop_stock: 100 },
+  { npc: "Simon's Wilderness Cape Shop", display_name: "Team-39 cape", item_id: 4391, shop_cost: 50, shop_stock: 100 },
+  { npc: "Simon's Wilderness Cape Shop", display_name: "Team-49 cape", item_id: 4411, shop_cost: 50, shop_stock: 100 },
+  { npc: "Simon's Wilderness Cape Shop", display_name: "Team-9 cape", item_id: 4331, shop_cost: 50, shop_stock: 100 },
+  { npc: "Slayer Equipment", display_name: "Bag of salt", item_id: 4161, shop_cost: 10, shop_stock: 5000 },
+  { npc: "Slayer Equipment", display_name: "Boots of stone", item_id: 23037, shop_cost: 200, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Broad arrowheads", item_id: 11874, shop_cost: 55, shop_stock: 3000 },
+  { npc: "Slayer Equipment", display_name: "Earmuffs", item_id: 4166, shop_cost: 200, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Facemask", item_id: 4164, shop_cost: 200, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Insulated boots", item_id: 7159, shop_cost: 200, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Mirror shield", item_id: 4156, shop_cost: 5000, shop_stock: 100 },
+  { npc: "Slayer Equipment", display_name: "Nose peg", item_id: 4168, shop_cost: 200, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Rock hammer", item_id: 4162, shop_cost: 500, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Rock thrownhammer", item_id: 21754, shop_cost: 200, shop_stock: 5000 },
+  { npc: "Slayer Equipment", display_name: "Slayer bell", item_id: 10952, shop_cost: 150, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Slayer's staff", item_id: 4170, shop_cost: 21000, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Spiny helmet", item_id: 4551, shop_cost: 650, shop_stock: 50 },
+  { npc: "Slayer Equipment", display_name: "Unfinished broad bolts", item_id: 11876, shop_cost: 55, shop_stock: 5000 },
+  { npc: "Slayer Equipment", display_name: "Unlit bug lantern", item_id: 7051, shop_cost: 130, shop_stock: 50 },
+  { npc: "Solihib's Food Stall", display_name: "Banana", item_id: 1963, shop_cost: 2, shop_stock: 1000 },
+  { npc: "Solihib's Food Stall", display_name: "Banana stew", item_id: 4016, shop_cost: 300, shop_stock: 10 },
+  { npc: "Solihib's Food Stall", display_name: "Monkey bar", item_id: 4014, shop_cost: 50, shop_stock: 20 },
+  { npc: "Solihib's Food Stall", display_name: "Monkey nuts", item_id: 4012, shop_cost: 3, shop_stock: 200 },
+  { npc: "Stonecutter Supplies", display_name: "Bronze pickaxe", item_id: 1265, shop_cost: 1, shop_stock: 5 },
+  { npc: "Stonecutter Supplies", display_name: "Condensed gold", item_id: 26266, shop_cost: 10400000, shop_stock: 10 },
+  { npc: "Stonecutter Supplies", display_name: "Gold leaf", item_id: 8784, shop_cost: 130000, shop_stock: 40 },
+  { npc: "Stonecutter Supplies", display_name: "Limestone brick", item_id: 3420, shop_cost: 26, shop_stock: 100 },
+  { npc: "Stonecutter Supplies", display_name: "Magic stone", item_id: 8788, shop_cost: 975000, shop_stock: 10 },
+  { npc: "Stonecutter Supplies", display_name: "Marble block", item_id: 8786, shop_cost: 325000, shop_stock: 30 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 3000 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Cosmic rune", item_id: 564, shop_cost: 50, shop_stock: 30 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 100 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 3000 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Nature rune", item_id: 561, shop_cost: 180, shop_stock: 30 },
+  { npc: "Tal Teklan Rune Shop", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 5000 },
+  { npc: "The Runic Emporium", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 5000 },
+  { npc: "The Runic Emporium", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 3000 },
+  { npc: "The Runic Emporium", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 1000 },
+  { npc: "The Runic Emporium", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 500 },
+  { npc: "The Runic Emporium", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 5000 },
+  { npc: "The Runic Emporium", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 5000 },
+  { npc: "The Runic Emporium", display_name: "Law rune", item_id: 563, shop_cost: 240, shop_stock: 500 },
+  { npc: "The Runic Emporium", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 3000 },
+  { npc: "The Runic Emporium", display_name: "Nature rune", item_id: 561, shop_cost: 180, shop_stock: 500 },
+  { npc: "The Runic Emporium", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Thyria's Wares", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Thyria's Wares", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Thyria's Wares", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: "Thyria's Wares", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 250 },
+  { npc: "Thyria's Wares", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Thyria's Wares", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Thyria's Wares", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Thyria's Wares", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Toothy's Pickaxes", display_name: "Adamant pickaxe", item_id: 1271, shop_cost: 4160, shop_stock: 1 },
+  { npc: "Toothy's Pickaxes", display_name: "Bronze pickaxe", item_id: 1265, shop_cost: 1, shop_stock: 5 },
+  { npc: "Toothy's Pickaxes", display_name: "Iron pickaxe", item_id: 1267, shop_cost: 182, shop_stock: 3 },
+  { npc: "Toothy's Pickaxes", display_name: "Mithril pickaxe", item_id: 1273, shop_cost: 1690, shop_stock: 2 },
+  { npc: "Toothy's Pickaxes", display_name: "Pot", item_id: 1931, shop_cost: 1, shop_stock: 50000 },
+  { npc: "Toothy's Pickaxes", display_name: "Rune pickaxe", item_id: 1275, shop_cost: 41600, shop_stock: 1 },
+  { npc: "Toothy's Pickaxes", display_name: "Steel pickaxe", item_id: 1269, shop_cost: 650, shop_stock: 3 },
+  { npc: "Trader Stan's Trading Post", display_name: "Banana", item_id: 1963, shop_cost: 5, shop_stock: 15 },
+  { npc: "Trader Stan's Trading Post", display_name: "Bowl", item_id: 1923, shop_cost: 10, shop_stock: 2 },
+  { npc: "Trader Stan's Trading Post", display_name: "Bronze cannonball", item_id: 31906, shop_cost: 5, shop_stock: 250 },
+  { npc: "Trader Stan's Trading Post", display_name: "Bucket", item_id: 1925, shop_cost: 5, shop_stock: 3 },
+  { npc: "Trader Stan's Trading Post", display_name: "Bucket of sand", item_id: 1783, shop_cost: 5, shop_stock: 10 },
+  { npc: "Trader Stan's Trading Post", display_name: "Cake tin", item_id: 1887, shop_cost: 25, shop_stock: 2 },
+  { npc: "Trader Stan's Trading Post", display_name: "Chisel", item_id: 1755, shop_cost: 2, shop_stock: 2 },
+  { npc: "Trader Stan's Trading Post", display_name: "Fishing rod", item_id: 307, shop_cost: 12, shop_stock: 20 },
+  { npc: "Trader Stan's Trading Post", display_name: "Glassblowing pipe", item_id: 1785, shop_cost: 5, shop_stock: 15 },
+  { npc: "Trader Stan's Trading Post", display_name: "Hammer", item_id: 2347, shop_cost: 2, shop_stock: 5 },
+  { npc: "Trader Stan's Trading Post", display_name: "Jug", item_id: 1935, shop_cost: 2, shop_stock: 2 },
+  { npc: "Trader Stan's Trading Post", display_name: "Knife", item_id: 946, shop_cost: 15, shop_stock: 2 },
+  { npc: "Trader Stan's Trading Post", display_name: "Lobster pot", item_id: 301, shop_cost: 50, shop_stock: 20 },
+  { npc: "Trader Stan's Trading Post", display_name: "Orange", item_id: 2108, shop_cost: 5, shop_stock: 10 },
+  { npc: "Trader Stan's Trading Post", display_name: "Pineapple", item_id: 2114, shop_cost: 5, shop_stock: 15 },
+  { npc: "Trader Stan's Trading Post", display_name: "Pot", item_id: 1931, shop_cost: 2, shop_stock: 5 },
+  { npc: "Trader Stan's Trading Post", display_name: "Raw rabbit", item_id: 3226, shop_cost: 50, shop_stock: 20 },
+  { npc: "Trader Stan's Trading Post", display_name: "Right eye patch", item_id: 1025, shop_cost: 5, shop_stock: 5 },
+  { npc: "Trader Stan's Trading Post", display_name: "Rope", item_id: 954, shop_cost: 45, shop_stock: 2 },
+  { npc: "Trader Stan's Trading Post", display_name: "Seaweed", item_id: 401, shop_cost: 5, shop_stock: 20 },
+  { npc: "Trader Stan's Trading Post", display_name: "Security book", item_id: 9003, shop_cost: 5, shop_stock: 5 },
+  { npc: "Trader Stan's Trading Post", display_name: "Shears", item_id: 1735, shop_cost: 2, shop_stock: 2 },
+  { npc: "Trader Stan's Trading Post", display_name: "Soda ash", item_id: 1781, shop_cost: 5, shop_stock: 10 },
+  { npc: "Trader Stan's Trading Post", display_name: "Swamp paste", item_id: 1941, shop_cost: 75, shop_stock: 30 },
+  { npc: "Trader Stan's Trading Post", display_name: "Tinderbox", item_id: 590, shop_cost: 2, shop_stock: 2 },
+  { npc: "Trader Stan's Trading Post", display_name: "Tyras helm", item_id: 9629, shop_cost: 1375, shop_stock: 25 },
+  { npc: "Uglug's stuffsies", display_name: "Achey tree logs", item_id: 2862, shop_cost: 4, shop_stock: 100 },
+  { npc: "Uglug's stuffsies", display_name: "Bow string", item_id: 1777, shop_cost: 10, shop_stock: 10 },
+  { npc: "Uglug's stuffsies", display_name: "Cooked chompy", item_id: 2878, shop_cost: 130, shop_stock: 10 },
+  { npc: "Uglug's stuffsies", display_name: "Knife", item_id: 946, shop_cost: 6, shop_stock: 5 },
+  { npc: "Uglug's stuffsies", display_name: "Relicym's balm(3)", item_id: 4844, shop_cost: 200, shop_stock: 100 },
+  { npc: "Vanessa's Farming shop", display_name: "Basket", item_id: 5376, shop_cost: 1, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Bucket", item_id: 1925, shop_cost: 2, shop_stock: 100 },
+  { npc: "Vanessa's Farming shop", display_name: "Compost", item_id: 6032, shop_cost: 20, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Empty sack", item_id: 5418, shop_cost: 1, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Filled plant pot", item_id: 5354, shop_cost: 1, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Gardening trowel", item_id: 5325, shop_cost: 12, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Plant cure", item_id: 6036, shop_cost: 40, shop_stock: 100 },
+  { npc: "Vanessa's Farming shop", display_name: "Rake", item_id: 5341, shop_cost: 6, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Secateurs", item_id: 5329, shop_cost: 5, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Seed dibber", item_id: 5343, shop_cost: 6, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Spade", item_id: 952, shop_cost: 3, shop_stock: 500 },
+  { npc: "Vanessa's Farming shop", display_name: "Watering can", item_id: 5331, shop_cost: 8, shop_stock: 500 },
+  { npc: "Void Knight Magic Store", display_name: "Air rune", item_id: 556, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Void Knight Magic Store", display_name: "Body rune", item_id: 559, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Void Knight Magic Store", display_name: "Chaos rune", item_id: 562, shop_cost: 90, shop_stock: 250 },
+  { npc: "Void Knight Magic Store", display_name: "Death rune", item_id: 560, shop_cost: 180, shop_stock: 250 },
+  { npc: "Void Knight Magic Store", display_name: "Earth rune", item_id: 557, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Void Knight Magic Store", display_name: "Fire rune", item_id: 554, shop_cost: 4, shop_stock: 5000 },
+  { npc: "Void Knight Magic Store", display_name: "Mind rune", item_id: 558, shop_cost: 3, shop_stock: 5000 },
+  { npc: "Void Knight Magic Store", display_name: "Water rune", item_id: 555, shop_cost: 4, shop_stock: 5000 },
+  { npc: "White Knight Armoury", display_name: "White 2h sword", item_id: 6609, shop_cost: 1920, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White battleaxe", item_id: 6589, shop_cost: 1248, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White boots", item_id: 6619, shop_cost: 576, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White chainbody", item_id: 6615, shop_cost: 1440, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White claws", item_id: 6587, shop_cost: 360, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White dagger", item_id: 6591, shop_cost: 240, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White full helm", item_id: 6623, shop_cost: 1056, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White gloves", item_id: 6629, shop_cost: 6, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White halberd", item_id: 6599, shop_cost: 1920, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White kiteshield", item_id: 6633, shop_cost: 1632, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White longsword", item_id: 6607, shop_cost: 960, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White mace", item_id: 6601, shop_cost: 432, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White magic staff", item_id: 6603, shop_cost: 200, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White med helm", item_id: 6621, shop_cost: 576, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White platebody", item_id: 6617, shop_cost: 3840, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White platelegs", item_id: 6625, shop_cost: 1920, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White plateskirt", item_id: 6627, shop_cost: 1920, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White scimitar", item_id: 6611, shop_cost: 768, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White sq shield", item_id: 6631, shop_cost: 1152, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White sword", item_id: 6605, shop_cost: 624, shop_stock: 20 },
+  { npc: "White Knight Armoury", display_name: "White warhammer", item_id: 6613, shop_cost: 980, shop_stock: 20 },
+  { npc: "William's Wilderness Cape Shop", display_name: "Team-1 cape", item_id: 4315, shop_cost: 50, shop_stock: 100 },
+  { npc: "William's Wilderness Cape Shop", display_name: "Team-11 cape", item_id: 4335, shop_cost: 50, shop_stock: 100 },
+  { npc: "William's Wilderness Cape Shop", display_name: "Team-21 cape", item_id: 4355, shop_cost: 50, shop_stock: 100 },
+  { npc: "William's Wilderness Cape Shop", display_name: "Team-31 cape", item_id: 4375, shop_cost: 50, shop_stock: 100 },
+  { npc: "William's Wilderness Cape Shop", display_name: "Team-41 cape", item_id: 4395, shop_cost: 50, shop_stock: 100 },
 ];
 
 window.Flipwise = Flipwise;

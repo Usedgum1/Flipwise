@@ -493,6 +493,36 @@
       hourly_rate: mithrilRate
     }, 'Mithril seeds');
 
+    // Piece assemblies: buy each input at the low quote, sell one output at the high quote after tax.
+    var assemblies = F.ASSEMBLY_RECIPES || [];
+    for (var a = 0; a < assemblies.length; a++) {
+      var arec = assemblies[a];
+      var atotal = 0;
+      var amaterials = [];
+      var aout = get(arec.output_id || 0);
+      var acomplete = (arec.inputs || []).length > 0 && !!(aout.high || aout.low);
+      for (var ai = 0; ai < (arec.inputs || []).length; ai++) {
+        var ainp = arec.inputs[ai];
+        var aq = get(ainp.id);
+        var aquoted = !!(aq.high || aq.low);
+        if (!aquoted) acomplete = false;
+        var acostEach = aquoted ? (aq.low || aq.high || 0) : 0;
+        var acost = aquoted ? acostEach * (ainp.qty || 1) : null;
+        if (acost != null) atotal += acost;
+        amaterials.push({ name: ainp.name || '—', qty: ainp.qty || 1, cost: acost, icon: iconById[String(ainp.id)] });
+      }
+      var aeach = acomplete ? (aout.high || aout.low || 0) : 0;
+      var atax = aeach ? geTaxEach(aeach) : 0;
+      var aprofit = (acomplete && aeach && atotal) ? (aeach - atax) - atotal : null;
+      addTile(arec.key, arec.title, aprofit, 'gp', {
+        materials: amaterials,
+        product_name: arec.output_name || arec.title,
+        product_value: acomplete ? aeach : null,
+        product_icon: iconById[String(arec.output_id)],
+        tax: acomplete ? atax : null
+      }, arec.output_name || null);
+    }
+
     var bestKey = null;
     var bestProfit = 0;
     for (var t = 0; t < tiles.length; t++) {
@@ -535,8 +565,11 @@
         materials.push({ name: inp.name || '—', qty: inp.qty || 1, cost: cost, icon: iconById[String(inp.id)] });
       }
       var out = get(rec.output_id || 0);
-      var productValue = complete ? (out.high || out.low || 0) : 0;
-      var tax = productValue ? Math.min(Math.floor(productValue * 0.02), maxTax) : 0;
+      var outQty = rec.output_qty > 0 ? rec.output_qty : 1;
+      var eachValue = complete ? (out.high || out.low || 0) : 0;
+      var productValue = eachValue * outQty;
+      var taxEach = eachValue ? Math.min(Math.floor(eachValue * 0.02), maxTax) : 0;
+      var tax = taxEach * outQty;
       var profitBeforeTax = complete && productValue && totalCost ? productValue - totalCost : null;
       var profitAfterTax = complete && productValue && totalCost ? (productValue - tax) - totalCost : null;
       tiles.push({
@@ -550,6 +583,7 @@
           materials: materials,
           total_cost: complete ? totalCost : null,
           product_name: rec.output_name || rec.title,
+          output_qty: outQty,
           product_value: complete ? productValue : null,
           product_icon: iconById[String(rec.output_id)],
           tax: complete ? tax : null,
@@ -820,8 +854,8 @@
       var tax = geRaw ? Math.min(Math.floor(geRaw * 0.02), maxTax) : 0;
       var geAfterTax = geRaw ? (geRaw - tax) : null;
       var profitPer = (geAfterTax != null && shopCost != null) ? (geAfterTax - shopCost) : null;
-      var limit = row.ge_limit_override != null ? Number(row.ge_limit_override) : (buyLimits[id] || null);
-      var profitLimit = (profitPer != null && limit != null) ? profitPer * limit : null;
+      var stock = row.shop_stock != null ? Number(row.shop_stock) : null;
+      var profitLimit = (profitPer != null && stock != null) ? profitPer * stock : null;
 
       var itemName = row.display_name || String(id);
       var shopName = row.npc || '—';
@@ -835,7 +869,7 @@
         geAfterTax: geAfterTax,
         tax: tax,
         profitPer: profitPer,
-        geLimit: limit,
+        shopStock: stock,
         profitLimit: profitLimit,
         icon: iconById[String(id)] || null,
         item_id: id
@@ -884,6 +918,7 @@
     addList(F.SHOPS_TO_GE_ITEMS);
     addList(F.ENCHANTING_RECIPES);
     addList(F.OUTFIT_SET_RECIPES);
+    addList(F.ASSEMBLY_RECIPES);
     addList(F.DECANTING_ITEMS);
     // Friendly / legacy aliases (old bookmarks & short market labels)
     add(20997, 'Twisted Bow');

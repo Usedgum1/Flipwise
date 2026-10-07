@@ -24,6 +24,34 @@
     } catch (e) { return true; }
   }
 
+  function setSoundEnabled(on) {
+    try { localStorage.setItem('flipwise-sound-enabled', on ? 'true' : 'false'); } catch (e) {}
+  }
+
+  function mountSoundToggle() {
+    var actions = document.querySelector('.sidebar-time-actions');
+    if (!actions || document.getElementById('sound-toggle')) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'sound-toggle';
+    btn.className = 'sidebar-time-btn sidebar-sound-btn';
+    function paint() {
+      var on = isSoundEnabled();
+      btn.textContent = on ? 'Sound on' : 'Muted';
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.title = on ? 'Mute alert sounds' : 'Unmute alert sounds';
+    }
+    btn.addEventListener('click', function() {
+      setSoundEnabled(!isSoundEnabled());
+      paint();
+    });
+    paint();
+    actions.appendChild(btn);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountSoundToggle);
+  else mountSoundToggle();
+
   /** Play startup sound once when app loads (called from Dashboard or first page). */
   function playStartup() {
     if (!isSoundEnabled()) return;

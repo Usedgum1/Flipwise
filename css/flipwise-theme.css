@@ -328,6 +328,10 @@ body {
     cursor: not-allowed;
 }
 
+.sidebar-sound-btn[aria-pressed="false"] {
+    opacity: 0.65;
+}
+
 .sidebar-time-auto {
     display: inline-flex;
     align-items: center;

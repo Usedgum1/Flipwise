@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flipwise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -444,12 +445,11 @@ Flipwise dashboard shell
           return candidates;
         }
         function formatOpportunityProfit(profit, unit) {
-          if (profit == null || profit !== profit) return '—';
+          if (profit == null || profit !== profit) return { text: '—', unit: '' };
           var n = Number(profit);
           var sign = n >= 0 ? '+' : '';
           var num = (n >= 0 ? n : -n).toLocaleString();
-          if (unit === 'gp/hr') return sign + num + ' gp/hr';
-          return sign + num + ' gp';
+          return { text: sign + num, unit: unit === 'gp/hr' ? 'gp/hr' : 'gp' };
         }
         function updateBestOpportunity(data) {
           var listEl = document.getElementById('bestOpportunityList');
@@ -460,7 +460,7 @@ Flipwise dashboard shell
             return;
           }
           var html = items.map(function(it) {
-            var profitStr = formatOpportunityProfit(it.profit, it.unit);
+            var profitParts = formatOpportunityProfit(it.profit, it.unit);
             var profitClass = (it.profit || 0) >= 0 ? 'positive' : 'negative';
             var iconD = { icon: it.icon, name: it.title };
             var letter = (it.title || '').charAt(0) || '?';
@@ -470,7 +470,9 @@ Flipwise dashboard shell
                 '<span class="transaction-title">' + escapeHtml(it.title) + '</span>' +
                 '<span class="transaction-date">' + escapeHtml(it.source) + '</span>' +
               '</div>' +
-              '<div class="transaction-amount ' + profitClass + '">' + escapeHtml(profitStr) + '</div>' +
+              '<div class="transaction-amount ' + profitClass + '"><span>' + escapeHtml(profitParts.text) + '</span>' +
+                (profitParts.unit ? '<span class="opportunity-unit">' + escapeHtml(profitParts.unit) + '</span>' : '') +
+              '</div>' +
             '</a>';
           }).join('');
           listEl.innerHTML = html;

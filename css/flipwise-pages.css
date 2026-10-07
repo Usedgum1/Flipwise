@@ -266,7 +266,7 @@ Flipwise - Shared App Page Styles
 }
 
 .market-stats--five {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .market-stat {
@@ -572,16 +572,53 @@ Flipwise - Shared App Page Styles
     color: var(--text-primary);
 }
 
+.market-table th.market-table__th-sortable.sort-asc,
+.market-table th.market-table__th-sortable.sort-desc {
+    color: var(--accent-copper-light);
+}
+
 .market-table th.market-table__th-sortable.sort-asc::after {
     content: ' ▴';
     font-size: 10px;
-    opacity: 0.8;
+    color: var(--accent-copper-light);
 }
 
 .market-table th.market-table__th-sortable.sort-desc::after {
     content: ' ▾';
     font-size: 10px;
-    opacity: 0.8;
+    color: var(--accent-copper-light);
+}
+
+.market-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bg-card);
+}
+
+.market-table tr.is-pinned td {
+    background: var(--accent-overlay-soft);
+}
+
+.pin-mark {
+    margin-left: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-copper-light);
+}
+
+.filter-note {
+    margin: -8px 0 20px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.filter-tab.is-on {
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    border: none;
 }
 
 .market-table td {
@@ -971,7 +1008,43 @@ Flipwise - Shared App Page Styles
 .flipwise-rsi-chart {
     display: block;
     width: 100%;
-    height: auto;
+}
+
+.flipwise-price-chart {
+    height: 280px;
+}
+
+.flipwise-vol-chart {
+    height: 101px;
+}
+
+.flipwise-rsi-chart {
+    height: 154px;
+}
+
+.flipwise-breakdown-chart.is-price-only .flipwise-vol-chart,
+.flipwise-breakdown-chart.is-price-only .flipwise-rsi-chart,
+.flipwise-breakdown-chart.is-price-only .flipwise-rsi-fallback,
+.flipwise-breakdown-chart.is-price-only .flipwise-chart-legend-item--extra {
+    display: none;
+}
+
+.chart-range-note {
+    margin: 0 0 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.page-heading {
+    margin: 0 0 20px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.item-page-id {
+    font-size: 13px;
+    align-self: center;
 }
 
 .flipwise-vol-chart {
@@ -1205,10 +1278,6 @@ Flipwise - Shared App Page Styles
     cursor: default;
 }
 
-.item-page-chart-card {
-    max-width: 720px;
-}
-
 tr[data-item-name] {
     cursor: pointer;
 }
@@ -1227,4 +1296,52 @@ tr[data-item-name]:hover {
 
 .mover-item[data-item-name]:hover {
     background: var(--surface-overlay-soft);
+}
+
+.table-pager {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 16px 16px;
+}
+
+.table-pager[hidden] {
+    display: none;
+}
+
+.table-pager__status {
+    margin-right: auto;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.table-pager__btn {
+    min-width: 36px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.table-pager__btn:hover:not(:disabled):not(.is-current) {
+    color: var(--text-primary);
+    border-color: var(--accent-copper);
+}
+
+.table-pager__btn.is-current {
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    border-color: transparent;
+}
+
+.table-pager__btn:disabled {
+    opacity: 0.4;
+    cursor: default;
 }

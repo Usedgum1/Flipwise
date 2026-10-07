@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enchanting - Flipwise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="css/flipwise-standalone.css">
 </head>
 <body>
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
         <div class="hamburger"><span></span><span></span><span></span></div>
     </button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -98,6 +99,7 @@
             </nav>
         </aside>
         <main class="main-content">
+            <h1 class="page-heading">Enchanting</h1>
             <div class="balance-cards" id="enchantingTiles">
                 <!-- Filled by script -->
                 <div class="balance-card"><div class="balance-label">Loading…</div><div class="balance-value">—</div><div class="balance-change">—</div></div>
@@ -156,7 +158,8 @@
       html.push('<div class="mm-divider"></div>');
       html.push('<div class="mm-row"><span class="mm-label"><strong>Total cost:</strong> </span><span class="mm-val">' + fmtNum(b.total_cost) + ' gp</span></div>');
       var productIcon = iconImg(b.product_icon);
-      html.push('<div class="mm-row" data-item-name="' + escapeHtml(b.product_name || '') + '"><span class="mm-row-left">' + productIcon + '<span class="mm-label"><strong>' + escapeHtml(b.product_name || '') + ':</strong> </span></span><span class="mm-val">' + fmtNum(b.product_value) + ' gp</span></div>');
+      var productLabel = escapeHtml(b.product_name || '') + (b.output_qty > 1 ? ' × ' + b.output_qty : '');
+      html.push('<div class="mm-row" data-item-name="' + escapeHtml(b.product_name || '') + '"><span class="mm-row-left">' + productIcon + '<span class="mm-label"><strong>' + productLabel + ':</strong> </span></span><span class="mm-val">' + fmtNum(b.product_value) + ' gp</span></div>');
       var profitClass = (b.profit_before_tax != null && b.profit_before_tax < 0) ? ' mm-row mm-negative' : ' mm-row';
       html.push('<div class="' + profitClass + '"><span class="mm-label"><strong>Profit:</strong> </span><span class="mm-val">' + (b.profit_before_tax != null ? (b.profit_before_tax >= 0 ? '+' : '') + fmtNum(b.profit_before_tax) + ' gp' : '—') + '</span></div>');
       html.push('<div class="mm-row"><span class="mm-label"><strong>Tax:</strong> </span><span class="mm-val">' + (b.tax != null ? fmtNum(b.tax) + ' gp' : '—') + '</span></div>');

@@ -239,7 +239,9 @@
   function clientToSvgX(svg, clientX) {
     var rect = svg.getBoundingClientRect();
     if (!rect.width) return null;
-    return ((clientX - rect.left) / rect.width) * W;
+    var vb = svg.viewBox && svg.viewBox.baseVal;
+    var vbW = vb && vb.width ? vb.width : W;
+    return ((clientX - rect.left) / rect.width) * vbW;
   }
 
   function bindHover(wrap, hoverPts, plotLeft, plotRight, spanSec) {
@@ -253,7 +255,7 @@
       crosshair.classList.remove('is-visible');
     }
 
-    function showAt(clientX) {
+    function showAt(clientX, clientY) {
       var svgX = clientToSvgX(priceSvg, clientX);
       if (svgX == null || svgX < plotLeft || svgX > plotRight) {
         hide();
@@ -282,26 +284,32 @@
         '</span></div>';
 
       var wrapRect = wrap.getBoundingClientRect();
-      var xPct = (p.x / W) * 100;
+      var vb = priceSvg.viewBox && priceSvg.viewBox.baseVal;
+      var layoutW = vb && vb.width ? vb.width : W;
+      var xPct = (p.x / layoutW) * 100;
       crosshair.style.left = xPct + '%';
       crosshair.classList.add('is-visible');
 
       tooltip.classList.add('is-visible');
       var tipW = tooltip.offsetWidth || 180;
-      var leftPx = (p.x / W) * wrapRect.width + 12;
-      if (leftPx + tipW > wrapRect.width - 8) leftPx = (p.x / W) * wrapRect.width - tipW - 12;
+      var tipH = tooltip.offsetHeight || 140;
+      var leftPx = (p.x / layoutW) * wrapRect.width + 12;
+      if (leftPx + tipW > wrapRect.width - 8) leftPx = (p.x / layoutW) * wrapRect.width - tipW - 12;
       if (leftPx < 8) leftPx = 8;
+      var topPx = clientY != null ? (clientY - wrapRect.top) + 16 : 12;
+      if (topPx + tipH > wrapRect.height - 8) topPx = (clientY - wrapRect.top) - tipH - 12;
+      if (topPx < 8) topPx = 8;
       tooltip.style.left = leftPx + 'px';
-      tooltip.style.top = '12px';
+      tooltip.style.top = topPx + 'px';
     }
 
-    wrap.addEventListener('mousemove', function(e) { showAt(e.clientX); });
+    wrap.addEventListener('mousemove', function(e) { showAt(e.clientX, e.clientY); });
     wrap.addEventListener('mouseleave', hide);
     wrap.addEventListener('touchstart', function(e) {
-      if (e.touches && e.touches[0]) showAt(e.touches[0].clientX);
+      if (e.touches && e.touches[0]) showAt(e.touches[0].clientX, e.touches[0].clientY);
     }, { passive: true });
     wrap.addEventListener('touchmove', function(e) {
-      if (e.touches && e.touches[0]) showAt(e.touches[0].clientX);
+      if (e.touches && e.touches[0]) showAt(e.touches[0].clientX, e.touches[0].clientY);
     }, { passive: true });
   }
 
@@ -357,7 +365,12 @@
       maxV += yPad;
     }
 
-    var plotW = W - PAD.left - PAD.right;
+    var priceCssH = 280;
+    var cssW = container.clientWidth || W;
+    var layoutW = Math.round(cssW * (PRICE_H / priceCssH));
+    if (layoutW < W) layoutW = W;
+
+    var plotW = layoutW - PAD.left - PAD.right;
     var plotH = PRICE_H - PAD.top - PAD.bottom;
     function xScale(t) {
       return PAD.left + ((t - start) / (end - start)) * plotW;
@@ -382,7 +395,7 @@
       var gy = PAD.top + (plotH * g) / 4;
       var gv = maxV - ((maxV - minV) * g) / 4;
       gridLines +=
-        '<line x1="' + PAD.left + '" y1="' + gy + '" x2="' + (W - PAD.right) + '" y2="' + gy +
+        '<line x1="' + PAD.left + '" y1="' + gy + '" x2="' + (layoutW - PAD.right) + '" y2="' + gy +
         '" class="flipwise-chart-grid"/>' +
         '<text x="' + (PAD.left - 8) + '" y="' + (gy + 4) + '" class="flipwise-chart-axis" text-anchor="end">' +
         escapeAttr(fmtAxis(gv, maxV - minV)) + '</text>';
@@ -496,18 +509,18 @@
     }
 
     var priceSvg =
-      '<svg class="flipwise-price-chart" viewBox="0 0 ' + W + ' ' + PRICE_H + '" role="img" aria-label="Buy and sell price chart">' +
+      '<svg class="flipwise-price-chart" viewBox="0 0 ' + layoutW + ' ' + PRICE_H + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Buy and sell price chart">' +
         gridLines +
         (buyPath ? '<path d="' + escapeAttr(buyPath) + '" class="flipwise-chart-line flipwise-chart-line--buy" fill="none"/>' : '') +
         (sellPath ? '<path d="' + escapeAttr(sellPath) + '" class="flipwise-chart-line flipwise-chart-line--sell" fill="none"/>' : '') +
         buyDots +
         sellDots +
         '<text x="' + PAD.left + '" y="' + (PRICE_H - 8) + '" class="flipwise-chart-axis">' + escapeAttr(fmtTime(start, spanSec)) + '</text>' +
-        '<text x="' + (W - PAD.right) + '" y="' + (PRICE_H - 8) + '" class="flipwise-chart-axis" text-anchor="end">' + escapeAttr(fmtTime(end, spanSec)) + '</text>' +
+        '<text x="' + (layoutW - PAD.right) + '" y="' + (PRICE_H - 8) + '" class="flipwise-chart-axis" text-anchor="end">' + escapeAttr(fmtTime(end, spanSec)) + '</text>' +
       '</svg>';
 
     var volSvg =
-      '<svg class="flipwise-vol-chart" viewBox="0 0 ' + W + ' ' + VOL_H + '" role="img" aria-label="Trade volume">' +
+      '<svg class="flipwise-vol-chart" viewBox="0 0 ' + layoutW + ' ' + VOL_H + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Trade volume">' +
         '<text x="' + PAD.left + '" y="12" class="flipwise-rsi-title">Volume</text>' +
         volBars +
         '<text x="' + (PAD.left - 8) + '" y="' + (VOL_PAD.top + 3) + '" class="flipwise-chart-axis" text-anchor="end">' +
@@ -516,7 +529,7 @@
       '</svg>';
 
     var rsiSvg =
-      '<svg class="flipwise-rsi-chart" viewBox="0 0 ' + W + ' ' + RSI_H + '" role="img" aria-label="RSI 14">' +
+      '<svg class="flipwise-rsi-chart" viewBox="0 0 ' + layoutW + ' ' + RSI_H + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="RSI 14">' +
         rsiBands +
         rsiAxis +
         (rsiPath ? '<path d="' + escapeAttr(rsiPath) + '" class="flipwise-chart-line flipwise-chart-line--rsi" fill="none"/>' : '') +
@@ -527,8 +540,8 @@
       '<div class="flipwise-chart-legend">' +
         '<span class="flipwise-chart-legend-item"><span class="flipwise-chart-swatch flipwise-chart-swatch--buy"></span>Buy (low)</span>' +
         '<span class="flipwise-chart-legend-item"><span class="flipwise-chart-swatch flipwise-chart-swatch--sell"></span>Sell (high)</span>' +
-        '<span class="flipwise-chart-legend-item"><span class="flipwise-chart-swatch flipwise-chart-swatch--vol"></span>Volume</span>' +
-        '<span class="flipwise-chart-legend-item"><span class="flipwise-chart-swatch flipwise-chart-swatch--rsi"></span>Current RSI: ' +
+        '<span class="flipwise-chart-legend-item flipwise-chart-legend-item--extra"><span class="flipwise-chart-swatch flipwise-chart-swatch--vol"></span>Volume</span>' +
+        '<span class="flipwise-chart-legend-item flipwise-chart-legend-item--extra"><span class="flipwise-chart-swatch flipwise-chart-swatch--rsi"></span>Current RSI: ' +
           escapeAttr(lastRsiLabel) +
           (rsiState ? ' · ' + escapeAttr(rsiState) : '') +
         '</span>' +
@@ -540,12 +553,27 @@
         '<div class="flipwise-chart-tooltip" role="status"></div>' +
         priceSvg +
         volSvg +
-        (rsiPts.length ? rsiSvg : '<div class="flipwise-chart-placeholder text-muted">Not enough bars for RSI (need ' + (RSI_PERIOD + 1) + '+).</div>') +
+        (rsiPts.length ? rsiSvg : '<div class="flipwise-chart-placeholder flipwise-rsi-fallback text-muted">Not enough bars for RSI (need ' + (RSI_PERIOD + 1) + '+).</div>') +
         legend +
       '</div>';
 
     container.innerHTML = wrapHtml;
-    bindHover(container.querySelector('.flipwise-chart-wrap'), hoverPts, PAD.left, W - PAD.right, spanSec);
+    bindHover(container.querySelector('.flipwise-chart-wrap'), hoverPts, PAD.left, layoutW - PAD.right, spanSec);
+    watchChartResize(container, series);
+  }
+
+  var chartResizeTimer = 0;
+  function watchChartResize(container, series) {
+    container._flipwiseSeries = series;
+    if (container._flipwiseResizeBound) return;
+    container._flipwiseResizeBound = true;
+    window.addEventListener('resize', function() {
+      clearTimeout(chartResizeTimer);
+      chartResizeTimer = setTimeout(function() {
+        if (!container.isConnected || !container._flipwiseSeries) return;
+        renderPriceChart(container, container._flipwiseSeries);
+      }, 150);
+    });
   }
 
   window.FlipwiseCharts = { renderPriceChart: renderPriceChart };

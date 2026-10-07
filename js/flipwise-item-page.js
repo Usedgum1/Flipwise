@@ -130,11 +130,32 @@
     return 'https://oldschool.runescape.wiki/w/' + encodeURIComponent(String(name).replace(/ /g, '_'));
   }
 
+  var CHART_NOTES = {
+    '1y': 'Daily prices for the last year.',
+    '30d': 'Prices over the last 30 days.',
+    '7d': 'Prices over the last 7 days.',
+    '24h': 'Prices over the last 24 hours.',
+    '5m': 'About two days of 5-minute prices.'
+  };
+
   function setChartTab(lookback) {
     chartLookback = lookback || '7d';
     document.querySelectorAll('#itemChartTabs .chart-tab').forEach(function(tab) {
       tab.classList.toggle('active', tab.getAttribute('data-lookback') === chartLookback);
     });
+    var note = document.getElementById('chartRangeNote');
+    if (note) note.textContent = CHART_NOTES[chartLookback] || '';
+  }
+
+  function setPriceOnly(on) {
+    var chartEl = document.getElementById('itemPageChart');
+    var btn = document.getElementById('chartPriceOnlyBtn');
+    if (chartEl) chartEl.classList.toggle('is-price-only', !!on);
+    if (btn) {
+      btn.classList.toggle('active', !!on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    try { localStorage.setItem('flipwise-chart-price-only', on ? 'true' : 'false'); } catch (e) {}
   }
 
   function loadChart() {
@@ -224,7 +245,7 @@
     if (iconEl) iconEl.innerHTML = itemIconHtml(row || {}, itemName.charAt(0));
     if (metaEl) {
       var id = data.idByName && data.idByName[itemName];
-      metaEl.textContent = id != null ? 'Item ID ' + id : 'Item not found in GE mapping';
+      metaEl.textContent = id != null ? 'Item ID ' + id : 'Not in the GE mapping';
     }
 
     var wikiLink = document.getElementById('itemPageWikiLink');
@@ -275,6 +296,36 @@
     });
   }
 
+  function bindBack() {
+    var btn = document.getElementById('itemPageBack');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      var ref = document.referrer || '';
+      try {
+        var url = new URL(ref);
+        var sameOrigin = url.origin === window.location.origin;
+        var inApp = /\.html$/i.test(url.pathname) && url.pathname.indexOf('item.html') === -1;
+        if (sameOrigin && inApp) {
+          window.location.href = ref;
+          return;
+        }
+      } catch (e) {}
+      window.location.href = 'markets.html';
+    });
+  }
+
+  function bindPriceOnly() {
+    var btn = document.getElementById('chartPriceOnlyBtn');
+    var on = false;
+    try { on = localStorage.getItem('flipwise-chart-price-only') === 'true'; } catch (e) {}
+    setPriceOnly(on);
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      var chartEl = document.getElementById('itemPageChart');
+      setPriceOnly(!(chartEl && chartEl.classList.contains('is-price-only')));
+    });
+  }
+
   function bindChartTabs() {
     var tabsWrap = document.getElementById('itemChartTabs');
     if (!tabsWrap) return;
@@ -303,6 +354,8 @@
     }
 
     bindAlerts();
+    bindBack();
+    bindPriceOnly();
     bindChartTabs();
     setChartTab(chartLookback);
 

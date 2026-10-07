@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gem Cutting - Flipwise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -108,13 +109,13 @@
                     <div class="decanting-table-scroll">
                         <table class="market-table">
                             <thead>
-                                <tr>
-                                    <th class="market-table__th-item">Gem (Uncut)</th>
-                                    <th class="market-table__th-num text-right">GE Price</th>
-                                    <th class="market-table__th-num text-right">Cut Value</th>
-                                    <th class="market-table__th-num text-right">Profit (after tax)</th>
-                                    <th class="market-table__th-num text-right">GE Limit</th>
-                                    <th class="market-table__th-num text-right">Limit Profit</th>
+                                <tr id="gemTableHeadRow">
+                                    <th class="market-table__th-item market-table__th-sortable" data-sort="item">Gem (Uncut)</th>
+                                    <th class="market-table__th-num text-right market-table__th-sortable" data-sort="uncutPrice">GE Price</th>
+                                    <th class="market-table__th-num text-right market-table__th-sortable" data-sort="cutValue">Cut Value</th>
+                                    <th class="market-table__th-num text-right market-table__th-sortable" data-sort="profit">Profit (after tax)</th>
+                                    <th class="market-table__th-num text-right market-table__th-sortable" data-sort="geLimit">GE Limit</th>
+                                    <th class="market-table__th-num text-right market-table__th-sortable" data-sort="limitProfit">Limit Profit</th>
                                 </tr>
                             </thead>
                             <tbody id="gemCuttingTableBody">
@@ -142,6 +143,8 @@
         var autoCheckbox = document.getElementById('auto-refresh-checkbox');
         var autoRefreshInterval = null;
         var lastData = null;
+        var sortColumn = 'limitProfit';
+        var sortDir = 'desc';
 
         var WIKI_ICON_BASE = 'https://oldschool.runescape.wiki/images/';
         function escapeHtml(s) {
@@ -169,7 +172,21 @@
           return sign + Number(n).toLocaleString() + ' gp';
         }
 
+        function setSortIndicator() {
+          var row = document.getElementById('gemTableHeadRow');
+          if (!row) return;
+          row.querySelectorAll('th[data-sort]').forEach(function(th) {
+            var col = th.getAttribute('data-sort');
+            th.classList.remove('sort-asc', 'sort-desc');
+            th.removeAttribute('aria-sort');
+            if (col === sortColumn) {
+              th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+              th.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+            }
+          });
+        }
         function fillTable(data) {
+          setSortIndicator();
           var tbody = document.getElementById('gemCuttingTableBody');
           if (!tbody) return;
           var dataset = (data && data.gemCuttingData) ? data.gemCuttingData : {};
@@ -178,10 +195,20 @@
             tbody.innerHTML = '<tr><td colspan="6" class="text-muted">No gem cutting data.</td></tr>';
             return;
           }
-          // Default sort: Limit Profit desc, then Profit desc.
           keys.sort(function(a, b) {
             var A = dataset[a] || {};
             var B = dataset[b] || {};
+            var textCol = sortColumn === 'item';
+            var va = textCol ? (a || '').toLowerCase() : (A[sortColumn] != null ? Number(A[sortColumn]) : -Infinity);
+            var vb = textCol ? (b || '').toLowerCase() : (B[sortColumn] != null ? Number(B[sortColumn]) : -Infinity);
+            var cmp = 0;
+            if (textCol) {
+              cmp = va > vb ? 1 : va < vb ? -1 : 0;
+              if (sortDir === 'desc') cmp = -cmp;
+            } else {
+              cmp = sortDir === 'asc' ? va - vb : vb - va;
+            }
+            if (cmp !== 0) return cmp;
             var la = A.limitProfit != null ? Number(A.limitProfit) : -Infinity;
             var lb = B.limitProfit != null ? Number(B.limitProfit) : -Infinity;
             if (lb !== la) return lb - la;
@@ -258,6 +285,22 @@
           });
         }
         if (refreshBtn) refreshBtn.addEventListener('click', doRefresh);
+        (function wireTableSort() {
+          var table = document.querySelector('.market-table');
+          if (!table) return;
+          table.addEventListener('click', function(e) {
+            var th = e.target && e.target.closest ? e.target.closest('th[data-sort]') : null;
+            if (!th) return;
+            var col = th.getAttribute('data-sort');
+            if (!col) return;
+            if (sortColumn === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+            else {
+              sortColumn = col;
+              sortDir = col === 'item' ? 'asc' : 'desc';
+            }
+            if (lastData) fillTable(lastData);
+          });
+        })();
 
         doRefresh();
         startAutoRefresh();

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade Scanner - Flipwise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="css/flipwise-standalone.css">
 </head>
 <body>
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
         <div class="hamburger"><span></span><span></span><span></span></div>
     </button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -105,6 +106,7 @@
                     </svg>
                     <input type="text" placeholder="Search items..." id="searchInput">
                 </div>
+                <button type="button" class="filter-tab" id="favoritesOnlyBtn" aria-pressed="false">Favorites</button>
             </div>
             <div class="content-grid content-grid--full">
                 <div class="card">
@@ -140,6 +142,7 @@
 (function() {
   var lastData = null;
   var searchQuery = '';
+  var favoritesOnly = false;
   var sortColumn = 'profit';
   var sortDir = 'desc';
   var FAVORITES_KEY = 'flipwise-favorites';
@@ -190,6 +193,11 @@
       var col = th.getAttribute('data-sort');
       th.classList.remove('sort-asc', 'sort-desc');
       if (col === sortColumn) th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+      th.removeAttribute('aria-sort');
+      if (col === sortColumn) {
+        th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+        th.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+      }
     });
   }
 
@@ -206,6 +214,7 @@
       var q = searchQuery.trim().toLowerCase();
       rows = rows.filter(function(r) { return (r.name || '').toLowerCase().indexOf(q) >= 0; });
     }
+    if (favoritesOnly) rows = rows.filter(function(r) { return isFavorite(r.name); });
     var key = sortColumn;
     var mult = sortDir === 'asc' ? -1 : 1;
     rows.sort(function(a, b) {
@@ -232,7 +241,7 @@
     tbody.innerHTML = '';
     if (rows.length === 0) {
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td colspan="8" class="text-muted">' + (!dataset || Object.keys(dataset).length === 0 ? 'No scanner results. Try refreshing.' : 'No items match your search.') + '</td>';
+      tr.innerHTML = '<td colspan="8" class="text-muted">' + (!dataset || Object.keys(dataset).length === 0 ? 'No scanner results. Try refreshing.' : favoritesOnly && !searchQuery.trim() ? 'No favorites in this list.' : 'No items match your search.') + '</td>';
       tbody.appendChild(tr);
       return;
     }
@@ -265,6 +274,10 @@
         if (!name) return;
         toggleFavorite(name);
         var on = isFavorite(name);
+        if (favoritesOnly && lastData) {
+          fillTable(lastData);
+          return;
+        }
         btn.classList.toggle('star-btn--on', on);
         btn.textContent = on ? '★' : '☆';
         btn.setAttribute('title', on ? 'Unfavorite' : 'Favorite');
@@ -292,6 +305,15 @@
     searchQuery = this.value;
     if (lastData) fillTable(lastData);
   });
+  var favBtn = document.getElementById('favoritesOnlyBtn');
+  if (favBtn) {
+    favBtn.addEventListener('click', function() {
+      favoritesOnly = !favoritesOnly;
+      favBtn.classList.toggle('is-on', favoritesOnly);
+      favBtn.setAttribute('aria-pressed', favoritesOnly ? 'true' : 'false');
+      if (lastData) fillTable(lastData);
+    });
+  }
 
   var table = document.querySelector('.market-table');
   if (table) {
