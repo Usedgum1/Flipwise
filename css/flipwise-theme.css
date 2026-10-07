@@ -192,6 +192,7 @@ body {
 .sidebar-overlay.active {
     opacity: 1;
     pointer-events: auto;
+    cursor: pointer;
 }
 
 /* ========================================
@@ -655,6 +656,15 @@ body {
 @media (max-width: 1024px) {
     .mobile-menu-toggle {
         display: flex;
+        z-index: 1003;
+    }
+
+    .dashboard {
+        overflow: visible;
+    }
+
+    .sidebar-overlay {
+        z-index: 1000;
     }
 
     .sidebar {
@@ -665,6 +675,7 @@ body {
         width: 280px !important;
         transform: translateX(-100%);
         box-shadow: 4px 0 24px var(--shadow);
+        z-index: 1002;
     }
 
     .sidebar.active {
