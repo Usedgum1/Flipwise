@@ -1,13 +1,23 @@
 (function () {
   var THEME_KEY = 'flipwise-theme';
 
-  var NEON_THEMES = { neon: 1, 'neon-black': 1, 'neon-blue': 1, 'neon-red': 1 };
+  var NEON_THEMES = { neon: 1, 'neon-black': 1, 'neon-blue': 1, 'neon-red': 1, cycle: 1 };
   var THEME_OPTIONS = [
     ['neon', 'Neon Purple'],
     ['neon-black', 'Neon Black'],
     ['neon-blue', 'Neon Blue'],
     ['neon-red', 'Neon Red'],
+    ['cycle', 'Cycle'],
     ['copper', 'Copper']
+  ];
+  var CYCLE_MS = 22000;
+  var cycleFrame = 0;
+  var CYCLE_PROPS = [
+    '--nx-bg', '--nx-bg-rgb', '--nx-surface-rgb', '--nx-side-rgb', '--nx-deep-rgb',
+    '--nx-a1', '--nx-a1-rgb', '--nx-a1-soft',
+    '--nx-a2', '--nx-a2-rgb',
+    '--nx-a3', '--nx-a3-rgb', '--nx-a3-soft',
+    '--nx-a4', '--nx-a4-rgb', '--nx-a4-soft'
   ];
 
   function themeLabel(theme) {
@@ -52,6 +62,8 @@
     backdrop = document.querySelector('.flipwise-backdrop');
     if (backdrop) backdrop.hidden = !isNeon(theme);
     syncThemeControl(theme);
+    if (theme === 'cycle') startCycle();
+    else stopCycle();
     var wrap = document.querySelector('.sidebar-theme');
     if (wrap) wrap.classList.remove('is-open');
     var button = document.getElementById('themeSelect');
@@ -150,9 +162,79 @@
     }
   }
 
+  function hslToRgb(h, s, l) {
+    h = ((h % 360) + 360) % 360;
+    s = s / 100;
+    l = l / 100;
+    var a = s * Math.min(l, 1 - l);
+    function f(n) {
+      var k = (n + h / 30) % 12;
+      return l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    }
+    return [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
+  }
+
+  function rgbHex(rgb) {
+    function hex(n) {
+      var s = n.toString(16);
+      return s.length === 1 ? '0' + s : s;
+    }
+    return '#' + hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2]);
+  }
+
+  function paintCycle(now) {
+    var turn = ((now % CYCLE_MS) / CYCLE_MS) * 360;
+    var root = document.documentElement;
+    function accent(name, hue, light, softLight) {
+      var rgb = hslToRgb(hue, 100, light);
+      var soft = hslToRgb(hue, 100, softLight);
+      root.style.setProperty('--nx-' + name, rgbHex(rgb));
+      root.style.setProperty('--nx-' + name + '-rgb', rgb.join(', '));
+      if (softLight != null) root.style.setProperty('--nx-' + name + '-soft', rgbHex(soft));
+    }
+    accent('a1', turn, 58, 78);
+    accent('a2', turn + 62, 58, null);
+    accent('a3', turn + 140, 54, 74);
+    accent('a4', turn + 210, 58, 78);
+    var bg = hslToRgb(turn, 48, 5);
+    var surface = hslToRgb(turn, 46, 8);
+    var side = hslToRgb(turn, 44, 10);
+    var deep = hslToRgb(turn, 40, 3);
+    root.style.setProperty('--nx-bg', rgbHex(bg));
+    root.style.setProperty('--nx-bg-rgb', bg.join(', '));
+    root.style.setProperty('--nx-surface-rgb', surface.join(', '));
+    root.style.setProperty('--nx-side-rgb', side.join(', '));
+    root.style.setProperty('--nx-deep-rgb', deep.join(', '));
+  }
+
+  function stopCycle() {
+    if (cycleFrame) {
+      cancelAnimationFrame(cycleFrame);
+      cycleFrame = 0;
+    }
+    var root = document.documentElement;
+    for (var i = 0; i < CYCLE_PROPS.length; i += 1) root.style.removeProperty(CYCLE_PROPS[i]);
+  }
+
+  function startCycle() {
+    stopCycle();
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      paintCycle(0);
+      return;
+    }
+    function tick(now) {
+      if (currentTheme() !== 'cycle') return;
+      paintCycle(now);
+      cycleFrame = requestAnimationFrame(tick);
+    }
+    cycleFrame = requestAnimationFrame(tick);
+  }
+
   function boot() {
     mountThemeSetting();
     if (isNeon(currentTheme())) ensureBackdrop();
+    if (currentTheme() === 'cycle') startCycle();
   }
 
   if (document.readyState === 'loading') {

@@ -15,7 +15,7 @@
       var theme = 'neon';
       try {
         var saved = localStorage.getItem('flipwise-theme');
-        if (saved === 'copper' || saved === 'neon' || saved === 'neon-black' || saved === 'neon-blue' || saved === 'neon-red') theme = saved;
+        if (saved === 'copper' || saved === 'neon' || saved === 'neon-black' || saved === 'neon-blue' || saved === 'neon-red' || saved === 'cycle') theme = saved;
       } catch (e) {}
       document.documentElement.setAttribute('data-theme', theme);
       if (theme === 'copper') {

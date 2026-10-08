@@ -126,6 +126,25 @@ html[data-theme="neon-red"] {
     --nx-a4-soft: #ffc2a8;
 }
 
+html[data-theme="cycle"] {
+    --nx-bg: #0a0610;
+    --nx-bg-rgb: 10, 6, 16;
+    --nx-surface-rgb: 16, 8, 24;
+    --nx-side-rgb: 22, 10, 32;
+    --nx-deep-rgb: 4, 2, 8;
+    --nx-a1: #ff3355;
+    --nx-a1-rgb: 255, 51, 85;
+    --nx-a1-soft: #ff8aa0;
+    --nx-a2: #ffe14a;
+    --nx-a2-rgb: 255, 225, 74;
+    --nx-a3: #3dff8a;
+    --nx-a3-rgb: 61, 255, 138;
+    --nx-a3-soft: #9dffc4;
+    --nx-a4: #4db4ff;
+    --nx-a4-rgb: 77, 180, 255;
+    --nx-a4-soft: #b3ddff;
+}
+
 html {
     background: var(--nx-bg);
 }
