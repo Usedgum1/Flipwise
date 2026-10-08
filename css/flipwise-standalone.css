@@ -145,6 +145,14 @@ html[data-theme="cycle"] {
     --nx-a4-soft: #b3ddff;
 }
 
+html[data-theme="cycle"],
+html[data-theme="cycle"] body,
+html[data-theme="cycle"] *,
+html[data-theme="cycle"] *::before,
+html[data-theme="cycle"] *::after {
+    transition-property: transform, opacity;
+}
+
 html {
     background: var(--nx-bg);
 }
